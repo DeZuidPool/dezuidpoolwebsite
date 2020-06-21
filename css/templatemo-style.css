@@ -468,6 +468,10 @@ http://www.templatemo.com/tm-515-eatery
     background: #f9f9f9;
   }
 
+  #types {
+    background: #f9f9f9;
+  }
+
   .team-thumb {
     position: relative;
     overflow: hidden;
@@ -513,7 +517,7 @@ http://www.templatemo.com/tm-515-eatery
     width: 50px;
     height: 50px;
     line-height: 50px;
-    color: #d9d9d9;
+    color: #ffffff;
     font-size: 20px;
     margin: 15px 5px 0 5px;
   }
@@ -528,6 +532,10 @@ http://www.templatemo.com/tm-515-eatery
   }
 
   .team-item h4 {
+    color: #ffffff;
+  }
+
+  .team-item h2 {
     color: #ffffff;
   }
 
