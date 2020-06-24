@@ -120,6 +120,7 @@ http://www.templatemo.com/tm-515-eatery
 
   #team, 
   #types,
+  #healthy,
   #wafels,
   #menu,
   #testimonial {
@@ -468,7 +469,9 @@ http://www.templatemo.com/tm-515-eatery
     background: #f9f9f9;
   }
 
-  #types {
+  #types,
+  #healthy,
+  #wafels {
     background: #f9f9f9;
   }
 
