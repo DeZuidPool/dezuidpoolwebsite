@@ -12,7 +12,7 @@
 - shots
 - cocktails/wijn/cava (Coming)
 
-##Wafels
+##Knabbels
 - wafels (coming)
 - broodjes (coming)
 - croques (coming)
