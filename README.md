@@ -13,7 +13,7 @@
 - cocktails/wijn/cava (Coming)
 
 ##Knabbels
-- wafels (coming)
+- Antwerpse honingwafels (coming)
 - broodjes (coming)
 - croques (coming)
 

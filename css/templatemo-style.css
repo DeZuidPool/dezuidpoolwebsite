@@ -122,6 +122,7 @@ http://www.templatemo.com/tm-515-eatery
   #types,
   #healthy,
   #knabbels,
+  #dranken,
   #menu,
   #testimonial {
     text-align: center;
@@ -471,7 +472,8 @@ http://www.templatemo.com/tm-515-eatery
 
   #types,
   #healthy,
-  #knabbels {
+  #knabbels,
+  #dranken {
     background: #f9f9f9;
   }
 
