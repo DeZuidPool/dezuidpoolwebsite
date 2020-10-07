@@ -120,11 +120,12 @@ http://www.templatemo.com/tm-515-eatery
 
   #team, 
   #types,
-  #healthy,
   #knabbels,
-  #dranken,
-  #menu,
-  #testimonial {
+  #drinks,
+  #testimonial,
+  #menuijsjes,
+  #menuknabbels,
+  #menudrinks {
     text-align: center;
   }
 
@@ -438,6 +439,67 @@ http://www.templatemo.com/tm-515-eatery
     color: #ffffff;
   }
 
+  /*---------------------------------------
+      MENU SLIDER              
+  -----------------------------------------*/
+
+  .menu-slider .owl-dots {
+    position: absolute;
+    top: 50%;
+    right: 2em;
+    justify-content: center;
+  }
+
+  .menu-slider .menu-caption {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: left;
+    background-color: rgba(20,20,20,0.2);
+    height: 100%;
+    color: #fff;
+    cursor: e-resize;
+    padding: 4em 0 0 2em;
+  }
+
+  .menu-slider .item {
+    background-position: inherit;
+    background-attachment: local;
+    height: 450px;
+  }
+
+  .menu-slider .menu-item-first {
+    background-image: url(../img/ijs.jpg);
+  }
+
+  .menu-slider .menu-item-second {
+    background-image: url(../img/broodjes.jpg);
+  }
+
+  .menu-slider .menu-item-third {
+    background-image: url(../img/warmedranken.jpg);
+  }
+
+  .menu-slider .item-second .section-btn {
+    background: #292929;
+  }
+
+  .menu-slider .item-second .section-btn:hover {
+    background: #ffffff;
+  }
+
+  .menu-slider .item-third .section-btn {
+    background: transparent;
+    border: 1px solid #ffffff;
+  }
+
+  .menu-slider .item-third .section-btn:hover,
+  .menu-slider .item-third .section-btn:focus {
+    background: #ce3232;
+    border-color: transparent;
+    color: #ffffff;
+  }
+
 
 
   /*---------------------------------------
@@ -471,9 +533,11 @@ http://www.templatemo.com/tm-515-eatery
   }
 
   #types,
-  #healthy,
   #knabbels,
-  #dranken {
+  #dranken,
+  #menuijsjes,
+  #menuknabbels,
+  #menudrinks {
     background: #f9f9f9;
   }
 
