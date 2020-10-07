@@ -119,7 +119,7 @@ http://www.templatemo.com/tm-515-eatery
   }
 
   #team, 
-  #types,
+  #ijsjes,
   #knabbels,
   #drinks,
   #testimonial,
@@ -427,18 +427,11 @@ http://www.templatemo.com/tm-515-eatery
     background: #ffffff;
   }
 
+/*
   .slider .item-third .section-btn {
-    background: transparent;
-    border: 1px solid #ffffff;
+    background: #292929;
   }
-
-  .slider .item-third .section-btn:hover,
-  .slider .item-third .section-btn:focus {
-    background: #ce3232;
-    border-color: transparent;
-    color: #ffffff;
-  }
-
+*/
   /*---------------------------------------
       MENU SLIDER              
   -----------------------------------------*/
@@ -489,15 +482,7 @@ http://www.templatemo.com/tm-515-eatery
   }
 
   .menu-slider .item-third .section-btn {
-    background: transparent;
-    border: 1px solid #ffffff;
-  }
-
-  .menu-slider .item-third .section-btn:hover,
-  .menu-slider .item-third .section-btn:focus {
-    background: #ce3232;
-    border-color: transparent;
-    color: #ffffff;
+    background: #292929;
   }
 
 
@@ -532,7 +517,7 @@ http://www.templatemo.com/tm-515-eatery
     background: #f9f9f9;
   }
 
-  #types,
+  #ijsjes,
   #knabbels,
   #dranken,
   #menuijsjes,
