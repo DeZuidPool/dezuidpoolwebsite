@@ -54,7 +54,10 @@ http://www.templatemo.com/tm-515-eatery
     line-height: 24px;
   }
 
-
+  .has-error {
+	color:#ce3232;
+    font-weight: bold;
+  }
 
   /*---------------------------------------
      GENERAL               
@@ -120,6 +123,7 @@ http://www.templatemo.com/tm-515-eatery
 
   #team, 
   #ijsjes,
+  #bestellen,
   #knabbels,
   #drinks,
   #testimonial,
