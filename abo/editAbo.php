@@ -4,11 +4,15 @@ if (! isset($_SESSION)) {
     session_start();
 }
 
-require 'php/testinput.php';
+$customerid = $_SESSION["customerid"];
 
-// define variables and set to empty values
-$name = $firstName = $email = $password = $gsm = $deliveryType = $sorbetOnly = $communications = $comments = "";
+// LOGIN, DELIVERYTYPE, SORBETONLY, COMMUNICATIONS, COMMENTS
+$name = $firstName = $gsm = $email = $deliveryType = $sorbetOnly = $communications = $comments = "";
 $nameErr = $firstNameErr = $emailErr = $passwordErr = $gsmErr = $deliveryTypeErr = "";
+$street = $nbr = $zipCode = $city = $remarks = "";
+$showAddres = "style=\"display: none;\"";
+require "php/dbcredentials.php";
+require "php/getCustomer.php";
 
 $nofaults = true;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -75,27 +79,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (! empty($_POST["comments"])) {
         $comments = test_input($_POST["comments"]);
     }
-
-    // if errors in input --> nosave
-    if ($nofaults) {
-        // save account to db and forward to deliveryadress.php
-        require 'php/dbcredentials.php';
-        require 'php/saveLogin.php';
-        $nofaults = $_SESSION["nofaults"];
-        if ($nofaults) {
-            if ($deliveryType == "delivery") {
-                header('Location: deliveryadress.php');
-            } else {
-                header('Location: thanks.php');
-            }
-        } else {
-            $emailErr = $_SESSION["emailErr"];
-        }
-    }
 }
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -154,9 +139,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav navbar-nav-first">
 					<li><a href="../index.html#home" class="smoothScroll">Home</a></li>
-					<!--						 <li><a href="#home" class="smoothScroll">Top</a></li>-->
-					<li><a href="../menu.html" class="smoothScroll" target="_blank">Ons
-							menu</a></li>
+					<li><a href="#home" class="smoothScroll">Top</a></li>
 				</ul>
 
 			</div>
@@ -226,40 +209,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 				<div class="col-md-12 col-sm-12">
 					<div class="section-title wow fadeInUp" data-wow-delay="0.1s">
-						<h2>Registreer je hier voor een ijs-abonnement:</h2>
-						<p>
-							Een ijs-abonnement bij De Zuidpool betekent dat je gedurende 4
-							weken 2x 500 ml ijs (of sorbet)<br> aan huis geleverd krijgt, of
-							je kan dit ook komen afhalen.</br> De smaken zijn een verrassing!
-						</p>
-						<p>
-							Indien je lactose intolerant of vegan bent duid dit dan zeker aan
-							in onderstaand formulier,<br> dan zorgen wij ervoor dat je enkel
-							sorbet krijgt!</br> Zijn er nog andere zaken die we moeten weten
-							om jouw ijsplezier te verzekeren, laat dit dan zeker</br> weten
-							in de Opmerkingen, dan kunnen wij er rekening mee houden.
-						</p>
-						<p>
-							De levering gebeurd op dinsdagavond vanaf ongeveer 19.00</br> bij
-							groot succes kan het zijn dat deze levering gespreid wordt over
-							meerdere dagen.
-						</p>
-						<p>Levering kan enkel gebeuren indien je op max 10 km van De
-							Zuidpool woont!</p>
-						<p>
-							Je abonnement start de week volgend op je betaling van <b>&euro;
-								50.00</b> op rekening nummer <b>BE59 7512 1050 8026</b></br>
-							Vermeld bij de overschrijving het hieronder gebruikte emailadres
-							zodat wij de betaling aan jouw account kunnen linken!<br> Je
-							krijgt een sms-bevestiging van de start van je abonnement en een
-							sms-bericht als we onderweg zijn naar jou.
-						</p>
+						<h2>Beheer hier je registratie voor je ijs-abonnement</h2>
+						<p>Hier kan je je gegevens wijzigen indien nodig.</p>
 					</div>
-					<div class="has-error" align="left">* : Verplicht veld</div>
 				</div>
 
 				<div class="col-md-9 col-sm-9">
-					<h5>Registreer</h5>
+					<h5>Jouw gegevens:</h5>
 					<table class="table">
 						<form
 							action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>#bestellen"
@@ -267,7 +223,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<tr>
 								<td align="left">Naam:</td>
 								<td align="left"><input type="text" name="name"
-									value="<?php echo $name; ?>"> <span class="has-error">* <?php echo $nameErr;?></span></td>
+									value="<?php echo $name; ?>"> <span class="has-error">* <?php echo $nameErr; ?></span></td>
 							</tr>
 							<tr>
 								<td align="left">Voornaam:</td>
@@ -283,36 +239,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 								<td align="left">Email:</td>
 								<td align="left"><input type="email" name="email"
 									value="<?php echo $email; ?>"> <span class="has-error">* <?php echo $emailErr;?></span>
-									</br>
-								<input type="checkbox" name="communications" value="Y"
+									</br> <input type="checkbox" name="communications" value="Y"
 									<?php if (isset($communications) && $communications =="Y") echo "checked=\"checked\"";?>>
 									Ik wens emails te ontvangen over acties of nieuwigheden</td>
 							</tr>
 							<tr>
 								<td align="left">Paswoord: Kies een veilig paswoord!</td>
 								<td align="left"><input type="password" name="password"> <span
-									class="has-error">* <?php echo $passwordErr;?></span></td>
+									class="has-error">* <?php echo $passwordErr; ?></span></td>
 							</tr>
 							<tr>
 								<td align="left">Herhaal Paswoord:</td>
 								<td align="left"><input type="password" name="password2"> <span
-									class="has-error">* <?php echo $password2Err;?></span></td>
+									class="has-error">* <?php echo $password2Err; ?></span></td>
 							</tr>
 							<tr>
 								<td align="left">Ik wens:</td>
-								<td align="left" valign="top"><input type="radio"
-									name="deliveryType"
-									<?php if (isset($deliveryType) && $deliveryType =="takeout") echo "checked";?>
+								<td align="left" valign="top"><input type="radio" name="deliveryType" <?php if (isset($deliveryType) && $deliveryType =="takeout") echo "checked"; ?>
 									value="takeout"> Af te halen</br> <input type="radio"
 									name="deliveryType"
-									<?php if (isset($deliveryType) && $deliveryType =="delivery") echo "checked";?>
-									value="delivery"> Te laten leveren</br> <span class="has-error">* <?php echo $deliveryTypeErr;?></td>
+									<?php if (isset($deliveryType) && $deliveryType =="delivery") echo "checked"; ?>
+									value="delivery"> Te laten leveren</br> <span class="has-error">* <?php echo $deliveryTypeErr; ?></td>
 							</tr>
 							<tr>
 								<td align="left">Ik ben:</td>
 								<td align="left"><input type="checkbox" name="sorbetOnly"
 									value="Y"
-									<?php if (isset($sorbetOnly) && $sorbetOnly =="Y") echo "checked=\"checked\"";?>>
+									<?php if (isset($sorbetOnly) && $sorbetOnly =="Y") echo "checked=\"checked\""; ?>>
 									Lactose intolerant/vegan</br></td>
 							</tr>
 							<tr>
@@ -320,42 +273,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 								<td align="left"><textarea name="comments" maxlength="512"
 										placeholder="Jouw Opmerkingen..."><?php echo $comments; ?></textarea></td>
 							</tr>
-						
-						
-						<tr>
-							<td align="right" colspan="2"><input type="submit"></td>
-						</tr>
+							<tr>
+								<td align="right" colspan="2"><input type="submit"></td>
+							</tr>
 						</form>
 					</table>
 				</div>
 			</div>
 		</div>
 	</section>
-	<section id="contact" data-stellar-background-ratio="0.5">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12 col-sm-12">
-					<div class="section-title wow fadeInUp" data-wow-delay="0.1s">
-						<h2>Wat doen wij met jouw gegevens?</h2>
-						<p>
-							Wij gebruiken jouw gegevens enkel voor De Zuidpool<br> Je
-							emailadres werkt tevens als login en zullen wij enkel gebruiken,
-							indien je hiervoor gekozen hebt,<br> om jou te informeren over
-						
-						
-						<ul>
-							<li>De Zuidpool</li>
-							<li>acties</li>
-							<li>nieuwigheden</li>
-						</ul>
-						<p>Je Gsm nummer zullen wij enkel gebruiken ivm met levering(en).</p>
-						<p>Je adres wordt ook enkel gebruikt voor levering(en).</p>
-						<p>Onder geen beding zullen wij jouw gegevens delen met derden.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+
 	<!-- FOOTER -->
 	<footer id="footer" data-stellar-background-ratio="0.5">
 		<div class="container">

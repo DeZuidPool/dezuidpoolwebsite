@@ -19,8 +19,8 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows > 0 and $result->num_rows == 1) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
+    // output data of first row
+    if($row = $result->fetch_assoc()) {
         $street = $row["STREET"];
         $nbr = $row["NBR"];
         $zipCode = $row["ZIPCODE"];

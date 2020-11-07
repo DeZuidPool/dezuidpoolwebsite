@@ -214,28 +214,22 @@ if ($deliveryType == "delivery") {
 							<tr>
 								<td align="left">Straat:</td>
 								<td align="left"><?php echo $street?></td>
-								</td>
 							</tr>
 							<tr>
 								<td align="left">Nummer:</td>
 								<td align="left"><?php echo $nbr?></td>
-								</td>
 							</tr>
 							<tr>
 								<td align="left">Postcode:</td>
 								<td align="left"><?php echo $zipCode?></td>
-								</td>
 							</tr>
 							<tr>
 								<td align="left">Gemeente:</td>
 								<td align="left"><?php echo $city?></td>
-								</td>
 							</tr>
 							<tr>
 								<td align="left">Opmerkingen:</td>
-								<td align="left"><?php echo $remarks ?>
-								</td>
-								</td>
+								<td align="left"><?php echo $remarks ?></td>
 							</tr>
 						</table>
 					</div>

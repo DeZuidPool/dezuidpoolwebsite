@@ -7,8 +7,8 @@ if (! isset($_SESSION)) {
 require 'php/testinput.php';
 
 // define variables and set to empty values
-$name = $firstName = $login = $password = $gsm = $deliveryType = $sorbetOnly = $communications = $comments = "";
-$nameErr = $firstNameErr = $loginErr = $passwordErr = $gsmErr = $deliveryTypeErr = "";
+$name = $firstName = $email = $password = $gsm = $deliveryType = $sorbetOnly = $communications = $comments = "";
+$nameErr = $firstNameErr = $emailErr = $passwordErr = $gsmErr = $deliveryTypeErr = "";
 
 $nofaults = true;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -30,13 +30,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $gsm = test_input($_POST["gsm"]);
     }
-    if (empty($_POST["login"])) {
-        $loginErr = "Email is vereist";
+    if (empty($_POST["email"])) {
+        $emailErr = "Email is vereist";
         $nofaults = false;
     } else {
-        $login = test_input($_POST["login"]);
-        if (! filter_var($login, FILTER_VALIDATE_EMAIL)) {
-            $loginErr = "Email bevat geen emailadres";
+        $email = test_input($_POST["email"]);
+        if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $emailErr = "Email bevat geen emailadres";
             $nofaults = false;
         }
     }
@@ -89,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header('Location: thanks.php');
             }
         } else {
-            $loginErr = $_SESSION["loginErr"];
+            $emailErr = $_SESSION["emailErr"];
         }
     }
 }
@@ -262,27 +262,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					<h5>Registreer</h5>
 					<table class="table">
 						<form
-							action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>#bestellen"
+							action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>#bestellen"
 							method="post">
 							<tr>
 								<td align="left">Naam:</td>
 								<td align="left"><input type="text" name="name"
-									value="<?php echo $name?>"> <span class="has-error">* <?php echo $nameErr;?></span></td>
+									value="<?php echo $name; ?>"> <span class="has-error">* <?php echo $nameErr;?></span></td>
 							</tr>
 							<tr>
 								<td align="left">Voornaam:</td>
 								<td align="left"><input type="text" name="firstName"
-									value="<?php echo $firstName?>"> <span class="has-error">* <?php echo $firstNameErr;?></span></td>
+									value="<?php echo $firstName; ?>"> <span class="has-error">* <?php echo $firstNameErr;?></span></td>
 							</tr>
 							<tr>
 								<td align="left">GSM:</td>
 								<td align="left"><input type="text" name="gsm"
-									value="<?php echo $gsm?>"> <span class="has-error">* <?php echo $gsmErr;?></span></td>
+									value="<?php echo $gsm; ?>"> <span class="has-error">* <?php echo $gsmErr;?></span></td>
 							</tr>
 							<tr>
 								<td align="left">Email:</td>
-								<td align="left"><input type="email" name="login"
-									value="<?php echo $login?>"> <span class="has-error">* <?php echo $loginErr;?></span>
+								<td align="left"><input type="email" name="email"
+									value="<?php echo $email; ?>"> <span class="has-error">* <?php echo $emailErr;?></span>
 									</br>
 								<input type="checkbox" name="communications" value="Y"
 									<?php if (isset($communications) && $communications =="Y") echo "checked=\"checked\"";?>>
@@ -318,7 +318,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<tr>
 								<td align="left">Opmerkingen: max 512 karakters</td>
 								<td align="left"><textarea name="comments" maxlength="512"
-										placeholder="Jouw Opmerkingen..."><?php echo $comments ?></textarea></td>
+										placeholder="Jouw Opmerkingen..."><?php echo $comments; ?></textarea></td>
 							</tr>
 						
 						

@@ -19,7 +19,7 @@ $result = $stmt->get_result();
 
 if ($result->num_rows > 0 and $result->num_rows == 1) {
     // output data of each row
-    while($row = $result->fetch_assoc()) {
+    if($row = $result->fetch_assoc()) {
         $name = $row["NAME"];
         $firstName = $row["FIRSTNAME"];
         $gsm = $row["GSM"];

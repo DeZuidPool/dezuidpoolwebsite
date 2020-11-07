@@ -32,6 +32,8 @@
 - vanaf 18.30
 - di
 
+###Edit abo
+
 ### Technical TODO
 - thanks : display data DONE
 - distance check

@@ -4,6 +4,12 @@ if ( !isset($_SESSION) ) {
     session_start();
 }
 
+function startsWith ($string, $startString)
+{
+    $len = strlen($startString);
+    return (substr($string, 0, $len) === $startString);
+}
+
 // Create connection
 $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 // Check connection
@@ -12,14 +18,19 @@ if ($conn->connect_error) {
 }
 
 $stmt = $conn->prepare("INSERT INTO CUSTOMER (NAME,FIRSTNAME,GSM, LOGIN, PWD, DELIVERYTYPE, SORBETONLY, COMMUNICATIONS,COMMENTS) VALUES (?,?,?,?,?,?,?,?,?)");
-$stmt->bind_param("sssssssss",$name,$firstName,$gsm,$login,password_hash($password, PASSWORD_DEFAULT),$deliveryType,$sorbetOnly,$communications,$comments);
+$stmt->bind_param("sssssssss",$name,$firstName,$gsm,$email,password_hash($password, PASSWORD_DEFAULT),$deliveryType,$sorbetOnly,$communications,$comments);
 
 $customerid = "";
 if ($stmt->execute()) {
     $customerid = $conn->insert_id;
    $_SESSION["customerid"] = $customerid;
+   $_SESSION["nofaults"]=true;
 } else {
-   echo "Error: " . $stmt->error;
+    $_SESSION["nofaults"]=false;
+    $error = $stmt->error;
+    if (startsWith($error,"Duplicate entry")) {
+        $_SESSION["emailErr"]="Dit emailadres wordt reeds gebruikt.";
+    }
 }
 
 $stmt->close();
