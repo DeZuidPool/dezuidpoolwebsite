@@ -39,6 +39,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     
     // check account in db and forward to order.php with id to get data
+    require "php/loginCustomer.php";
+    header("Location: editAbo.php");
 }
 
 function test_input($data)

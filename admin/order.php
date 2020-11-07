@@ -1,3 +1,31 @@
+<?php
+// Start the session
+if ( !isset($_SESSION) ) {
+    session_start();
+}
+
+// define variables and set to empty values
+$login = $pwd = "";
+$loginErr = $pwdErr = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (empty($_POST["login"])) {
+        $loginErr = "Login is vereist";
+    } else {
+        $login = test_input($_POST["login"]);
+    }
+    if (empty($_POST["pwd"])) {
+        $pwdErr = "Paswoord is vereist";
+    } else {
+        $pwd = test_input($_POST["pwd"]);
+    }
+    
+    // check account in db and forward to register.php with id to get data
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,34 +49,6 @@
      <link rel="stylesheet" href="../css/templatemo-style.css">
 
 </head>
-<?php
-// define variables and set to empty values
-$login = $pwd = "";
-$loginErr = $pwdErr = "";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (empty($_POST["login"])) {
-        $loginErr = "Login is vereist";
-    } else {
-        $login = test_input($_POST["login"]);
-    }
-    if (empty($_POST["pwd"])) {
-        $pwdErr = "Paswoord is vereist";
-    } else {
-        $pwd = test_input($_POST["pwd"]);
-    }
-    
-    // check account in db and forward to order.php with id to get data
-}
-
-function test_input($data)
-{
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
-?>
 
 <body>
 
