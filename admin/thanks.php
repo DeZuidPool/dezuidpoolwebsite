@@ -9,11 +9,11 @@ $customerid = $_SESSION["customerid"];
 // LOGIN, DELIVERYTYPE, SORBETONLY, COMMUNICATIONS, COMMENTS
 $name = $firstName = $gsm = $email = $deliveryType = $sorbetOnly = $communications = $comments = "";
 $street = $nbr = $zipCode = $city = $remarks = "";
-$showAddres = "style=\"display: none;\"";
+$hideAdress = "style=\"display: none;\"";
 require "php/dbcredentials.php";
 require "php/getCustomer.php";
 if ($deliveryType == "delivery") {
-    $showAddres = "";
+    $hideAdress = "";
     require "php/getAdress.php";
 }
 ?>
@@ -208,7 +208,7 @@ if ($deliveryType == "delivery") {
 							<td align="left"><?php echo $comments?></td>
 						</tr>
 					</table>
-					<div <?php echo $showAddres; ?>>
+					<div <?php echo $hideAdress; ?>>
 						<h5>Jouw adres:</h5>
 						<table class="table">
 							<tr>

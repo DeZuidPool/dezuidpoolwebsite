@@ -12,7 +12,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$stmt = $conn->prepare("SELECT STREET, NBR, ZIPCODE, CITY, REMARKS FROM DELIVERYADRESS where CUSTOMERID = ?");
+$stmt = $conn->prepare("SELECT ID, STREET, NBR, ZIPCODE, CITY, REMARKS FROM DELIVERYADRESS where CUSTOMERID = ?");
 $stmt->bind_param("i",$customerid);
 
 $stmt->execute();
@@ -26,9 +26,12 @@ if ($result->num_rows > 0 and $result->num_rows == 1) {
         $zipCode = $row["ZIPCODE"];
         $city = $row["CITY"];
         $remarks = $row["REMARKS"];
+        $id = $row["ID"];
+        $_SESSION["adressid"] = $id;
+        $_SESSION["customerid"] = $customerid;
     }
 } else {
-    echo "bad results for ".$customerid;
+    echo "bad results for ".$customerid." results : ".$result->num_rows;
 }
 
 $stmt->close();

@@ -3,14 +3,14 @@
 if (! isset($_SESSION)) {
     session_start();
 }
+require 'php/testinput.php';
 
 $customerid = $_SESSION["customerid"];
 
 // LOGIN, DELIVERYTYPE, SORBETONLY, COMMUNICATIONS, COMMENTS
 $name = $firstName = $gsm = $email = $deliveryType = $sorbetOnly = $communications = $comments = "";
 $nameErr = $firstNameErr = $emailErr = $passwordErr = $gsmErr = $deliveryTypeErr = "";
-$street = $nbr = $zipCode = $city = $remarks = "";
-$showAddres = "style=\"display: none;\"";
+
 require "php/dbcredentials.php";
 require "php/getCustomer.php";
 
@@ -78,6 +78,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     if (! empty($_POST["comments"])) {
         $comments = test_input($_POST["comments"]);
+    }
+    
+    if($nofaults) {
+        $_SESSION["customerid"] = $customerid;
+     //   require 'php/dbcredentials.php'; should not be needed
+        require 'php/updateLogin.php';
+        $nofaults = $_SESSION["nofaults"];
+        if ($nofaults) {
+            if ($deliveryType == "delivery") {
+                header('Location: editAdress.php');
+            } else {
+                header('Location: thanks.php');
+            }
+        } else {
+            $emailErr = $_SESSION["emailErr"];
+        }
+        
     }
 }
 ?>
@@ -274,7 +291,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 										placeholder="Jouw Opmerkingen..."><?php echo $comments; ?></textarea></td>
 							</tr>
 							<tr>
-								<td align="right" colspan="2"><input type="submit"></td>
+								<td align="right" colspan="2"><input type="submit" value="Bewaren en Verder"></td>
 							</tr>
 						</form>
 					</table>
