@@ -3,7 +3,9 @@
 if (!isset($_SESSION)) {
     session_start();
 }
+
 $customerid = $_SESSION["customerid"];
+$adressid = $_SESSION["adressid"];
 
 // Create connection
 $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
@@ -12,10 +14,12 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$stmt = $conn->prepare("INSERT INTO DELIVERYADRESS (STREET, NBR, ZIPCODE, CITY, REMARKS, CUSTOMERID) VALUES (?,?,?,?,?,?)");
-$stmt->bind_param("sssssi",$street,$nbr,$zipCode,$city,$remarks,$customerid);
+$stmt = $conn->prepare("UPDATE DELIVERYADRESS SET STREET = ?, NBR = ?, ZIPCODE = ?, CITY = ?, REMARKS = ? WHERE CUSTOMERID = ? AND ID = ?");
+$stmt->bind_param("sssssii",$street,$nbr,$zipCode,$city,$remarks,$customerid, $adressid);
 
-if (!$stmt->execute()) {
+if ($stmt->execute()) {
+   
+} else {
     echo "Error: " . $stmt->error;
 }
 
