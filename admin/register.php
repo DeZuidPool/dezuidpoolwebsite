@@ -228,9 +228,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					<div class="section-title wow fadeInUp" data-wow-delay="0.1s">
 						<h2>Registreer je hier voor een ijs-abonnement:</h2>
 						<p>
-							Een ijs-abonnement bij De Zuidpool betekent dat je gedurende 4
-							weken 2x 500 ml ijs (of sorbet)<br> aan huis geleverd krijgt, of
-							je kan dit ook komen afhalen.</br> De smaken zijn een verrassing!
+							Een ijs-abonnement bij De Zuidpool betekent dat je voor &euro;50.00 gedurende 4
+							weken elke week 2x 500 ml ijs (of sorbet)<br> aan huis geleverd krijgt, of
+							je kan dit ook komen afhalen. Je bespaart dus minimum &euro; 6.00.</br> De smaken zijn een verrassing!
 						</p>
 						<p>
 							Indien je lactose intolerant of vegan bent duid dit dan zeker aan
