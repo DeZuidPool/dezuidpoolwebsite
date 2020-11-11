@@ -230,7 +230,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						<p>
 							Een ijs-abonnement bij De Zuidpool betekent dat je voor &euro;50.00 gedurende 4
 							weken elke week 2x 500 ml ijs (of sorbet)<br> aan huis geleverd krijgt, of
-							je kan dit ook komen afhalen. Je bespaart dus minimum &euro; 6.00.</br> De smaken zijn een verrassing!
+							je kan dit ook komen afhalen. Je bespaart tot &euro; 14.00.</br> De smaken zijn een verrassing!
 						</p>
 						<p>
 							Indien je lactose intolerant of vegan bent duid dit dan zeker aan
