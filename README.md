@@ -13,6 +13,10 @@
 - shots
 - cocktails/wijn/cava (Coming)
 
+##Extras
+- Honing
+- ijs-abo
+
 ##Knabbels
 - Antwerpse honingwafels (coming)
 - broodjes (coming)
@@ -27,12 +31,14 @@
 	- telefoon?
 
 ##TODO: 
-###add honing DONE
-###Levering aan huis DONE
-- vanaf 18.30
-- di
 
-###Edit abo
+### Details ijs-abo
+### Smaken
+- momenteel te verkrijgen
+- "assortiment"
+- edit page
+
+###Edit abo DONE?
 
 ### Technical TODO
 - thanks : display data DONE

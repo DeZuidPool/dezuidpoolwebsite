@@ -244,7 +244,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							groot succes kan het zijn dat deze levering gespreid wordt over
 							meerdere dagen.
 						</p>
-						<p>Levering kan enkel gebeuren indien je op max 10 km van De
+						<p>Levering kan enkel gebeuren indien je op max 15 km van De
 							Zuidpool woont!</p>
 						<p>
 							Je abonnement start de week volgend op je betaling van <b>&euro;
