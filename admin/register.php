@@ -227,25 +227,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				<div class="col-md-12 col-sm-12">
 					<div class="section-title wow fadeInUp" data-wow-delay="0.1s">
 						<h2>Registreer je hier voor een ijs-abonnement:</h2>
-						<p>
-							Een ijs-abonnement bij De Zuidpool betekent dat je voor &euro;50.00 gedurende 4
-							weken elke week 2x 500 ml ijs (of sorbet)<br> aan huis geleverd krijgt, of
-							je kan dit ook komen afhalen. Je bespaart tot &euro; 14.00.</br> De smaken zijn een verrassing!
+						<p> Meer informatie betreft het ijs-abonnement vind je <a href="/ijsabo.html" target="_blank">hier</a>
 						</p>
-						<p>
-							Indien je lactose intolerant of vegan bent duid dit dan zeker aan
-							in onderstaand formulier,<br> dan zorgen wij ervoor dat je enkel
-							sorbet krijgt!</br> Zijn er nog andere zaken die we moeten weten
-							om jouw ijsplezier te verzekeren, laat dit dan zeker</br> weten
-							in de Opmerkingen, dan kunnen wij er rekening mee houden.
+						<p>Vergeet niet om de juiste informatie door te geven, dan kunnen wij jouw ijsplezier garanderen.
 						</p>
-						<p>
-							De levering gebeurd op dinsdagavond vanaf ongeveer 19.00</br> bij
-							groot succes kan het zijn dat deze levering gespreid wordt over
-							meerdere dagen.
-						</p>
-						<p>Levering kan enkel gebeuren indien je op max 15 km van De
-							Zuidpool woont!</p>
 						<p>
 							Je abonnement start de week volgend op je betaling van <b>&euro;
 								50.00</b> op rekening nummer <b>BE59 7512 1050 8026</b></br>
@@ -340,14 +325,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						<p>
 							Wij gebruiken jouw gegevens enkel voor De Zuidpool<br> Je
 							emailadres werkt tevens als login en zullen wij enkel gebruiken,
-							indien je hiervoor gekozen hebt,<br> om jou te informeren over
-						
-						
+							indien je hiervoor gekozen hebt,<br> om jou te informeren over						
 						<ul>
 							<li>De Zuidpool</li>
 							<li>acties</li>
 							<li>nieuwigheden</li>
 						</ul>
+						</p>
 						<p>Je Gsm nummer zullen wij enkel gebruiken ivm met levering(en).</p>
 						<p>Je adres wordt ook enkel gebruikt voor levering(en).</p>
 						<p>Onder geen beding zullen wij jouw gegevens delen met derden.</p>

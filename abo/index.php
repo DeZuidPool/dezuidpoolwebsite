@@ -192,6 +192,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						<tr>
 							<td align="left"><span class="has-error"><?php echo $registerErr;?> <a href="register.php#bestellen">Nog geen account? Registeer hier.</a></td>
 						</tr>
+						<tr>
+							<td align="left"><span class="has-error"><?php echo $registerErr;?> <a href="../ijsabo.html">Wil je meer weten over het ijs-abonnement? Kijk hier.</a></td>
+						</tr>
 					</table>
 					</div>
 				</div>

@@ -35,6 +35,7 @@
 ### Details ijs-abo
 ### Smaken
 - momenteel te verkrijgen
+- coming soon
 - "assortiment"
 - edit page
 
