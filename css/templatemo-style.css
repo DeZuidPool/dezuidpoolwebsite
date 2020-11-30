@@ -231,6 +231,31 @@ http://www.templatemo.com/tm-515-eatery
     font-weight: bold;
   }
 
+  .navbar-brand-flavors {
+    color: #000000;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .custom-navbar .nav-flavors a {
+    font-size: 12px;
+    font-weight: bold;
+    color: #000000;
+    padding-right: 22px;
+    padding-left: 22px;
+    text-transform: uppercase;
+  }
+  
+  .custom-navbar .nav-flavors li {
+    color: #ffffff;
+  }
+  
+  .custom-navbar .nav-flavors a:hover {
+    background: transparent;
+    color: #ce3232;
+  }
+
+  
   .custom-navbar .navbar-brand span {
     color: #ce3232;
   }
