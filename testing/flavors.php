@@ -94,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             require 'php/updateFlavors.php';
             $nofaults = $_SESSION["nofaults"];
             if (!$nofaults) { // empty new flavor fields
-                $error = $_SESSION["nofaults"];
+                $error = $_SESSION["error"];
                 echo $error;
             }
          } else {

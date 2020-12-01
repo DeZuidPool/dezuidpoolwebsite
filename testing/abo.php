@@ -6,98 +6,18 @@ if (! isset($_SESSION)) {
 
 require 'php/testinput.php';
 require 'php/dbcredentials.php';
-require_once 'php/flavor.php';
-
-$newName = $newDescription = $newOfType = $newSelling = $newComingSoon = $newVegan = "";
 
 $nofaults = true;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if ($_POST["submitType"]=="Nieuwe Smaak") { // new Flavor entered
-        if (!empty($_POST["newName"]) 
-            && !empty($_POST["newDescription"])  
-            && !empty($_POST["newOfType"])) {
-            $newName = test_input($_POST["newName"]);
-            $newDescription = test_input($_POST["newDescription"]);
-            $newOfType = test_input($_POST["newOfType"]);
-            if (!empty($_POST["newSelling"])) {
-                $newSelling = "Y";
-            } else {
-                $newSelling = "N";
-            }
-            if (!empty($_POST["newComingSoon"])) {
-                $newComingSoon = "Y";
-            } else {
-                $newComingSoon = "N";
-            }
-            if (!empty($_POST["newVegan"])) {
-                $newVegan = "Y";
-            } else {
-                $newVegan = "N";
-            }
-       } else {
-           $nofaults=false;
-       }
-       if ($nofaults) {
-           require 'php/saveFlavor.php';
-           $nofaults = $_SESSION["nofaults"];
-           if ($nofaults) { // empty new flavor fields
-               $newName = $newDescription = $newOfType = $newSelling = $newComingSoon = $newSellingFrom = $newSellingTo = "";
-           } else {
-               $error = $_SESSION["nofaults"];
-               echo $error;
-           }
-       } else {
-           echo 'input problems nieuwe smaak';
-       }
-    } else if ($_POST["submitType"]=="Aanpassen Smaken") { // update Existing flavors
-        $inputError = "";
-        if (empty($_POST["flavorCounter"]))  {
-            $nofaults = false;
-            $inputError .=" no counter ";
-        } else {
-            $updatedFlavors = array();
-            $index = $_POST["flavorCounter"];
-            for ($i = 0; $i < $index; $i++) {
-                if (!empty($_POST["flavorName".$i])
-                    && !empty($_POST["flavorDescription".$i])
-                    && !empty($_POST["flavorOfType".$i])) {
-                        $name = test_input($_POST["flavorName".$i]);
-                        $description = test_input($_POST["flavorDescription".$i]);
-                        $ofType = test_input($_POST["flavorOfType".$i]);
-                        if (!empty($_POST["flavorSelling".$i])) {
-                            $selling = "Y";
-                        } else {
-                            $selling = "N";
-                        }
-                        if (!empty($_POST["flavorComingSoon".$i])) {
-                            $comingSoon = "Y";
-                        } else {
-                            $comingSoon = "N";
-                        }
-                        if (!empty($_POST["flavorVegan".$i])) {
-                            $vegan = "Y";
-                        } else {
-                            $vegan = "N";
-                        }
-                        $id = $_POST["flavorId".$i];
-                        $updatedFlavor = new Flavor($name,$description,$ofType,$selling,$comingSoon,$vegan);
-                        $updatedFlavor->set_id($id);
-                        $updatedFlavors[] = $updatedFlavor;
-                    } else {
-                        $nofaults=false;
-                        $inputError .= " empty fields for index".$index.'\n';
-                    }
-            }
-            $_SESSION["flavors"] = $updatedFlavors;
-        }
-        if ($nofaults) {
-            require 'php/updateFlavors.php';
+    // TODO formcheck
+         if ($nofaults) {
+            // implement saving abo's
             $nofaults = $_SESSION["nofaults"];
             if (!$nofaults) { // empty new flavor fields
                 $error = $_SESSION["error"];
                 echo $error;
             }
-         } else {
+        } else {
             echo 'input problems update smaken: '.$inputError;
         }
     }
