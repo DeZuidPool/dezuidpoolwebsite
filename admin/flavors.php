@@ -85,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $updatedFlavors[] = $updatedFlavor;
                     } else {
                         $nofaults=false;
-                        $inputError .= " empty fields for index".$index.'\n';
+                        $inputError .= " empty fields for index".$i.'\n';
                     }
             }
             $_SESSION["flavors"] = $updatedFlavors;
@@ -170,8 +170,8 @@ require 'php/getFlavors.php';
           </div>
      </section>
 
-     <!-- smaken -->
-     <section id="smaken" data-stellar-background-ratio="0.5">
+     <!-- payments -->
+     <section id="payments" data-stellar-background-ratio="0.5">
           <div class="container">
                <div class="row">
 
@@ -183,7 +183,7 @@ require 'php/getFlavors.php';
 
                     <div class="col-md-12 col-sm-12">
 					<table class="table">
-						<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>#smaken" method="post">
+						<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>#payments" method="post">
     						<tr>
     							<td align="left">
     								Naam 
