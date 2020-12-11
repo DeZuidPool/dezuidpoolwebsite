@@ -3,80 +3,87 @@
 if (! isset($_SESSION)) {
     session_start();
 }
-
 require 'php/testinput.php';
 
-// define variables and set to empty values
-$lastName = $firstName = $email = $password = $gsm = $communications = "";
-$lastNameErr = $firstNameErr = $emailErr = $passwordErr = $gsmErr = "";
+$customerid = $_SESSION["customerid"];
+
+// LOGIN, DELIVERYTYPE, SORBETONLY, COMMUNICATIONS, COMMENTS
+$lastName = $firstName = $gsm = $email = $deliveryType = $sorbetOnly = $communications = $comments = "";
+$lastNameErr = $firstNameErr = $emailErr = $passwordErr = $gsmErr = $deliveryTypeErr = "";
+
+require "php/dbcredentials.php";
+require "php/getCustomer.php";
+require_once "php/abonnement.php";
+require "php/getAbo.php";
 
 $nofaults = true;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (empty($_POST["lastName"])) {
-        $lastNameErr = "Naam is vereist";
-        $nofaults = false;
-    } else {
-        $lastName = test_input($_POST["name"]);
-    }
-    if (empty($_POST["firstName"])) {
-        $firstNameErr = "Voornaam is vereist";
-        $nofaults = false;
-    } else {
-        $firstName = test_input($_POST["firstName"]);
-    }
-    if (empty($_POST["gsm"])) {
-        $gsmErr = "Gsm nummer is vereist";
-        $nofaults = false;
-    } else {
-        $gsm = test_input($_POST["gsm"]);
-    }
-    if (empty($_POST["email"])) {
-        $emailErr = "Email is vereist";
-        $nofaults = false;
-    } else {
-        $email = test_input($_POST["email"]);
-        if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $emailErr = "Email bevat geen emailadres";
+    if ($_POST["submitType"] == "Bewaar gegevens") {
+        if (empty($_POST["lastName"])) {
+            $lastNameErr = "Naam is vereist";
             $nofaults = false;
+        } else {
+            $lastName = test_input($_POST["name"]);
         }
-    }
-    if (empty($_POST["password"])) {
-        $passwordErr = "Paswoord is vereist";
-        $nofaults = false;
-    } else {
-        $password = test_input($_POST["password"]);
-    }
-    if (empty($_POST["password2"])) {
-        $password2Err = "Herhaal je paswoord";
-        $nofaults = false;
-    } else {
-        $password2 = test_input($_POST["password2"]);
-        if ($password != $password2) {
-            $password2Err = "Je paswoord is niet 2 maal hetzelfde";
+        if (empty($_POST["firstName"])) {
+            $firstNameErr = "Voornaam is vereist";
             $nofaults = false;
+        } else {
+            $firstName = test_input($_POST["firstName"]);
         }
-    }
-    if (! empty($_POST["communications"])) {
-        $communications = "Y";
-    } else {
-        $communications = "N";
-    }
-    // if errors in input --> nosave
-    if ($nofaults) {
-        // save account to db and forward to deliveryadress.php
-        require 'php/dbcredentials.php';
-        require 'php/saveLogin.php';
-        $nofaults = $_SESSION["nofaults"];
+        if (empty($_POST["gsm"])) {
+            $gsmErr = "Gsm nummer is vereist";
+            $nofaults = false;
+        } else {
+            $gsm = test_input($_POST["gsm"]);
+        }
+        if (empty($_POST["email"])) {
+            $emailErr = "Email is vereist";
+            $nofaults = false;
+        } else {
+            $email = test_input($_POST["email"]);
+            if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $emailErr = "Email bevat geen emailadres";
+                $nofaults = false;
+            }
+        }
+        if (empty($_POST["password"])) {
+            $passwordErr = "Paswoord is vereist";
+            $nofaults = false;
+        } else {
+            $password = test_input($_POST["password"]);
+        }
+        if (empty($_POST["password2"])) {
+            $password2Err = "Herhaal je paswoord";
+            $nofaults = false;
+        } else {
+            $password2 = test_input($_POST["password2"]);
+            if ($password != $password2) {
+                $password2Err = "Je paswoord is niet 2 maal hetzelfde";
+                $nofaults = false;
+            }
+        }
         if ($nofaults) {
-            header('Location: createAbo.php');
-        } else { // register failed
-            $emailErr = $_SESSION["emailErr"];
+            $_SESSION["customerid"] = $customerid;
+            // require 'php/dbcredentials.php'; should not be needed
+            require 'php/updateLogin.php';
+            $nofaults = $_SESSION["nofaults"];
+            if (! $nofaults) {
+                $emailErr = $_SESSION["emailErr"];
+            }
         }
+    } else if ($_POST["submitType"] == "Nieuw abonnement") {
+        
+        $_SESSION["customerid"] = $customerid;
+        $_SESSION["gsm"] = $gsm;
+        $_SESSION["name"] = $firstName.' '.$lastName;
+
+        header("Location: addAbo.php");
+    } else {
+        echo 'unknown submit';
     }
 }
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -135,9 +142,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav navbar-nav-first">
 					<li><a href="../index.html#home" class="smoothScroll">Home</a></li>
-					<!--						 <li><a href="#home" class="smoothScroll">Top</a></li>-->
-					<li><a href="../menu.html" class="smoothScroll" target="_blank">Ons
-							menu</a></li>
+					<li><a href="#home" class="smoothScroll">Top</a></li>
 				</ul>
 
 			</div>
@@ -207,25 +212,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 				<div class="col-md-12 col-sm-12">
 					<div class="section-title wow fadeInUp" data-wow-delay="0.1s">
-						<h2>Registreer je hier voor een ijs-abonnement:</h2>
-						<p> Meer informatie betreft het ijs-abonnement vind je <a href="/ijsabo.html" target="_blank">hier</a>
-						</p>
-						<p>Vergeet niet om de juiste informatie door te geven, dan kunnen wij jouw ijsplezier garanderen.
-						</p>
+						<h2>Beheer hier je registratie voor je ijs-abonnement</h2>
+						<p>Hier kan je je gegevens wijzigen indien nodig.</p>
 					</div>
-					<div class="has-error" align="left">* : Verplicht veld</div>
 				</div>
+				<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>#bestellen" method="post">
 
 				<div class="col-md-9 col-sm-9">
-					<h5>Registreer</h5>
+					<h5>Jouw gegevens:</h5>
 					<table class="table">
-						<form
-							action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>#bestellen"
-							method="post">
 							<tr>
 								<td align="left">Naam:</td>
 								<td align="left"><input type="text" name="lastName"
-									value="<?php echo $lastName; ?>"> <span class="has-error">* <?php echo $lastNameErr;?></span></td>
+									value="<?php echo $lastName; ?>"> <span class="has-error">* <?php echo $lastNameErr; ?></span></td>
 							</tr>
 							<tr>
 								<td align="left">Voornaam:</td>
@@ -241,56 +240,104 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 								<td align="left">Email:</td>
 								<td align="left"><input type="email" name="email"
 									value="<?php echo $email; ?>"> <span class="has-error">* <?php echo $emailErr;?></span>
-									</br>
-								<input type="checkbox" name="communications" value="Y"
+									</br> <input type="checkbox" name="communications" value="Y"
 									<?php if (isset($communications) && $communications =="Y") echo "checked=\"checked\"";?>>
 									Ik wens emails te ontvangen over acties of nieuwigheden</td>
 							</tr>
 							<tr>
 								<td align="left">Paswoord: Kies een veilig paswoord!</td>
 								<td align="left"><input type="password" name="password"> <span
-									class="has-error">* <?php echo $passwordErr;?></span></td>
+									class="has-error">* <?php echo $passwordErr; ?></span></td>
 							</tr>
 							<tr>
 								<td align="left">Herhaal Paswoord:</td>
 								<td align="left"><input type="password" name="password2"> <span
-									class="has-error">* <?php echo $password2Err;?></span></td>
+									class="has-error">* <?php echo $password2Err; ?></span></td>
 							</tr>
-						
-						
-						<tr>
-							<td align="right" colspan="2"><input type="submit"></td>
-						</tr>
-						</form>
+							<tr>
+								<td align="right" colspan="2"><input type="submit" value="Bewaar gegevens" name="submitType"></td>
+							</tr>
 					</table>
 				</div>
-			</div>
-		</div>
-	</section>
-	<section id="contact" data-stellar-background-ratio="0.5">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12 col-sm-12">
-					<div class="section-title wow fadeInUp" data-wow-delay="0.1s">
-						<h2>Wat doen wij met jouw gegevens?</h2>
-						<p>
-							Wij gebruiken jouw gegevens enkel voor De Zuidpool<br> Je
-							emailadres werkt tevens als login en zullen wij enkel gebruiken,
-							indien je hiervoor gekozen hebt,<br> om jou te informeren over						
-						<ul>
-							<li>De Zuidpool</li>
-							<li>acties</li>
-							<li>nieuwigheden</li>
-						</ul>
-						</p>
-						<p>Je Gsm nummer zullen wij enkel gebruiken ivm met levering(en).</p>
-						<p>Je adres wordt ook enkel gebruikt voor levering(en).</p>
-						<p>Onder geen beding zullen wij jouw gegevens delen met derden.</p>
-					</div>
+				<div class="col-md-9 col-sm-9" >
+				<h5>Jouw abonnement(en):</h5>
+				<table class="table">
+					<tr>
+    					<td align="left">
+    						Abonr 
+    					</td>
+    					<td align="left">
+    						Contact  
+    					</td>
+    					<td align="left">
+    						Type 
+    					</td>
+    					<td align="left">
+    						Actief? 
+    					</td>
+    					<td align="left">
+    						Van 
+    					</td>
+    					<td align="left">
+    						Tot
+    					</td>
+    					<td align="left">
+    						Adres
+    					</td>
+    				</tr>
+						<?php 
+						$abonnementen = $_SESSION["abonnementen"];
+						if (!empty($abonnementen) && count($abonnementen)>0) {
+						    foreach ($abonnementen as $abonnement) {
+						        $htmlAbo = '<tr>';
+						        $htmlAbo .= '<td align="left">';
+						        $htmlAbo .= $abonnement->get_id();
+						        $htmlAbo .= '</td>';
+						        $htmlAbo .= '<td align="left">';
+						        $htmlAbo .= '<span style="white-space: nowrap;">'.$abonnement->get_name().'</span><br>'.$abonnement->get_gsm();
+						        $htmlAbo .= '</td>';
+						        $htmlAbo .= '<td align="left">';
+						        $htmlAbo .= $abonnement->get_deliveryType();
+						        $htmlAbo .= '</td>';
+						        $htmlAbo .= '<td align="center">';
+						        $htmlAbo .= $abonnement->get_payed();
+						        $htmlAbo .= '</td>';
+						        $htmlAbo .= '<td align="left">';
+						        if ($abonnement->get_firstDelDate() != null) {
+						            $htmlAbo .= $abonnement->get_firstDelDate();
+						        }
+						        $htmlAbo .= '</td>';
+						        $htmlAbo .= '<td align="left">';
+						        if ($abonnement->get_lastDelDate() != null) {
+						            $htmlAbo .= $abonnement->get_lastDelDate();
+						        }
+						        $htmlAbo .= '</td>';
+						        if ($abonnement->get_deliveryType() == "delivery") {
+						            $htmlAbo .= '<td align="left">';
+						            $htmlAbo .= '<span style="white-space: nowrap;">'.$abonnement->get_street().' '.$abonnement->get_nbr().'</span></br>';
+						            $htmlAbo .= '<span style="white-space: nowrap;">'.$abonnement->get_zipCode().' '.$abonnement->get_city().'</span>';
+						            $htmlAbo .= '</td>';
+						        } else {
+						            $htmlAbo .= '<td>';
+						            $htmlAbo .= '</td>';
+						        }
+						        $htmlAbo .= '</tr>';
+						        echo $htmlAbo;
+						    }
+						}
+						?>
+						<tr>
+							<td colspan="7" align="left">
+								Maak een nieuw abonnement aan : <input type="submit" value="Nieuw abonnement" name="sumbitType">
+							</td>
+						</tr>
+				</table>
 				</div>
+				</form>
 			</div>
 		</div>
 	</section>
+
 	<!-- FOOTER -->
 	<footer id="footer" data-stellar-background-ratio="0.5">
 		<div class="container">

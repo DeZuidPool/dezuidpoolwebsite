@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($customerid == "none") {
         $registerErr = "Login/Paswoord onbekend.";
     } else {
-        header("Location: editAbo.php");
+        header("Location: overviewCustomer.php");
     }
 }
 
