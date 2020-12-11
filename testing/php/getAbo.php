@@ -4,7 +4,7 @@ if (!isset($_SESSION)) {
     session_start();
 }
 $customerid = $_SESSION["customerid"];
-
+$id = $_SESSION["id"];
 // Create connection
 $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 // Check connection
@@ -12,16 +12,13 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$stmt = $conn->prepare("SELECT ID, NAME,GSM, DELIVERYTYPE, SORBETONLY, PAYED, COMMENTS, STREET, NBR, ZIPCODE, CITY, ADRESREMARKS FROM ABONNEMENT where CUSTOMERID = ?");
-$stmt->bind_param("i",$customerid);
+$stmt = $conn->prepare("SELECT ID, NAME,GSM, DELIVERYTYPE, SORBETONLY, PAYED, COMMENTS, STREET, NBR, ZIPCODE, CITY, ADRESREMARKS FROM ABONNEMENT where CUSTOMERID = ? AND ID = ?");
+$stmt->bind_param("ii",$customerid, $id);
 
 $stmt->execute();
 $result = $stmt->get_result();
 
-
-
-$abos = array();
-if ($result->num_rows > 0) {
+if ($result->num_rows > 0 && $result->num_rows == 1) {
     while ($row = $result->fetch_assoc()) {
         $deliveryType = $row["DELIVERYTYPE"];
         $sorbetOnly = $row["SORBETONLY"];
@@ -35,25 +32,9 @@ if ($result->num_rows > 0) {
         $id = $row["ID"];
         $name = $row["NAME"];
         $gsm = $row["GSM"];
-        $abonnement = new Abonnement();
-        $abonnement->set_id($id);
-        $abonnement->set_adresRemarks($adresRemarks);
-        $abonnement->set_city($city);
-        $abonnement->set_zipCode($zipCode);
-        $abonnement->set_nbr($nbr);
-        $abonnement->set_street($street);
-        $abonnement->set_comments($comments);
-        $abonnement->set_sorbetOnly($sorbetOnly);
-        $abonnement->set_deliveryType($deliveryType);
-        $abonnement->set_name($name);
-        $abonnement->set_gsm($gsm);
-        $abonnement->set_payed($payed);
-        $abos[] = $abonnement;
     }
-    $_SESSION["customerid"]= $customerid;
-    $_SESSION["abonnementen"]=$abos;
 } else {
-    echo "bad results for ".$customerid." results : ".$result->num_rows;
+    echo "bad results for ".$customerid."/".$id." results : ".$result->num_rows;
 }
 
 $stmt->close();

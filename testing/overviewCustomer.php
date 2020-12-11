@@ -12,9 +12,9 @@ $lastName = $firstName = $gsm = $email = $deliveryType = $sorbetOnly = $communic
 $lastNameErr = $firstNameErr = $emailErr = $passwordErr = $gsmErr = $deliveryTypeErr = "";
 
 require "php/dbcredentials.php";
-require "php/getCustomer.php";
 require_once "php/abonnement.php";
-require "php/getAbo.php";
+require "php/getCustomer.php";
+require "php/getAbos.php";
 
 $nofaults = true;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $lastNameErr = "Naam is vereist";
             $nofaults = false;
         } else {
-            $lastName = test_input($_POST["name"]);
+            $lastName = test_input($_POST["lastName"]);
         }
         if (empty($_POST["firstName"])) {
             $firstNameErr = "Voornaam is vereist";
@@ -79,10 +79,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["name"] = $firstName.' '.$lastName;
 
         header("Location: addAbo.php");
-    } else {
-        echo 'unknown submit';
+    } else if ($_POST["submitType"] == "Wijzig") {
+        $_SESSION["customerid"] = $customerid;
+        $_SESSION["id"] = $_POST["id"];
+        
+        header("Location: existingAbo.php");
+    } else { 
+        echo 'unknown submit : \''.$_POST["submitType"].'\'' ;
     }
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -259,6 +266,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							</tr>
 					</table>
 				</div>
+				</form>
 				<div class="col-md-9 col-sm-9" >
 				<h5>Jouw abonnement(en):</h5>
 				<table class="table">
@@ -284,12 +292,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     					<td align="left">
     						Adres
     					</td>
+    					<td>
+    						Wijzig
+    					</td>
     				</tr>
 						<?php 
 						$abonnementen = $_SESSION["abonnementen"];
 						if (!empty($abonnementen) && count($abonnementen)>0) {
 						    foreach ($abonnementen as $abonnement) {
-						        $htmlAbo = '<tr>';
+						        $htmlAbo = '<form action="'.htmlspecialchars($_SERVER["PHP_SELF"]).'#bestellen" method="post">';
+						        $htmlAbo .= '<input type="hidden" name="id" value="'.$abonnement->get_id().'">';
+						        $htmlAbo .= '<tr>';
 						        $htmlAbo .= '<td align="left">';
 						        $htmlAbo .= $abonnement->get_id();
 						        $htmlAbo .= '</td>';
@@ -321,19 +334,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						            $htmlAbo .= '<td>';
 						            $htmlAbo .= '</td>';
 						        }
+						        $htmlAbo .= '<td>';
+						        $htmlAbo .= '<input type="submit" value="Wijzig" name="submitType">';
+						        $htmlAbo .= '</td>';
 						        $htmlAbo .= '</tr>';
+						        $htmlAbo .= '</form>';
 						        echo $htmlAbo;
 						    }
 						}
 						?>
+						<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>#bestellen" method="post">
 						<tr>
-							<td colspan="7" align="left">
-								Maak een nieuw abonnement aan : <input type="submit" value="Nieuw abonnement" name="sumbitType">
+							<td colspan="8" align="right">
+								<input type="submit" value="Nieuw abonnement" name="submitType">
 							</td>
 						</tr>
+						</form>
 				</table>
 				</div>
-				</form>
 			</div>
 		</div>
 	</section>

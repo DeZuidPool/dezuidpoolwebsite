@@ -19,7 +19,7 @@ if ($conn->connect_error) {
 }
 
 $stmt = $conn->prepare("UPDATE CUSTOMER SET NAME = ?, FIRSTNAME = ?, GSM = ?, LOGIN = ?, PWD = ?, COMMUNICATIONS = ? WHERE ID = ?");
-$stmt->bind_param("ssssssi",$name,$firstName,$gsm,$email,password_hash($password, PASSWORD_DEFAULT),$communications, $customerid);
+$stmt->bind_param("ssssssi",$lastName,$firstName,$gsm,$email,password_hash($password, PASSWORD_DEFAULT),$communications, $customerid);
 
 if ($stmt->execute()) {
    $_SESSION["customerid"] = $customerid;

@@ -6,11 +6,13 @@ if (! isset($_SESSION)) {
 require 'php/testinput.php';
 
 // define variables and set to empty values
-$street = $nbr = $zipCode = $city = $adresremarks = $customerid = $deliveryType = $sorbetOnly = $comments = "";
+$street = $nbr = $zipCode = $city = $adresRemarks = $customerid = $deliveryType = $sorbetOnly = $comments = $id = $name = $gsm = "";
 $streetErr = $nbrErr = $zipCodeErr = $cityErr = $deliveryTypeErr = "";
+require 'php/dbcredentials.php';
+require 'php/getAbo.php';
+
 $customerid = $_SESSION["customerid"];
-$name = $_SESSION["name"];
-$gsm = $_SESSION["gsm"];
+
 $nofaults = true;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["name"])) {
@@ -70,13 +72,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     $_SESSION["customerid"] = $customerid;
     
-    // check distance
 
     if ($nofaults) {
-        require 'php/dbcredentials.php';
-        require 'php/saveAbo.php';
-
-        header("Location: overviewCustomer.php");
+        $_SESSION["customerid"] = $customerid;
+        $_SESSION["id"] = $id;
+        require 'php/updateAbo.php';
     }
 }
 $_SESSION["customerid"] = $customerid;
@@ -293,13 +293,13 @@ $_SESSION["customerid"] = $customerid;
 						<tr>
 							<td align="left">Opmerkingen betreft het adres: (max 255 characters)</td>
 							<td align="left"><textarea maxlength="255" name="adresremarks"
-									placeholder="bovenste bel gebruiken..."><?php echo $adresremarks ?></textarea>
+									placeholder="bovenste bel gebruiken..."><?php echo $adresRemarks ?></textarea>
 							</td>
 							</td>
 						</tr>
 						<tr>
 							<td align="left"><a href="overviewCustomer.php#bestellen">Terug naar mijn overzicht</a></td>
-							<td align="right"><input type="submit" value="Maak abonnement"></td>
+							<td align="right"><input type="submit" value="Bewaar abonnement"></td>
 						</tr>
 						</form>
 					</table>

@@ -10,7 +10,7 @@ $name = $firstName = $gsm = $email = $communications = "";
 require "php/dbcredentials.php";
 require "php/getCustomer.php";
 require_once "php/abonnement.php";
-require "php/getAbo.php";
+require "php/getAbos.php";
 
 ?>
 
