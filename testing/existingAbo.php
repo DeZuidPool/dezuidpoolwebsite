@@ -212,7 +212,7 @@ $_SESSION["customerid"] = $customerid;
 
 				<div class="col-md-12 col-sm-12">
 					<div class="section-title wow fadeInUp" data-wow-delay="0.1s">
-						<h2>Maak een ijsabonnement aan.</h2>
+						<h2>Maak een ijs-abonnement aan.</h2>
 						<p>Je abonnement start de week volgend op je betaling van <b>&euro;
 								50.00</b> op rekening nummer <b>BE59 7512 1050 8026</b></br>
 							Vermeld bij de betaling je emailadres en het abonnementsnr
@@ -227,7 +227,7 @@ $_SESSION["customerid"] = $customerid;
 				</div>
 
 				<div class="col-md-9 col-sm-9">
-					<h5>Ijsabonnement</h5>
+					<h5>Ijs-abonnement</h5>
 					<table class="table">
 						<form
 							action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);#bestellen?>"

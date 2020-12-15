@@ -12,13 +12,13 @@ $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$SQL = "UPDATE FLAVOR SET NAME = ?, DESCRIPTION = ?,IJSTYPE = ?, SELLING = ?, COMINGSOON = ?,VEGAN = ? WHERE ID = ?";
+$SQL = "UPDATE FLAVOR SET NAME = ?, DESCRIPTION = ?,IJSTYPE = ?, SELLING = ?, COMINGSOON = ?,VEGAN = ?,ALCOHOL = ?,EIGEEL = ?,GLUTEN = ? WHERE ID = ?";
 $error = "";
 $nofaults = true;
 foreach ($flavors as $flavor) {
     if ($flavor instanceof Flavor) {
         $stmt = $conn->prepare($SQL);
-        $stmt->bind_param("ssssssi", $flavor->get_name(), $flavor->get_description(), $flavor->get_ijstype(), $flavor->get_selling(), $flavor->get_comingsoon(), $flavor->get_vegan(),$flavor->get_id());
+        $stmt->bind_param("sssssssssi", $flavor->get_name(), $flavor->get_description(), $flavor->get_ijstype(), $flavor->get_selling(), $flavor->get_comingsoon(), $flavor->get_vegan(),$flavor->get_alcohol(),$flavor->get_eigeel(),$flavor->get_gluten(),$flavor->get_id());
 
         if (! $stmt->execute()) {
             if ($nofaults) {

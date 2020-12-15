@@ -66,6 +66,4 @@ $stmt->close();
 
 $conn->close();
 
-if (strlen($logging)> 0) {
-    echo $logging;
-}
+
