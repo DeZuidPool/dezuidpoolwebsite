@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $lastNameErr = "Naam is vereist";
         $nofaults = false;
     } else {
-        $lastName = test_input($_POST["name"]);
+        $lastName = test_input($_POST["lastName"]);
     }
     if (empty($_POST["firstName"])) {
         $firstNameErr = "Voornaam is vereist";

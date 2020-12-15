@@ -60,16 +60,15 @@ require 'php/displayFlavors.php';
 
 				<!-- lOGO TEXT HERE -->
 				<a href="../index.html" class="navbar-brand-flavors">IJS BAR de Zuidpool -
-					onze smaken</a>
+					Beheer Smaken</a>
 			</div>
 
 			<!-- MENU LINKS -->
 			<div class="collapse navbar-collapse">
 				<ul class="nav-flavors navbar-nav navbar-nav-first">
-					<li><a href="../index.html#home" class="smoothScroll">Home</span></a></li>
+					<li><a href="index.html" class="smoothScroll">Home</span></a></li>
 					<li><a href="#home" class="smoothScroll nav-flavors">Top</a></li>
-					<li><a href="../menu.html" class="smoothScroll nav-flavors" target="_blank">Ons
-							menu</a></li>
+					<li><a href="../index.html" class="smoothScroll nav-flavors" target="_blank">naar website</a></li>
 				</ul>
 
 			</div>
@@ -101,7 +100,7 @@ require 'php/displayFlavors.php';
 				</div>
 				<div class="row">
 					<div class="col-md-6 col-sm-6">
-						<div section-title wow fadeInUp" data-wow-delay="0.1s">* = Vegan</div>
+						<div section-title wow fadeInUp" data-wow-delay="0.1s"><sup>a</sup> = Alcohol, <sup>e</sup> = Eigeel, <sup>v</sup> = Vegan, <sup>g</sup> = Gluten</div>
 					</div>
 				</div>
 
@@ -117,21 +116,33 @@ require 'php/displayFlavors.php';
             foreach ($activeFlavors as $flavor) {
                 $htmlFlavor = '<tr>';
                 $htmlFlavor .= '<td style="width:30%">';
-                $htmlFlavor .= $flavor["NAME"];
-                if ($flavor["VEGAN"] == "Y") {
-                    $htmlFlavor .= '*';
+                $htmlFlavor .= $flavor["NAME"].'<sup>';
+                if ($flavor["ALCOHOL"] == "Y") {
+                    $htmlFlavor .= 'a';
                 }
+                if ($flavor["EIGEEL"] == "Y") {
+                    $htmlFlavor .= 'e';
+                }
+                if ($flavor["VEGAN"] == "Y") {
+                    $htmlFlavor .= 'v';
+                }
+                if ($flavor["GLUTEN"] == "Y") {
+                    $htmlFlavor .= 'g';
+                }
+                $htmlFlavor .= '</sup>';
                 $htmlFlavor .= '</td>';
                 $htmlFlavor .= '<td style="width:55%">';
                 $htmlFlavor .= $flavor["DESCRIPTION"];
                 $htmlFlavor .= '</td>';
                 $htmlFlavor .= '<td style="width:15%">';
                 if ($flavor["IJSTYPE"] == "Y") {
-                    $htmlFlavor .= 'ijsroom';
+                    $htmlFlavor .= 'roomijs';
                 } else if ($flavor["IJSTYPE"] == "S") {
                     $htmlFlavor .= 'sorbet';
-                } else {
+                } else if ($flavor["IJSTYPE"] == "P"){
                     $htmlFlavor .= 'proteine';
+                } else if ($flavor["IJSTYPE"] == "O"){
+                    $htmlFlavor .= 'yoghurtijs';
                 }
                 $htmlFlavor .= '</td>';
                 $htmlFlavor .= '</tr>';
@@ -157,21 +168,33 @@ require 'php/displayFlavors.php';
             foreach ($soonFlavors as $flavor) {
                 $htmlFlavor = '<tr>';
                 $htmlFlavor .= '<td style="width:30%">';
-                $htmlFlavor .= $flavor["NAME"];
-                if ($flavor["VEGAN"] == "Y") {
-                    $htmlFlavor .= '*';
+                $htmlFlavor .= $flavor["NAME"].'<sup>';
+                if ($flavor["ALCOHOL"] == "Y") {
+                    $htmlFlavor .= 'a';
                 }
+                if ($flavor["EIGEEL"] == "Y") {
+                    $htmlFlavor .= 'e';
+                }
+                if ($flavor["VEGAN"] == "Y") {
+                    $htmlFlavor .= 'v';
+                }
+                if ($flavor["GLUTEN"] == "Y") {
+                    $htmlFlavor .= 'g';
+                }
+                $htmlFlavor .= '</sup>';
                 $htmlFlavor .= '</td>';
                 $htmlFlavor .= '<td style="width:55%">';
                 $htmlFlavor .= $flavor["DESCRIPTION"];
                 $htmlFlavor .= '</td>';
                 $htmlFlavor .= '<td style="width:15%">';
                 if ($flavor["IJSTYPE"] == "Y") {
-                    $htmlFlavor .= 'ijsroom';
+                    $htmlFlavor .= 'roomijs';
                 } else if ($flavor["IJSTYPE"] == "S") {
                     $htmlFlavor .= 'sorbet';
-                } else {
+                } else if ($flavor["IJSTYPE"] == "P") {
                     $htmlFlavor .= 'proteine';
+                } else if ($flavor["IJSTYPE"] == "O") {
+                    $htmlFlavor .= 'yoghurtijs';
                 }
                 $htmlFlavor .= '</td>';
                 $htmlFlavor .= '</tr>';
@@ -196,21 +219,33 @@ require 'php/displayFlavors.php';
             foreach ($otherFlavors as $flavor) {
                 $htmlFlavor = '<tr>';
                 $htmlFlavor .= '<td style="width:30%">';
-                $htmlFlavor .= $flavor["NAME"];
-                if ($flavor["VEGAN"] == "Y") {
-                    $htmlFlavor .= '*';
+                $htmlFlavor .= $flavor["NAME"].'<sup>';
+                if ($flavor["ALCOHOL"] == "Y") {
+                    $htmlFlavor .= 'a';
                 }
+                if ($flavor["EIGEEL"] == "Y") {
+                    $htmlFlavor .= 'e';
+                }
+                if ($flavor["VEGAN"] == "Y") {
+                    $htmlFlavor .= 'v';
+                }
+                if ($flavor["GLUTEN"] == "Y") {
+                    $htmlFlavor .= 'g';
+                }
+                $htmlFlavor .= '</sup>';
                 $htmlFlavor .= '</td>';
                 $htmlFlavor .= '<td style="width:55%">';
                 $htmlFlavor .= $flavor["DESCRIPTION"];
                 $htmlFlavor .= '</td>';
                 $htmlFlavor .= '<td style="width:15%">';
                 if ($flavor["IJSTYPE"] == "Y") {
-                    $htmlFlavor .= 'ijsroom';
+                    $htmlFlavor .= 'roomijs';
                 } else if ($flavor["IJSTYPE"] == "S") {
                     $htmlFlavor .= 'sorbet';
-                } else {
+                } else if ($flavor["IJSTYPE"] == "P"){
                     $htmlFlavor .= 'proteine';
+                } else if ($flavor["IJSTYPE"] == "O"){
+                    $htmlFlavor .= 'yoghurtijs';
                 }
                 $htmlFlavor .= '</td>';
                 $htmlFlavor .= '</tr>';
@@ -224,7 +259,7 @@ require 'php/displayFlavors.php';
 			</div>
 			<div class="row">
 				<div class="col-md-6 col-sm-6">
-					<div section-title wow fadeInUp" data-wow-delay="0.1s">* = Vegan</div>
+						<div section-title wow fadeInUp" data-wow-delay="0.1s"><sup>a</sup> = Alcohol, <sup>e</sup> = Eigeel, <sup>v</sup> = Vegan, <sup>g</sup> = Gluten</div>
 				</div>
 			</div>
 	

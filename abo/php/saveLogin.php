@@ -17,13 +17,15 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-$stmt = $conn->prepare("INSERT INTO CUSTOMER (NAME,FIRSTNAME,GSM, LOGIN, PWD, DELIVERYTYPE, SORBETONLY, COMMUNICATIONS,COMMENTS) VALUES (?,?,?,?,?,?,?,?,?)");
-$stmt->bind_param("sssssssss",$name,$firstName,$gsm,$email,password_hash($password, PASSWORD_DEFAULT),$deliveryType,$sorbetOnly,$communications,$comments);
+$stmt = $conn->prepare("INSERT INTO CUSTOMER (NAME,FIRSTNAME,GSM, LOGIN, PWD, COMMUNICATIONS) VALUES (?,?,?,?,?,?)");
+$stmt->bind_param("ssssss",$lastName,$firstName,$gsm,$email,password_hash($password, PASSWORD_DEFAULT),$communications);
 
 $customerid = "";
 if ($stmt->execute()) {
     $customerid = $conn->insert_id;
    $_SESSION["customerid"] = $customerid;
+   $_SESSION["gsm"] = $gsm;
+   $_SESSION["name"] = $firstName.' '.$lastName;
    $_SESSION["nofaults"]=true;
 } else {
     $_SESSION["nofaults"]=false;

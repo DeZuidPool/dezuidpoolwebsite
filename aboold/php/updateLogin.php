@@ -18,8 +18,8 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-$stmt = $conn->prepare("UPDATE CUSTOMER SET NAME = ?, FIRSTNAME = ?, GSM = ?, LOGIN = ?, PWD = ?, COMMUNICATIONS = ? WHERE ID = ?");
-$stmt->bind_param("ssssssi",$lastName,$firstName,$gsm,$email,password_hash($password, PASSWORD_DEFAULT),$communications, $customerid);
+$stmt = $conn->prepare("UPDATE CUSTOMER SET NAME = ?, FIRSTNAME = ?, GSM = ?, LOGIN = ?, PWD = ?, DELIVERYTYPE = ?, SORBETONLY = ?, COMMUNICATIONS = ?, COMMENTS = ? WHERE ID = ?");
+$stmt->bind_param("sssssssssi",$name,$firstName,$gsm,$email,password_hash($password, PASSWORD_DEFAULT),$deliveryType,$sorbetOnly,$communications,$comments, $customerid);
 
 if ($stmt->execute()) {
    $_SESSION["customerid"] = $customerid;

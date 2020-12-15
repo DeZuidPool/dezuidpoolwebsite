@@ -6,12 +6,16 @@ if (! isset($_SESSION)) {
 
 $customerid = $_SESSION["customerid"];
 
-$name = $firstName = $gsm = $email = $communications = "";
+// LOGIN, DELIVERYTYPE, SORBETONLY, COMMUNICATIONS, COMMENTS
+$name = $firstName = $gsm = $email = $deliveryType = $sorbetOnly = $communications = $comments = "";
+$street = $nbr = $zipCode = $city = $remarks = "";
+$hideAdress = "style=\"display: none;\"";
 require "php/dbcredentials.php";
 require "php/getCustomer.php";
-require_once "php/abonnement.php";
-require "php/getAbos.php";
-
+if ($deliveryType == "delivery") {
+    $hideAdress = "";
+    require "php/getAdress.php";
+}
 ?>
 
 
@@ -147,8 +151,7 @@ require "php/getAbos.php";
 						<p>
 							Zodra jouw betaling van <b>&euro; 50.00</b> op rekening nummer <b>BE59
 								7512 1050 8026</b> </br> ons bereikt krijg je een melding via
-							SMS.</br> Je ijs-abonemment start dan de daarop volgende week.</p>
-							<p>Vergeet niet om bij de betaling je <b>email</b> en de <b>identificatie van je abonnement</b> te vermelden!</p>
+							SMS.</br> Je ijs-abonemment start dan de daarop volgende week.
 						</p>
 					</div>
 				</div>
@@ -180,99 +183,56 @@ require "php/getAbos.php";
         ?>
 								</td>
 						</tr>
+						<tr>
+							<td align="left">Ik heb gekozen voor:</td>
+							<td align="left">
+								<?php
+        if ($deliveryType == "delivery") {
+            echo "Levering aan huis.";
+        } else {
+            echo "Afhaling.";
+        }
+        ?>
+								</br>
+								<?php
+        if ($sorbetOnly == "Y") {
+            echo "Enkel sorbet te krijgen.";
+        } else {
+            echo "Zowel roomijs als sorbet te krijgen.";
+        }
+        ?>
+								</td>
+						</tr>
+						<tr>
+							<td align="left">Opmerkingen :</td>
+							<td align="left"><?php echo $comments?></td>
+						</tr>
 					</table>
-					<table class="table">
-						<h5>Jouw abonnement(en)</h5>
-						<?php 
-						$abonnementen = $_SESSION["abonnementen"];
-						if (!empty($abonnementen) && count($abonnementen)>0) {
-						    foreach ($abonnementen as $abonnement) {
-						        $htmlAbo = '<tr>';
-						        $htmlAbo .= '<td>';
-						        $htmlAbo .= 'Identificatie';
-						        $htmlAbo .= '</td>';
-						        $htmlAbo .= '<td>';
-						        $htmlAbo .= $abonnement->get_id();
-						        $htmlAbo .= '</td>';
-						        $htmlAbo .= '</tr>';
-						        $htmlAbo .= '<tr>';
-						        $htmlAbo .= '<td colspan="2">';
-						        if ($abonnement->get_sorbetOnly() == "Y") {
-						            $htmlAbo .= 'Je hebt gekozen om enkel sorbet te krijgen';
-						        } else {
-						            $htmlAbo .= 'Je hebt gekozen om zowel roomijs als sorbet te krijgen';
-						        }
-						        $htmlAbo .= '</td>';
-						        $htmlAbo .= '</tr>';
-						        if ($abonnement->get_comments() != "") {
-						            $htmlAbo .= '<tr>';
-						            $htmlAbo .= '<td>';
-						            $htmlAbo .= 'Opmerkingen abonnement';
-						            $htmlAbo .= '</td>';
-						            $htmlAbo .= '<td>';
-						            $htmlAbo .= $abonnement->get_comments();
-						            $htmlAbo .= '</td>';
-						            $htmlAbo .= '</tr>';
-						        }
-						        if ($abonnement->get_deliveryType() == "delivery") {
-						            $htmlAbo .= '<tr>';
-						            $htmlAbo .= '<td colspan="2">';
-						            $htmlAbo .= 'Je hebt ervoor gekozen om te laten leveren op volgend adres';
-						            $htmlAbo .= '</td>';
-						            $htmlAbo .= '</tr>';
-
-						            $htmlAbo .= '<tr>';
-						            $htmlAbo .= '<td>Straat';
-						            $htmlAbo .= '</td>';
-						            $htmlAbo .= '<td>';
-						            $htmlAbo .= $abonnement->get_street();
-						            $htmlAbo .= '</td>';
-						            $htmlAbo .= '</tr>';
-						            
-    						        $htmlAbo .= '<tr>';
-    						        $htmlAbo .= '<td>Nummer';
-    						        $htmlAbo .= '</td>';
-    						        $htmlAbo .= '<td>';
-    						        $htmlAbo .= $abonnement->get_nbr();
-    						        $htmlAbo .= '</td>';
-    						        $htmlAbo .= '</tr>';
-    						        
-    						        $htmlAbo .= '<tr>';
-    						        $htmlAbo .= '<td>Postcode';
-    						        $htmlAbo .= '</td>';
-    						        $htmlAbo .= '<td>';
-    						        $htmlAbo .= $abonnement->get_zipCode();
-    						        $htmlAbo .= '</td>';
-    						        $htmlAbo .= '</tr>';
-    						        
-    						        $htmlAbo .= '<tr>';
-    						        $htmlAbo .= '<td>Gemeente';
-    						        $htmlAbo .= '</td>';
-    						        $htmlAbo .= '<td>';
-    						        $htmlAbo .= $abonnement->get_city();
-    						        $htmlAbo .= '</td>';
-    						        $htmlAbo .= '</tr>';
-    						        if ($abonnement->get_adresRemarks() != "") {
-    						        $htmlAbo .= '<tr>';
-    						        $htmlAbo .= '<td>Opmerkingen adres';
-    						        $htmlAbo .= '</td>';
-    						        $htmlAbo .= '<td>';
-    						        $htmlAbo .= $abonnement->get_adresRemarks();
-    						        $htmlAbo .= '</td>';
-    						        $htmlAbo .= '</tr>';
-    						        }
-						        } else {
-						            $htmlAbo .= '<tr>';
-						            $htmlAbo .= '<td colspan="2">';
-						            $htmlAbo .= 'Je hebt ervoor gekozen om te komen afhalen';
-						            $htmlAbo .= '</td>';
-						            $htmlAbo .= '</tr>';
-						        }
-						        echo $htmlAbo;
-						    }
-						}
-						?>
-					</table>
+					<div <?php echo $hideAdress; ?>>
+						<h5>Jouw adres:</h5>
+						<table class="table">
+							<tr>
+								<td align="left">Straat:</td>
+								<td align="left"><?php echo $street?></td>
+							</tr>
+							<tr>
+								<td align="left">Nummer:</td>
+								<td align="left"><?php echo $nbr?></td>
+							</tr>
+							<tr>
+								<td align="left">Postcode:</td>
+								<td align="left"><?php echo $zipCode?></td>
+							</tr>
+							<tr>
+								<td align="left">Gemeente:</td>
+								<td align="left"><?php echo $city?></td>
+							</tr>
+							<tr>
+								<td align="left">Opmerkingen:</td>
+								<td align="left"><?php echo $remarks ?></td>
+							</tr>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($customerid == "none") {
         $registerErr = "Login/Paswoord onbekend.";
     } else {
-        header("Location: overviewCustomer.php");
+        header("Location: editAbo.php");
     }
 }
 
@@ -84,15 +84,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </button>
 
                     <!-- lOGO TEXT HERE -->
-                    <a href="../index.html" class="navbar-brand-flavors">IJS BAR de Zuidpool - Bestellen</a>
+                    <a href="../index.html" class="navbar-brand">IJS BAR de Zuidpool - Bestellen</a>
                </div>
 
                <!-- MENU LINKS -->
                <div class="collapse navbar-collapse">
-                    <ul class="nav-flavors navbar-nav navbar-nav-first">
+                    <ul class="nav navbar-nav navbar-nav-first">
                          <li><a href="../index.html#home" class="smoothScroll">Home</a></li>
 <!--						 <li><a href="#home" class="smoothScroll">Top</a></li>-->
-                         <li><a href="../menu.html" class="smoothScroll nav-flavors" target="_blank">Ons menu</a></li>
+                         <li><a href="../menu.html" class="smoothScroll" target="_blank">Ons menu</a></li>
                     </ul>
 
                </div>
@@ -105,6 +105,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
      <section id="home" class="menu-slider" data-stellar-background-ratio="0.5">
           <div class="row">
+
+                    <div class="owl-carousel owl-theme">
+                         <div class="item menu-item-first">
+                              <div class="menu-caption">
+                                   <div class="container">
+                                        <div class="col-md-8 col-sm-12">
+                                             <h3>Ijsjes !!!</h3>
+                                             <h1>Lick our ijs!!!</h1>
+                                             <a href="../menu.html#menuijsjes" class="section-btn btn btn-default smoothScroll" target="_blank">Bekijk menu</a>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+
+                         <div class="item menu-item-second">
+                              <div class="menu-caption">
+                                   <div class="container">
+                                        <div class="col-md-8 col-sm-12">
+                                             <h3>Als je wat meer honger hebt</h3>
+                                             <h1>Wafels, broodjes, croques</h1>
+                                             <a href="../menu.html#menuknabbels" class="section-btn btn btn-default smoothScroll" target="_blank">Bekijk menu</a>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+
+                         <div class="item menu-item-third">
+                              <div class="menu-caption">
+                                   <div class="container">
+                                        <div class="col-md-8 col-sm-12">
+                                             <h3>Bij een hapje hoort ook een drankje</h3>
+                                             <h1>fris- en warme dranken, vers fruitsap, shots, cocktails, wijn en cava</h1>
+                                             <a href="../menu.html#menudrinks" class="section-btn btn btn-default smoothScroll" target="_blank">Bekijk menu</a>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
 
           </div>
      </section>

@@ -7,16 +7,16 @@ if (! isset($_SESSION)) {
 require 'php/testinput.php';
 
 // define variables and set to empty values
-$lastName = $firstName = $email = $password = $gsm = $communications = "";
-$lastNameErr = $firstNameErr = $emailErr = $passwordErr = $gsmErr = "";
+$name = $firstName = $email = $password = $gsm = $deliveryType = $sorbetOnly = $communications = $comments = "";
+$nameErr = $firstNameErr = $emailErr = $passwordErr = $gsmErr = $deliveryTypeErr = "";
 
 $nofaults = true;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (empty($_POST["lastName"])) {
-        $lastNameErr = "Naam is vereist";
+    if (empty($_POST["name"])) {
+        $nameErr = "Naam is vereist";
         $nofaults = false;
     } else {
-        $lastName = test_input($_POST["lastName"]);
+        $name = test_input($_POST["name"]);
     }
     if (empty($_POST["firstName"])) {
         $firstNameErr = "Voornaam is vereist";
@@ -56,11 +56,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $nofaults = false;
         }
     }
+    if (empty($_POST["deliveryType"])) {
+        $deliveryTypeErr = "Kies voor leveren of afhalen aub";
+        $nofaults = false;
+    } else {
+        $deliveryType = test_input($_POST["deliveryType"]);
+    }
+    if (! empty($_POST["sorbetOnly"])) {
+        $sorbetOnly = "Y";
+    } else {
+        $sorbetOnly = "N";
+    }
     if (! empty($_POST["communications"])) {
         $communications = "Y";
     } else {
         $communications = "N";
     }
+    if (! empty($_POST["comments"])) {
+        $comments = test_input($_POST["comments"]);
+    }
+
     // if errors in input --> nosave
     if ($nofaults) {
         // save account to db and forward to deliveryadress.php
@@ -68,8 +83,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         require 'php/saveLogin.php';
         $nofaults = $_SESSION["nofaults"];
         if ($nofaults) {
-            header('Location: createAbo.php');
-        } else { // register failed
+            if ($deliveryType == "delivery") {
+                header('Location: deliveryadress.php');
+            } else {
+                header('Location: thanks.php');
+            }
+        } else {
             $emailErr = $_SESSION["emailErr"];
         }
     }
@@ -127,17 +146,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				</button>
 
 				<!-- lOGO TEXT HERE -->
-				<a href="../index.html" class="navbar-brand-flavors">IJS BAR de Zuidpool -
+				<a href="../index.html" class="navbar-brand">IJS BAR de Zuidpool -
 					Bestellen</a>
 			</div>
 
 			<!-- MENU LINKS -->
 			<div class="collapse navbar-collapse">
-                    <ul class="nav-flavors navbar-nav navbar-nav-first">
-                         <li><a href="../index.html#home" class="smoothScroll">Home</a></li>
-<!--						 <li><a href="#home" class="smoothScroll">Top</a></li>-->
-                         <li><a href="../menu.html" class="smoothScroll nav-flavors" target="_blank">Ons menu</a></li>
-                    </ul>
+				<ul class="nav navbar-nav navbar-nav-first">
+					<li><a href="../index.html#home" class="smoothScroll">Home</a></li>
+					<!--						 <li><a href="#home" class="smoothScroll">Top</a></li>-->
+					<li><a href="../menu.html" class="smoothScroll" target="_blank">Ons
+							menu</a></li>
+				</ul>
 
 			</div>
 
@@ -151,6 +171,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		data-stellar-background-ratio="0.5">
 		<div class="row">
 
+			<div class="owl-carousel owl-theme">
+				<div class="item menu-item-first">
+					<div class="menu-caption">
+						<div class="container">
+							<div class="col-md-8 col-sm-12">
+								<h3>Ijsjes !!!</h3>
+								<h1>Lick our ijs!!!</h1>
+								<a href="../menu.html#menuijsjes"
+									class="section-btn btn btn-default smoothScroll"
+									target="_blank">Bekijk menu</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="item menu-item-second">
+					<div class="menu-caption">
+						<div class="container">
+							<div class="col-md-8 col-sm-12">
+								<h3>Als je wat meer honger hebt</h3>
+								<h1>Wafels, broodjes, croques</h1>
+								<a href="../menu.html#menuknabbels"
+									class="section-btn btn btn-default smoothScroll"
+									target="_blank">Bekijk menu</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="item menu-item-third">
+					<div class="menu-caption">
+						<div class="container">
+							<div class="col-md-8 col-sm-12">
+								<h3>Bij een hapje hoort ook een drankje</h3>
+								<h1>fris- en warme dranken, vers fruitsap, shots, cocktails,
+									wijn en cava</h1>
+								<a href="../menu.html#menudrinks"
+									class="section-btn btn btn-default smoothScroll"
+									target="_blank">Bekijk menu</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
 		</div>
 	</section>
@@ -167,6 +231,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						</p>
 						<p>Vergeet niet om de juiste informatie door te geven, dan kunnen wij jouw ijsplezier garanderen.
 						</p>
+						<p>
+							Je abonnement start de week volgend op je betaling van <b>&euro;
+								50.00</b> op rekening nummer <b>BE59 7512 1050 8026</b></br>
+							Vermeld bij de overschrijving het hieronder gebruikte emailadres
+							zodat wij de betaling aan jouw account kunnen linken!<br> Je
+							krijgt een sms-bevestiging van de start van je abonnement en een
+							sms-bericht als we onderweg zijn naar jou.
+						</p>
 					</div>
 					<div class="has-error" align="left">* : Verplicht veld</div>
 				</div>
@@ -179,8 +251,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							method="post">
 							<tr>
 								<td align="left">Naam:</td>
-								<td align="left"><input type="text" name="lastName"
-									value="<?php echo $lastName; ?>"> <span class="has-error">* <?php echo $lastNameErr;?></span></td>
+								<td align="left"><input type="text" name="name"
+									value="<?php echo $name; ?>"> <span class="has-error">* <?php echo $nameErr;?></span></td>
 							</tr>
 							<tr>
 								<td align="left">Voornaam:</td>
@@ -210,6 +282,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 								<td align="left">Herhaal Paswoord:</td>
 								<td align="left"><input type="password" name="password2"> <span
 									class="has-error">* <?php echo $password2Err;?></span></td>
+							</tr>
+							<tr>
+								<td align="left">Ik wens:</td>
+								<td align="left" valign="top"><input type="radio"
+									name="deliveryType"
+									<?php if (isset($deliveryType) && $deliveryType =="takeout") echo "checked";?>
+									value="takeout"> Af te halen</br> <input type="radio"
+									name="deliveryType"
+									<?php if (isset($deliveryType) && $deliveryType =="delivery") echo "checked";?>
+									value="delivery"> Te laten leveren</br> <span class="has-error">* <?php echo $deliveryTypeErr;?></td>
+							</tr>
+							<tr>
+								<td align="left">Ik ben:</td>
+								<td align="left"><input type="checkbox" name="sorbetOnly"
+									value="Y"
+									<?php if (isset($sorbetOnly) && $sorbetOnly =="Y") echo "checked=\"checked\"";?>>
+									Lactose intolerant/vegan</br></td>
+							</tr>
+							<tr>
+								<td align="left">Opmerkingen: max 512 karakters</td>
+								<td align="left"><textarea name="comments" maxlength="512"
+										placeholder="Jouw Opmerkingen..."><?php echo $comments; ?></textarea></td>
 							</tr>
 						
 						

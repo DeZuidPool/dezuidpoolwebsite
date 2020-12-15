@@ -114,7 +114,7 @@ require 'php/getCustomerAbos.php';
                     </button>
 
                     <!-- lOGO TEXT HERE -->
-                    <a href="index.html" class="navbar-brand">IJS BAR de Zuidpool - Beheer Betalingen</a>
+                    <a href="index.html" class="navbar-brand">IJS BAR de Zuidpool - Beheer Abonnementen</a>
                </div>
 
                <!-- MENU LINKS -->

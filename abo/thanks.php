@@ -6,16 +6,12 @@ if (! isset($_SESSION)) {
 
 $customerid = $_SESSION["customerid"];
 
-// LOGIN, DELIVERYTYPE, SORBETONLY, COMMUNICATIONS, COMMENTS
-$name = $firstName = $gsm = $email = $deliveryType = $sorbetOnly = $communications = $comments = "";
-$street = $nbr = $zipCode = $city = $remarks = "";
-$hideAdress = "style=\"display: none;\"";
+$name = $firstName = $gsm = $email = $communications = "";
 require "php/dbcredentials.php";
 require "php/getCustomer.php";
-if ($deliveryType == "delivery") {
-    $hideAdress = "";
-    require "php/getAdress.php";
-}
+require_once "php/abonnement.php";
+require "php/getAbos.php";
+
 ?>
 
 
@@ -69,16 +65,17 @@ if ($deliveryType == "delivery") {
 				</button>
 
 				<!-- lOGO TEXT HERE -->
-				<a href="../index.html" class="navbar-brand">IJS BAR de Zuidpool -
+				<a href="../index.html" class="navbar-brand-flavors">IJS BAR de Zuidpool -
 					Bestellen</a>
 			</div>
 
 			<!-- MENU LINKS -->
 			<div class="collapse navbar-collapse">
-				<ul class="nav navbar-nav navbar-nav-first">
-					<li><a href="../index.html#home" class="smoothScroll">Home</a></li>
-					<li><a href="#home" class="smoothScroll">Top</a></li>
-				</ul>
+                    <ul class="nav-flavors navbar-nav navbar-nav-first">
+                         <li><a href="../index.html#home" class="smoothScroll">Home</a></li>
+<!--						 <li><a href="#home" class="smoothScroll">Top</a></li>-->
+                         <li><a href="../menu.html" class="smoothScroll nav-flavors" target="_blank">Ons menu</a></li>
+                    </ul>
 
 			</div>
 
@@ -91,51 +88,6 @@ if ($deliveryType == "delivery") {
 	<section id="home" class="menu-slider"
 		data-stellar-background-ratio="0.5">
 		<div class="row">
-
-			<div class="owl-carousel owl-theme">
-				<div class="item menu-item-first">
-					<div class="menu-caption">
-						<div class="container">
-							<div class="col-md-8 col-sm-12">
-								<h3>Ijsjes !!!</h3>
-								<h1>Lick our ijs!!!</h1>
-								<a href="../menu.html#menuijsjes"
-									class="section-btn btn btn-default smoothScroll"
-									target="_blank">Bekijk menu</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="item menu-item-second">
-					<div class="menu-caption">
-						<div class="container">
-							<div class="col-md-8 col-sm-12">
-								<h3>Als je wat meer honger hebt</h3>
-								<h1>Wafels, broodjes, croques</h1>
-								<a href="../menu.html#menuknabbels"
-									class="section-btn btn btn-default smoothScroll"
-									target="_blank">Bekijk menu</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="item menu-item-third">
-					<div class="menu-caption">
-						<div class="container">
-							<div class="col-md-8 col-sm-12">
-								<h3>Bij een hapje hoort ook een drankje</h3>
-								<h1>fris- en warme dranken, vers fruitsap, shots, cocktails,
-									wijn en cava</h1>
-								<a href="../menu.html#menudrinks"
-									class="section-btn btn btn-default smoothScroll"
-									target="_blank">Bekijk menu</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
 
 		</div>
 	</section>
@@ -151,7 +103,8 @@ if ($deliveryType == "delivery") {
 						<p>
 							Zodra jouw betaling van <b>&euro; 50.00</b> op rekening nummer <b>BE59
 								7512 1050 8026</b> </br> ons bereikt krijg je een melding via
-							SMS.</br> Je ijs-abonemment start dan de daarop volgende week.
+							SMS.</br> Je ijs-abonemment start dan de daarop volgende week.</p>
+							<p>Vergeet niet om bij de betaling je <b>email</b> en de <b>identificatie van je abonnement</b> te vermelden!</p>
 						</p>
 					</div>
 				</div>
@@ -183,56 +136,99 @@ if ($deliveryType == "delivery") {
         ?>
 								</td>
 						</tr>
-						<tr>
-							<td align="left">Ik heb gekozen voor:</td>
-							<td align="left">
-								<?php
-        if ($deliveryType == "delivery") {
-            echo "Levering aan huis.";
-        } else {
-            echo "Afhaling.";
-        }
-        ?>
-								</br>
-								<?php
-        if ($sorbetOnly == "Y") {
-            echo "Enkel sorbet te krijgen.";
-        } else {
-            echo "Zowel roomijs als sorbet te krijgen.";
-        }
-        ?>
-								</td>
-						</tr>
-						<tr>
-							<td align="left">Opmerkingen :</td>
-							<td align="left"><?php echo $comments?></td>
-						</tr>
 					</table>
-					<div <?php echo $hideAdress; ?>>
-						<h5>Jouw adres:</h5>
-						<table class="table">
-							<tr>
-								<td align="left">Straat:</td>
-								<td align="left"><?php echo $street?></td>
-							</tr>
-							<tr>
-								<td align="left">Nummer:</td>
-								<td align="left"><?php echo $nbr?></td>
-							</tr>
-							<tr>
-								<td align="left">Postcode:</td>
-								<td align="left"><?php echo $zipCode?></td>
-							</tr>
-							<tr>
-								<td align="left">Gemeente:</td>
-								<td align="left"><?php echo $city?></td>
-							</tr>
-							<tr>
-								<td align="left">Opmerkingen:</td>
-								<td align="left"><?php echo $remarks ?></td>
-							</tr>
-						</table>
-					</div>
+					<table class="table">
+						<h5>Jouw abonnement(en)</h5>
+						<?php 
+						$abonnementen = $_SESSION["abonnementen"];
+						if (!empty($abonnementen) && count($abonnementen)>0) {
+						    foreach ($abonnementen as $abonnement) {
+						        $htmlAbo = '<tr>';
+						        $htmlAbo .= '<td>';
+						        $htmlAbo .= 'Identificatie';
+						        $htmlAbo .= '</td>';
+						        $htmlAbo .= '<td>';
+						        $htmlAbo .= $abonnement->get_id();
+						        $htmlAbo .= '</td>';
+						        $htmlAbo .= '</tr>';
+						        $htmlAbo .= '<tr>';
+						        $htmlAbo .= '<td colspan="2">';
+						        if ($abonnement->get_sorbetOnly() == "Y") {
+						            $htmlAbo .= 'Je hebt gekozen om enkel sorbet te krijgen';
+						        } else {
+						            $htmlAbo .= 'Je hebt gekozen om zowel roomijs als sorbet te krijgen';
+						        }
+						        $htmlAbo .= '</td>';
+						        $htmlAbo .= '</tr>';
+						        if ($abonnement->get_comments() != "") {
+						            $htmlAbo .= '<tr>';
+						            $htmlAbo .= '<td>';
+						            $htmlAbo .= 'Opmerkingen abonnement';
+						            $htmlAbo .= '</td>';
+						            $htmlAbo .= '<td>';
+						            $htmlAbo .= $abonnement->get_comments();
+						            $htmlAbo .= '</td>';
+						            $htmlAbo .= '</tr>';
+						        }
+						        if ($abonnement->get_deliveryType() == "delivery") {
+						            $htmlAbo .= '<tr>';
+						            $htmlAbo .= '<td colspan="2">';
+						            $htmlAbo .= 'Je hebt ervoor gekozen om te laten leveren op volgend adres';
+						            $htmlAbo .= '</td>';
+						            $htmlAbo .= '</tr>';
+
+						            $htmlAbo .= '<tr>';
+						            $htmlAbo .= '<td>Straat';
+						            $htmlAbo .= '</td>';
+						            $htmlAbo .= '<td>';
+						            $htmlAbo .= $abonnement->get_street();
+						            $htmlAbo .= '</td>';
+						            $htmlAbo .= '</tr>';
+						            
+    						        $htmlAbo .= '<tr>';
+    						        $htmlAbo .= '<td>Nummer';
+    						        $htmlAbo .= '</td>';
+    						        $htmlAbo .= '<td>';
+    						        $htmlAbo .= $abonnement->get_nbr();
+    						        $htmlAbo .= '</td>';
+    						        $htmlAbo .= '</tr>';
+    						        
+    						        $htmlAbo .= '<tr>';
+    						        $htmlAbo .= '<td>Postcode';
+    						        $htmlAbo .= '</td>';
+    						        $htmlAbo .= '<td>';
+    						        $htmlAbo .= $abonnement->get_zipCode();
+    						        $htmlAbo .= '</td>';
+    						        $htmlAbo .= '</tr>';
+    						        
+    						        $htmlAbo .= '<tr>';
+    						        $htmlAbo .= '<td>Gemeente';
+    						        $htmlAbo .= '</td>';
+    						        $htmlAbo .= '<td>';
+    						        $htmlAbo .= $abonnement->get_city();
+    						        $htmlAbo .= '</td>';
+    						        $htmlAbo .= '</tr>';
+    						        if ($abonnement->get_adresRemarks() != "") {
+    						        $htmlAbo .= '<tr>';
+    						        $htmlAbo .= '<td>Opmerkingen adres';
+    						        $htmlAbo .= '</td>';
+    						        $htmlAbo .= '<td>';
+    						        $htmlAbo .= $abonnement->get_adresRemarks();
+    						        $htmlAbo .= '</td>';
+    						        $htmlAbo .= '</tr>';
+    						        }
+						        } else {
+						            $htmlAbo .= '<tr>';
+						            $htmlAbo .= '<td colspan="2">';
+						            $htmlAbo .= 'Je hebt ervoor gekozen om te komen afhalen';
+						            $htmlAbo .= '</td>';
+						            $htmlAbo .= '</tr>';
+						        }
+						        echo $htmlAbo;
+						    }
+						}
+						?>
+					</table>
 				</div>
 			</div>
 		</div>
