@@ -6,7 +6,7 @@ if (! isset($_SESSION)) {
 require 'php/testinput.php';
 
 // define variables and set to empty values
-$street = $nbr = $zipCode = $city = $adresremarks = $customerid = $deliveryType = $sorbetOnly = $comments = "";
+$street = $nbr = $zipCode = $city = $adresremarks = $customerid = $deliveryType = $sorbetOnly = $comments = $potspw = "";
 $streetErr = $nbrErr = $zipCodeErr = $cityErr = $deliveryTypeErr = "";
 $customerid = $_SESSION["customerid"];
 $name = $_SESSION["name"];
@@ -36,6 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $sorbetOnly = "N";
     }
+    $potspw = test_input($_POST["potspw"]);
     if (! empty($_POST["comments"])) {
         $comments = test_input($_POST["comments"]);
     }
@@ -133,17 +134,18 @@ $_SESSION["customerid"] = $customerid;
 				</button>
 
 				<!-- lOGO TEXT HERE -->
-				<a href="../index.html" class="navbar-brand-flavors">IJS BAR de Zuidpool -
+				<a href="../index.html" class="navbar-brand">IJS BAR de Zuidpool -
 					Bestellen</a>
 			</div>
 
 			<!-- MENU LINKS -->
 			<div class="collapse navbar-collapse">
-                    <ul class="nav-flavors navbar-nav navbar-nav-first">
-                         <li><a href="../index.html#home" class="smoothScroll">Home</a></li>
-<!--						 <li><a href="#home" class="smoothScroll">Top</a></li>-->
-                         <li><a href="../menu.html" class="smoothScroll nav-flavors" target="_blank">Ons menu</a></li>
-                    </ul>
+				<ul class="nav navbar-nav navbar-nav-first">
+					<li><a href="../index.html#home" class="smoothScroll">Home</a></li>
+					<!--						 <li><a href="#home" class="smoothScroll">Top</a></li>-->
+					<li><a href="../menu.html" class="smoothScroll" target="_blank">Ons
+							menu</a></li>
+				</ul>
 
 			</div>
 
@@ -157,6 +159,50 @@ $_SESSION["customerid"] = $customerid;
 		data-stellar-background-ratio="0.5">
 		<div class="row">
 
+			<div class="owl-carousel owl-theme">
+				<div class="item menu-item-first">
+					<div class="menu-caption">
+						<div class="container">
+							<div class="col-md-8 col-sm-12">
+								<h3>Ijsjes !!!</h3>
+								<h1>Lick our ijs!!!</h1>
+								<a href="../menu.html#menuijsjes"
+									class="section-btn btn btn-default smoothScroll"
+									target="_blank">Bekijk menu</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="item menu-item-second">
+					<div class="menu-caption">
+						<div class="container">
+							<div class="col-md-8 col-sm-12">
+								<h3>Als je wat meer honger hebt</h3>
+								<h1>Wafels, broodjes, croques</h1>
+								<a href="../menu.html#menuknabbels"
+									class="section-btn btn btn-default smoothScroll"
+									target="_blank">Bekijk menu</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="item menu-item-third">
+					<div class="menu-caption">
+						<div class="container">
+							<div class="col-md-8 col-sm-12">
+								<h3>Bij een hapje hoort ook een drankje</h3>
+								<h1>fris- en warme dranken, vers fruitsap, shots, cocktails,
+									wijn en cava</h1>
+								<a href="../menu.html#menudrinks"
+									class="section-btn btn btn-default smoothScroll"
+									target="_blank">Bekijk menu</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
 		</div>
 	</section>
@@ -215,6 +261,14 @@ $_SESSION["customerid"] = $customerid;
 						</tr>
 						<tr>
 							<td align="left">Ik wens:</td>
+							<td align="left" valign="top">
+							<select name="potspw">
+								<option value="2" <?php if (isset($potspw) && $potspw =="2") echo 'selected="selected"';?>>2</option>
+								<option value="1" <?php if (isset($potspw) && $potspw =="1") echo 'selected="selected"';?>>1</option>
+							</select> pot(ten) per week
+						</tr>
+						<tr>
+							<td></td>
 							<td align="left" valign="top"><input type="radio"
 								name="deliveryType"
 								<?php if (isset($deliveryType) && $deliveryType =="takeout") echo "checked";?>

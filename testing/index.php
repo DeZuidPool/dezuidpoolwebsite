@@ -28,7 +28,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     require "php/loginCustomer.php";
     $customerid=$_SESSION["customerid"];
     if ($customerid == "none") {
-        $registerErr = "Login/Paswoord onbekend.";
+        if ($loginErr =="" && $pwdErr == "") {
+            $registerErr = "Login/Paswoord onbekend.";
+        }
     } else {
         header("Location: overviewCustomer.php");
     }
@@ -190,10 +192,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     						</tr>
 						</form>
 						<tr>
-							<td align="left"><span class="has-error"><?php echo $registerErr;?> <a href="register.php#bestellen">Nog geen account? Registeer hier.</a></td>
+							<td align="left"><span class="has-error"><?php echo $registerErr;?></span>Nog geen account?  <a href="register.php#bestellen"><span style = "text-decoration:underline;">Registeer hier.</span></a></td>
 						</tr>
 						<tr>
-							<td align="left"><span class="has-error"><?php echo $registerErr;?> <a href="../ijsabo.html">Wil je meer weten over het ijs-abonnement? Kijk hier.</a></td>
+							<td align="left">Wil je meer weten over het ijs-abonnement? <a href="../ijsabo.html"><span style = "text-decoration:underline;">Kijk hier.</span></a></td>
 						</tr>
 					</table>
 					</div>

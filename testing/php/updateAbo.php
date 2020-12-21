@@ -12,8 +12,8 @@ $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$stmt = $conn->prepare("UPDATE ABONNEMENT SET NAME = ?, GSM = ?, DELIVERYTYPE = ?, SORBETONLY = ?, COMMENTS = ?, STREET = ?, NBR = ?, ZIPCODE = ?, CITY = ?, ADRESREMARKS = ? WHERE CUSTOMERID = ? AND ID = ?");
-$stmt->bind_param("ssssssssssii",$name,$gsm,$deliveryType,$sorbetOnly, $comments, $street,$nbr,$zipCode,$city,$adresremarks,$customerid,$id);
+$stmt = $conn->prepare("UPDATE ABONNEMENT SET NAME = ?, GSM = ?, DELIVERYTYPE = ?, SORBETONLY = ?, POTSPW = ?, COMMENTS = ?, STREET = ?, NBR = ?, ZIPCODE = ?, CITY = ?, ADRESREMARKS = ? WHERE CUSTOMERID = ? AND ID = ?");
+$stmt->bind_param("sssssssssssii",$name,$gsm,$deliveryType,$sorbetOnly, $potspw, $comments, $street,$nbr,$zipCode,$city,$adresremarks,$customerid,$id);
 
 if (!$stmt->execute()) {
     echo "Error: " . $stmt->error;

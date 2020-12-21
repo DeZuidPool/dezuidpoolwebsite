@@ -12,7 +12,7 @@ $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$SQL = "UPDATE ABONNEMENT SET PAYED = ?, FIRSTDELDATE = ?, LASTDELDATE = ?  WHERE ID = ?";
+$SQL = "UPDATE ABONNEMENT SET PAYED = ?, FIRSTDELDATE = ?  WHERE ID = ?";
 $error = "";
 $nofaults = true;
 foreach ($updatedAbos as $abo) {
@@ -22,11 +22,7 @@ foreach ($updatedAbos as $abo) {
         if ($abo->get_firstDelDate() != null) {
             $startDate = date("Y-m-d",strtotime($abo->get_firstDelDate()));
         }
-        $endDate = null;
-        if ($abo->get_lastDelDate() != null) {
-            $endDate = date("Y-m-d",strtotime($abo->get_lastDelDate()));
-        }
-        $stmt->bind_param("sssi", $abo->get_payed(), $startDate,$endDate,$abo->get_id());
+        $stmt->bind_param("ssi", $abo->get_payed(), $startDate,$abo->get_id());
         
         if (! $stmt->execute()) {
             $nofaults = false;

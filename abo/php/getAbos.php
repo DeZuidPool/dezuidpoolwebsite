@@ -12,7 +12,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$stmt = $conn->prepare("SELECT ID, NAME,GSM, DELIVERYTYPE, SORBETONLY, PAYED, COMMENTS, STREET, NBR, ZIPCODE, CITY, ADRESREMARKS FROM ABONNEMENT where CUSTOMERID = ?");
+$stmt = $conn->prepare("SELECT ID, NAME,GSM, DELIVERYTYPE, SORBETONLY, POTSPW, PAYED, COMMENTS, STREET, NBR, ZIPCODE, CITY, ADRESREMARKS FROM ABONNEMENT where CUSTOMERID = ?");
 $stmt->bind_param("i",$customerid);
 
 $stmt->execute();
@@ -35,6 +35,7 @@ if ($result->num_rows > 0) {
         $id = $row["ID"];
         $name = $row["NAME"];
         $gsm = $row["GSM"];
+        $potspw = $row["POTSPW"];
         $abonnement = new Abonnement();
         $abonnement->set_id($id);
         $abonnement->set_adresRemarks($adresRemarks);
@@ -48,6 +49,7 @@ if ($result->num_rows > 0) {
         $abonnement->set_name($name);
         $abonnement->set_gsm($gsm);
         $abonnement->set_payed($payed);
+        $abonnement->set_potspw($potspw);
         $abos[] = $abonnement;
     }
     $_SESSION["customerid"]= $customerid;

@@ -284,10 +284,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     						Actief? 
     					</td>
     					<td align="left">
-    						Van 
+    						per week 
     					</td>
     					<td align="left">
-    						Tot
+    						Van
     					</td>
     					<td align="left">
     						Adres
@@ -316,13 +316,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						        $htmlAbo .= $abonnement->get_payed();
 						        $htmlAbo .= '</td>';
 						        $htmlAbo .= '<td align="left">';
-						        if ($abonnement->get_firstDelDate() != null) {
-						            $htmlAbo .= $abonnement->get_firstDelDate();
+						        if ($abonnement->get_potspw() == "1") {
+						            $htmlAbo .= "1 pot per week";
+						        } else {
+						            $htmlAbo .= "2 potten per week";
 						        }
 						        $htmlAbo .= '</td>';
 						        $htmlAbo .= '<td align="left">';
-						        if ($abonnement->get_lastDelDate() != null) {
-						            $htmlAbo .= $abonnement->get_lastDelDate();
+						        if ($abonnement->get_firstDelDate() != null) {
+						            $htmlAbo .= $abonnement->get_firstDelDate();
 						        }
 						        $htmlAbo .= '</td>';
 						        if ($abonnement->get_deliveryType() == "delivery") {

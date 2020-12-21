@@ -6,7 +6,7 @@ if (! isset($_SESSION)) {
 require 'php/testinput.php';
 
 // define variables and set to empty values
-$street = $nbr = $zipCode = $city = $adresremarks = $customerid = $deliveryType = $sorbetOnly = $comments = "";
+$street = $nbr = $zipCode = $city = $adresremarks = $customerid = $deliveryType = $sorbetOnly = $potspw = $comments = "";
 $streetErr = $nbrErr = $zipCodeErr = $cityErr = $deliveryTypeErr = "";
 $customerid = $_SESSION["customerid"];
 $name = $_SESSION["name"];
@@ -36,6 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $sorbetOnly = "N";
     }
+    $potspw = test_input($_POST["potspw"]);
     if (! empty($_POST["comments"])) {
         $comments = test_input($_POST["comments"]);
     }
@@ -258,6 +259,14 @@ $_SESSION["customerid"] = $customerid;
 						</tr>
 						<tr>
 							<td align="left">Ik wens:</td>
+							<td align="left" valign="top">
+							<select name="potspw">
+								<option value="2" <?php if (isset($potspw) && $potspw =="2") echo 'selected="selected"';?>>2</option>
+								<option value="1" <?php if (isset($potspw) && $potspw =="1") echo 'selected="selected"';?>>1</option>
+							</select> pot(ten) per week
+						</tr>
+						<tr>
+							<td></td>
 							<td align="left" valign="top"><input type="radio"
 								name="deliveryType"
 								<?php if (isset($deliveryType) && $deliveryType =="takeout") echo "checked";?>

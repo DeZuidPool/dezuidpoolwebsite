@@ -24,20 +24,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $updatedAbo = new Abonnement();
                         if (!empty($_POST["payed".$i])) {
                             $payed = "Y";
-                            if (!empty($_POST["abobegin".$i])
-                                && !empty($_POST["aboend".$i]) ) {
+                            if (!empty($_POST["abobegin".$i])) {
                                     $abobegin = $_POST["abobegin".$i];
-                                    $aboend = $_POST["aboend".$i];
                                     $updatedAbo->set_firstDelDate($abobegin);
-                                    $updatedAbo->set_lastDelDate($aboend);
                                 } else {
                                     $updatedAbo->set_firstDelDate(null);
-                                    $updatedAbo->set_lastDelDate(null);
                                 }
                         } else {
                             $payed = "N";
                             $updatedAbo->set_firstDelDate(null);
-                            $updatedAbo->set_lastDelDate(null);
                         }
                         $id = $_POST["id".$i];
                         $updatedAbo->set_id($id);
@@ -114,7 +109,7 @@ require 'php/getCustomerAbos.php';
                     </button>
 
                     <!-- lOGO TEXT HERE -->
-                    <a href="index.html" class="navbar-brand">IJS BAR de Zuidpool - Beheer Abonnementen</a>
+                    <a href="index.html" class="navbar-brand">IJS BAR de Zuidpool - Beheer Betalingen</a>
                </div>
 
                <!-- MENU LINKS -->
@@ -157,10 +152,10 @@ require 'php/getCustomerAbos.php';
     								Betaald? 
     							</td>
     							<td align="left">
-    								Begin
+    								pot per week
     							</td>
     							<td align="left">
-    								Einde
+    								Begin
     							</td>
     						</tr>
     						<!--  php loop over flavors -->
@@ -188,10 +183,10 @@ require 'php/getCustomerAbos.php';
     						          $htmlFlavor .= '>';
     						          $htmlFlavor .= '</td>';
     						          $htmlFlavor .= '<td>';
-    						          $htmlFlavor .= '<input type="date" value="'.$customerAbo["ABOBEGIN"].'" name="abobegin'.$counter.'">';
+    						          $htmlFlavor .= $customerAbo["POTSPW"];
     						          $htmlFlavor .= '</td>';
     						          $htmlFlavor .= '<td>';
-    						          $htmlFlavor .= '<input type="date" value="'.$customerAbo["ABOEND"].'" name="aboend'.$counter.'">';
+    						          $htmlFlavor .= '<input type="date" value="'.$customerAbo["ABOBEGIN"].'" name="abobegin'.$counter.'">';
     						          $htmlFlavor .= '</td>';
     						          $htmlFlavor .= '</tr>';
     						          echo $htmlFlavor;

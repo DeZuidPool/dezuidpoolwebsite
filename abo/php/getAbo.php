@@ -12,7 +12,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$stmt = $conn->prepare("SELECT ID, NAME,GSM, DELIVERYTYPE, SORBETONLY, PAYED, COMMENTS, STREET, NBR, ZIPCODE, CITY, ADRESREMARKS FROM ABONNEMENT where CUSTOMERID = ? AND ID = ?");
+$stmt = $conn->prepare("SELECT ID, NAME,GSM, DELIVERYTYPE, SORBETONLY, POTSPW, PAYED, COMMENTS, STREET, NBR, ZIPCODE, CITY, ADRESREMARKS FROM ABONNEMENT where CUSTOMERID = ? AND ID = ?");
 $stmt->bind_param("ii",$customerid, $id);
 
 $stmt->execute();
@@ -32,6 +32,7 @@ if ($result->num_rows > 0 && $result->num_rows == 1) {
         $id = $row["ID"];
         $name = $row["NAME"];
         $gsm = $row["GSM"];
+        $potspw = $row["POTSPW"];
     }
 } else {
     echo "bad results for ".$customerid."/".$id." results : ".$result->num_rows;

@@ -3,12 +3,12 @@ Class Abonnement {
     
     private $id;
     private $firstDelDate;
-    private $lastDelDate;
     private $payed;
     private $name;
     private $gsm;
     private $deliveryType;
     private $sorbetOnly;
+    private $potspw;
     private $communications;
     private $comments;
     private $street;
@@ -31,14 +31,6 @@ Class Abonnement {
     
     public function get_firstDelDate() {
         return $this->firstDelDate;
-    }
-    
-    public function set_lastDelDate($lastDelDate) {
-        $this->lastDelDate = $lastDelDate;
-    }
-    
-    public function get_lastDelDate() {
-        return $this->lastDelDate;
     }
     
     public function get_payed() {
@@ -131,6 +123,14 @@ Class Abonnement {
     
     public function set_gsm($gsm) {
         $this->gsm = $gsm;
+    }
+    
+    public function get_potspw() {
+        return $this->potspw;
+    }
+    
+    public function set_potspw($potspw) {
+        $this->potspw = $potspw;
     }
 }
 ?>

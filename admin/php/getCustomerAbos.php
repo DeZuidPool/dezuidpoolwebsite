@@ -11,7 +11,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$stmt = $conn->prepare("select c.login as LOGIN, a.id as ABOID, a.name as ABONAME, a.payed as ABOPAYED, a.firstdeldate as ABOBEGIN,  a.lastdeldate as ABOEND from ABONNEMENT a, CUSTOMER c where a.CUSTOMERID = c.id");
+$stmt = $conn->prepare("select c.login as LOGIN, a.id as ABOID, a.name as ABONAME, a.payed as ABOPAYED, a.firstdeldate as ABOBEGIN, a.POTSPW as POTSPW from ABONNEMENT a, CUSTOMER c where a.CUSTOMERID = c.id");
 
 $stmt->execute();
 $result = $stmt->get_result();

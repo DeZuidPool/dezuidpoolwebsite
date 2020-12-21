@@ -6,7 +6,7 @@ if (! isset($_SESSION)) {
 require 'php/testinput.php';
 
 // define variables and set to empty values
-$street = $nbr = $zipCode = $city = $adresRemarks = $customerid = $deliveryType = $sorbetOnly = $comments = $id = $name = $gsm = "";
+$street = $nbr = $zipCode = $city = $adresRemarks = $customerid = $deliveryType = $sorbetOnly = $potspw = $comments = $id = $name = $gsm = "";
 $streetErr = $nbrErr = $zipCodeErr = $cityErr = $deliveryTypeErr = "";
 require 'php/dbcredentials.php';
 require 'php/getAbo.php';
@@ -38,6 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $sorbetOnly = "N";
     }
+    $potspw = test_input($_POST["potspw"]);
     if (! empty($_POST["comments"])) {
         $comments = test_input($_POST["comments"]);
     }
@@ -77,6 +78,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["customerid"] = $customerid;
         $_SESSION["id"] = $id;
         require 'php/updateAbo.php';
+        
+        header("Location: overviewCustomer.php");
     }
 }
 $_SESSION["customerid"] = $customerid;
@@ -258,6 +261,14 @@ $_SESSION["customerid"] = $customerid;
 						</tr>
 						<tr>
 							<td align="left">Ik wens:</td>
+							<td align="left" valign="top">
+							<select name="potspw">
+								<option value="2" <?php if (isset($potspw) && $potspw =="2") echo 'selected="selected"';?>>2</option>
+								<option value="1" <?php if (isset($potspw) && $potspw =="1") echo 'selected="selected"';?>>1</option>
+							</select> pot(ten) per week
+						</tr>
+						<tr>
+							<td></td>
 							<td align="left" valign="top"><input type="radio"
 								name="deliveryType"
 								<?php if (isset($deliveryType) && $deliveryType =="takeout") echo "checked";?>

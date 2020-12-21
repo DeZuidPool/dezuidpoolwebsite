@@ -141,17 +141,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				</button>
 
 				<!-- lOGO TEXT HERE -->
-				<a href="../index.html" class="navbar-brand-flavors">IJS BAR de Zuidpool -
+				<a href="../index.html" class="navbar-brand">IJS BAR de Zuidpool -
 					Bestellen</a>
 			</div>
 
 			<!-- MENU LINKS -->
 			<div class="collapse navbar-collapse">
-                    <ul class="nav-flavors navbar-nav navbar-nav-first">
-                         <li><a href="../index.html#home" class="smoothScroll">Home</a></li>
-						 <li><a href="#home" class="smoothScroll">Top</a></li>
-                         <li><a href="../menu.html" class="smoothScroll nav-flavors" target="_blank">Ons menu</a></li>
-                    </ul>
+				<ul class="nav navbar-nav navbar-nav-first">
+					<li><a href="../index.html#home" class="smoothScroll">Home</a></li>
+					<li><a href="#home" class="smoothScroll">Top</a></li>
+				</ul>
 
 			</div>
 
@@ -165,6 +164,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		data-stellar-background-ratio="0.5">
 		<div class="row">
 
+			<div class="owl-carousel owl-theme">
+				<div class="item menu-item-first">
+					<div class="menu-caption">
+						<div class="container">
+							<div class="col-md-8 col-sm-12">
+								<h3>Ijsjes !!!</h3>
+								<h1>Lick our ijs!!!</h1>
+								<a href="../menu.html#menuijsjes"
+									class="section-btn btn btn-default smoothScroll"
+									target="_blank">Bekijk menu</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="item menu-item-second">
+					<div class="menu-caption">
+						<div class="container">
+							<div class="col-md-8 col-sm-12">
+								<h3>Als je wat meer honger hebt</h3>
+								<h1>Wafels, broodjes, croques</h1>
+								<a href="../menu.html#menuknabbels"
+									class="section-btn btn btn-default smoothScroll"
+									target="_blank">Bekijk menu</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="item menu-item-third">
+					<div class="menu-caption">
+						<div class="container">
+							<div class="col-md-8 col-sm-12">
+								<h3>Bij een hapje hoort ook een drankje</h3>
+								<h1>fris- en warme dranken, vers fruitsap, shots, cocktails,
+									wijn en cava</h1>
+								<a href="../menu.html#menudrinks"
+									class="section-btn btn btn-default smoothScroll"
+									target="_blank">Bekijk menu</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
 		</div>
 	</section>
@@ -241,10 +284,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     						Actief? 
     					</td>
     					<td align="left">
-    						Van 
+    						per week 
     					</td>
     					<td align="left">
-    						Tot
+    						Van
     					</td>
     					<td align="left">
     						Adres
@@ -273,13 +316,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						        $htmlAbo .= $abonnement->get_payed();
 						        $htmlAbo .= '</td>';
 						        $htmlAbo .= '<td align="left">';
-						        if ($abonnement->get_firstDelDate() != null) {
-						            $htmlAbo .= $abonnement->get_firstDelDate();
+						        if ($abonnement->get_potspw() == "1") {
+						            $htmlAbo .= "1 pot per week";
+						        } else {
+						            $htmlAbo .= "2 potten per week";
 						        }
 						        $htmlAbo .= '</td>';
 						        $htmlAbo .= '<td align="left">';
-						        if ($abonnement->get_lastDelDate() != null) {
-						            $htmlAbo .= $abonnement->get_lastDelDate();
+						        if ($abonnement->get_firstDelDate() != null) {
+						            $htmlAbo .= $abonnement->get_firstDelDate();
 						        }
 						        $htmlAbo .= '</td>';
 						        if ($abonnement->get_deliveryType() == "delivery") {

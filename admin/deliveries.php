@@ -24,20 +24,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $updatedAbo = new Abonnement();
                         if (!empty($_POST["payed".$i])) {
                             $payed = "Y";
-                            if (!empty($_POST["abobegin".$i])
-                                && !empty($_POST["aboend".$i]) ) {
+                            if (!empty($_POST["abobegin".$i])) {
                                     $abobegin = $_POST["abobegin".$i];
-                                    $aboend = $_POST["aboend".$i];
                                     $updatedAbo->set_firstDelDate($abobegin);
-                                    $updatedAbo->set_lastDelDate($aboend);
                                 } else {
                                     $updatedAbo->set_firstDelDate(null);
-                                    $updatedAbo->set_lastDelDate(null);
                                 }
                         } else {
                             $payed = "N";
                             $updatedAbo->set_firstDelDate(null);
-                            $updatedAbo->set_lastDelDate(null);
                         }
                         $id = $_POST["id".$i];
                         $updatedAbo->set_id($id);
@@ -157,10 +152,10 @@ require 'php/getDeliveries.php';
     								Type
     							</td>
     							<td align="left">
-    								Begin
+    								Per week
     							</td>
     							<td align="left">
-    								Einde
+    								Begin
     							</td>
     							<td align="left">
     								Levering
@@ -196,10 +191,10 @@ require 'php/getDeliveries.php';
     						              $htmlDelivery .= $delivery["DELTYPE"];
     						              $htmlDelivery .= '</td>';
     						              $htmlDelivery .= '<td>';
-    						              $htmlDelivery .= $delivery["FIRSTDELDATE"];
+    						              $htmlDelivery .= $delivery["POTSPW"];
     						              $htmlDelivery .= '</td>';
     						              $htmlDelivery .= '<td>';
-    						              $htmlDelivery .= $delivery["LASTDELDATE"];
+    						              $htmlDelivery .= $delivery["FIRSTDELDATE"];
     						              $htmlDelivery .= '</td>';
     						          } else {
     						              $htmlDelivery .= '<td>';
@@ -217,7 +212,10 @@ require 'php/getDeliveries.php';
     						          $htmlDelivery .= $delivery["WEEKDATE"];
     						          $htmlDelivery .= '</td>';
     						          $htmlDelivery .= '<td>';
-    						          $htmlDelivery .= $delivery["FLAVOR1"].'</br>'.$delivery["FLAVOR2"];
+    						          $htmlDelivery .= $delivery["FLAVOR1"];
+    						          if ($delivery["FLAVOR2"] != null) {
+    						              $htmlDelivery .= '</br>'.$delivery["FLAVOR2"];
+    						          }
     						          $htmlDelivery .= '</td>';
     						          $htmlDelivery .= '</tr>';
     						          echo $htmlDelivery;

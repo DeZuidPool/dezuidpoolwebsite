@@ -11,8 +11,8 @@ $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$stmt = $conn->prepare("INSERT INTO ABONNEMENT (NAME, GSM, DELIVERYTYPE, SORBETONLY, COMMENTS, STREET, NBR, ZIPCODE, CITY, ADRESREMARKS, CUSTOMERID) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
-$stmt->bind_param("ssssssssssi",$name,$gsm,$deliveryType,$sorbetOnly, $comments, $street,$nbr,$zipCode,$city,$adresremarks,$customerid);
+$stmt = $conn->prepare("INSERT INTO ABONNEMENT (NAME, GSM, DELIVERYTYPE, SORBETONLY, POTSPW, COMMENTS, STREET, NBR, ZIPCODE, CITY, ADRESREMARKS, CUSTOMERID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+$stmt->bind_param("sssssssssssi",$name,$gsm,$deliveryType,$sorbetOnly, $potspw, $comments, $street,$nbr,$zipCode,$city,$adresremarks,$customerid);
 
 if (!$stmt->execute()) {
     echo "Error: " . $stmt->error;

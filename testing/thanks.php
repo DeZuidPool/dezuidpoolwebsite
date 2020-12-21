@@ -188,7 +188,7 @@ require "php/getAbos.php";
 						if (!empty($abonnementen) && count($abonnementen)>0) {
 						    foreach ($abonnementen as $abonnement) {
 						        $htmlAbo = '<tr>';
-						        $htmlAbo .= '<td>';
+						        $htmlAbo .= '<td align="left">';
 						        $htmlAbo .= 'Identificatie';
 						        $htmlAbo .= '</td>';
 						        $htmlAbo .= '<td>';
@@ -196,7 +196,7 @@ require "php/getAbos.php";
 						        $htmlAbo .= '</td>';
 						        $htmlAbo .= '</tr>';
 						        $htmlAbo .= '<tr>';
-						        $htmlAbo .= '<td colspan="2">';
+						        $htmlAbo .= '<td colspan="2"  align="left">';
 						        if ($abonnement->get_sorbetOnly() == "Y") {
 						            $htmlAbo .= 'Je hebt gekozen om enkel sorbet te krijgen';
 						        } else {
@@ -204,35 +204,44 @@ require "php/getAbos.php";
 						        }
 						        $htmlAbo .= '</td>';
 						        $htmlAbo .= '</tr>';
+						        $htmlAbo .= '<tr>';
+						        $htmlAbo .= '<td colspan="2" align="left">';
+						        if ($abonnement->get_potspw() == "1") {
+						            $htmlAbo .= 'Je hebt gekozen om 1 pot per week te krijgen';
+						        } else {
+						            $htmlAbo .= 'Je hebt gekozen om 2 potten per week te krijgen';
+						        }
+						        $htmlAbo .= '</td>';
+						        $htmlAbo .= '</tr>';
 						        if ($abonnement->get_comments() != "") {
 						            $htmlAbo .= '<tr>';
-						            $htmlAbo .= '<td>';
+						            $htmlAbo .= '<td align="left">';
 						            $htmlAbo .= 'Opmerkingen abonnement';
 						            $htmlAbo .= '</td>';
-						            $htmlAbo .= '<td>';
+						            $htmlAbo .= '<td align="left">';
 						            $htmlAbo .= $abonnement->get_comments();
 						            $htmlAbo .= '</td>';
 						            $htmlAbo .= '</tr>';
 						        }
 						        if ($abonnement->get_deliveryType() == "delivery") {
 						            $htmlAbo .= '<tr>';
-						            $htmlAbo .= '<td colspan="2">';
+						            $htmlAbo .= '<td colspan="2" align="left">';
 						            $htmlAbo .= 'Je hebt ervoor gekozen om te laten leveren op volgend adres';
 						            $htmlAbo .= '</td>';
 						            $htmlAbo .= '</tr>';
 
 						            $htmlAbo .= '<tr>';
-						            $htmlAbo .= '<td>Straat';
+						            $htmlAbo .= '<td align="left">Straat';
 						            $htmlAbo .= '</td>';
-						            $htmlAbo .= '<td>';
+						            $htmlAbo .= '<td align="left">';
 						            $htmlAbo .= $abonnement->get_street();
 						            $htmlAbo .= '</td>';
 						            $htmlAbo .= '</tr>';
 						            
     						        $htmlAbo .= '<tr>';
-    						        $htmlAbo .= '<td>Nummer';
+    						        $htmlAbo .= '<td align="left">Nummer';
     						        $htmlAbo .= '</td>';
-    						        $htmlAbo .= '<td>';
+    						        $htmlAbo .= '<td align="left">';
     						        $htmlAbo .= $abonnement->get_nbr();
     						        $htmlAbo .= '</td>';
     						        $htmlAbo .= '</tr>';
@@ -240,30 +249,30 @@ require "php/getAbos.php";
     						        $htmlAbo .= '<tr>';
     						        $htmlAbo .= '<td>Postcode';
     						        $htmlAbo .= '</td>';
-    						        $htmlAbo .= '<td>';
+    						        $htmlAbo .= '<td align="left">';
     						        $htmlAbo .= $abonnement->get_zipCode();
     						        $htmlAbo .= '</td>';
     						        $htmlAbo .= '</tr>';
     						        
     						        $htmlAbo .= '<tr>';
-    						        $htmlAbo .= '<td>Gemeente';
+    						        $htmlAbo .= '<td align="left">Gemeente';
     						        $htmlAbo .= '</td>';
-    						        $htmlAbo .= '<td>';
+    						        $htmlAbo .= '<td align="left">';
     						        $htmlAbo .= $abonnement->get_city();
     						        $htmlAbo .= '</td>';
     						        $htmlAbo .= '</tr>';
     						        if ($abonnement->get_adresRemarks() != "") {
     						        $htmlAbo .= '<tr>';
-    						        $htmlAbo .= '<td>Opmerkingen adres';
+    						        $htmlAbo .= '<td align="left">Opmerkingen adres';
     						        $htmlAbo .= '</td>';
-    						        $htmlAbo .= '<td>';
+    						        $htmlAbo .= '<td align="left">';
     						        $htmlAbo .= $abonnement->get_adresRemarks();
     						        $htmlAbo .= '</td>';
     						        $htmlAbo .= '</tr>';
     						        }
 						        } else {
 						            $htmlAbo .= '<tr>';
-						            $htmlAbo .= '<td colspan="2">';
+						            $htmlAbo .= '<td colspan="2" align="left">';
 						            $htmlAbo .= 'Je hebt ervoor gekozen om te komen afhalen';
 						            $htmlAbo .= '</td>';
 						            $htmlAbo .= '</tr>';
