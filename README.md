@@ -34,12 +34,13 @@
 
 ### Details ijs-abo
 ### Smaken
-- momenteel te verkrijgen
-- coming soon
-- "assortiment"
-- edit page
+- momenteel te verkrijgen DONE
+- coming soon DONE
+- "assortiment" DONE
+- edit page DONE
 
 ###Edit abo DONE?
+
 
 ### Technical TODO
 - thanks : display data DONE
