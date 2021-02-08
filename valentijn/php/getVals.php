@@ -32,6 +32,7 @@ if ($result->num_rows > 0) {
         $id = $row["ID"];
         $name = $row["NAME"];
         $gsm = $row["GSM"];
+        $deliveryType= $row["DELIVERYTYPE"];
         $valentijn = new Valentijn();
         $valentijn->set_id($id);
         $valentijn->set_adresRemarks($adresRemarks);

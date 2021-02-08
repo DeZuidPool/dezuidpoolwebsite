@@ -6,7 +6,7 @@ if (! isset($_SESSION)) {
 
 require 'php/testinput.php';
 require 'php/dbcredentials.php';
-require_once 'php/valentijn.php';
+require_once 'php/Valentijn.php';
 
 
 $nofaults = true;

@@ -3,7 +3,7 @@
 if (! isset($_SESSION)) {
     session_start();
 }
-require_once 'php/valentijn.php';
+require_once 'php/Valentijn.php';
 
 $updatedAbos = $_SESSION["updatedAbos"];
 // Create connection

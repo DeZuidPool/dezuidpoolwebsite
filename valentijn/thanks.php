@@ -9,7 +9,7 @@ $customerid = $_SESSION["customerid"];
 $name = $firstName = $gsm = $email = $communications = "";
 require "php/dbcredentials.php";
 require "php/getCustomer.php";
-require_once "php/valentijn.php";
+require_once "php/Valentijn.php";
 require "php/getVals.php";
 
 ?>
@@ -219,7 +219,7 @@ require "php/getVals.php";
     						        $htmlAbo .= '</tr>';
     						        
     						        $htmlAbo .= '<tr>';
-    						        $htmlAbo .= '<td>Postcode';
+    						        $htmlAbo .= '<td align="left">Postcode';
     						        $htmlAbo .= '</td>';
     						        $htmlAbo .= '<td align="left">';
     						        $htmlAbo .= $valentijn->get_zipCode();

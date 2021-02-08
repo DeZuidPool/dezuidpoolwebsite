@@ -12,7 +12,7 @@ $lastName = $firstName = $gsm = $email = $deliveryType = $sorbetOnly = $communic
 $lastNameErr = $firstNameErr = $emailErr = $passwordErr = $gsmErr = $deliveryTypeErr = "";
 
 require "php/dbcredentials.php";
-require_once "php/valentijn.php";
+require_once "php/Valentijn.php";
 require "php/getCustomer.php";
 require "php/getVals.php";
 

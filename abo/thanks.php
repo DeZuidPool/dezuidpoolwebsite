@@ -247,7 +247,7 @@ require "php/getAbos.php";
     						        $htmlAbo .= '</tr>';
     						        
     						        $htmlAbo .= '<tr>';
-    						        $htmlAbo .= '<td>Postcode';
+    						        $htmlAbo .= '<td align="left">Postcode';
     						        $htmlAbo .= '</td>';
     						        $htmlAbo .= '<td align="left">';
     						        $htmlAbo .= $abonnement->get_zipCode();

@@ -185,6 +185,12 @@ require 'php/getDeliveries.php';
     						              $htmlDelivery .= '</td>';
     						              $htmlDelivery .= '<td>';
     						              $htmlDelivery .= $delivery["CONTACT"];
+    						              if ($delivery["SORBETONLY"] == "Y") {
+    						                  $htmlDelivery .= '<br><span style="color:red">Enkel Sorbet</span>';
+    						              }   
+    						              if ($delivery["COMMENTS"] != "") {
+    						                  $htmlDelivery .= '<br><span style="color:red">'.$delivery["COMMENTS"].'</span>';
+    						              }
     						              $htmlDelivery .= '</td>';
     						              $htmlDelivery .= '<td>';
     						              $htmlDelivery .= $delivery["DELTYPE"];
