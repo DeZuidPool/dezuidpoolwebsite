@@ -11,7 +11,7 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-$activeFlavors=array();
+$flavors=array();
 $soonFlavors=array();
 $otherFlavors=array();
 
@@ -23,11 +23,11 @@ $result = $stmt->get_result();
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        $activeFlavors[] = $row;
+        $flavors[] = $row;
     }
-    $_SESSION["activeFlavors"] = $activeFlavors;
+    $_SESSION["activeFlavors"] = $flavors;
 } else {
-    $_SESSION["activeFlavors"] = $activeFlavors;
+    $_SESSION["activeFlavors"] = $flavors;
     $logging = "No active flavors yet\n";
 }
 $stmt->close();

@@ -111,9 +111,9 @@ require 'php/displayFlavors.php';
 					<table class="table">
 						<!--  php loop over flavors -->
     						<?php
-        $activeFlavors = $_SESSION["activeFlavors"];
-        if (! empty($activeFlavors) && count($activeFlavors) > 0) { // we have active flavors
-            foreach ($activeFlavors as $flavor) {
+        $flavors = $_SESSION["activeFlavors"];
+        if (! empty($flavors) && count($flavors) > 0) { // we have active flavors
+            foreach ($flavors as $flavor) {
                 $htmlFlavor = '<tr>';
                 $htmlFlavor .= '<td style="width:30%">';
                 $htmlFlavor .= $flavor["NAME"].'<sup>';

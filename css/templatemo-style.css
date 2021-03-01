@@ -58,6 +58,30 @@ http://www.templatemo.com/tm-515-eatery
 	color:#ce3232;
     font-weight: bold;
   }
+  
+  .dot-not {
+  height: 20px;
+  width: 20px;
+  background-color: #ce3232;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+  .dot-selling {
+  height: 20px;
+  width: 20px;
+  background-color: #008000;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+  .dot-soon {
+  height: 20px;
+  width: 20px;
+  background-color: #FFA500;
+  border-radius: 50%;
+  display: inline-block;
+}
 
   /*---------------------------------------
      GENERAL               
