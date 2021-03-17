@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $name = test_input($_POST["name"]);
     }
     if (empty($_POST["gsm"])) {
-        $gsmErr = "Gsm contact is vereist";
+        $gsmCustErr = "Gsm contact is vereist";
         $nofaults = false;
     } else {
         $gsm = test_input($_POST["gsm"]);
@@ -245,7 +245,7 @@ $_SESSION["customerid"] = $customerid;
 							<tr>
 								<td align="left">GSM contact:</td>
 								<td align="left"><input type="text" name="gsm"
-									value="<?php echo $gsm; ?>"> <span class="has-error">* <?php echo $gsmErr;?></span></td>
+									value="<?php echo $gsm; ?>"> <span class="has-error">* <?php echo $gsmCustErr;?></span></td>
 							</tr>
 						<tr>
 							<td align="left">Ik ben:</td>

@@ -8,8 +8,8 @@ require 'php/testinput.php';
 $customerid = $_SESSION["customerid"];
 
 // LOGIN, DELIVERYTYPE, SORBETONLY, COMMUNICATIONS, COMMENTS
-$lastName = $firstName = $gsm = $email = $deliveryType = $sorbetOnly = $communications = $comments = "";
-$lastNameErr = $firstNameErr = $emailErr = $passwordErr = $gsmErr = $deliveryTypeErr = "";
+$lastName = $firstName = $gsmCust = $email = $deliveryType = $sorbetOnly = $communications = $comments = "";
+$lastNameErr = $firstNameErr = $emailErr = $passwordErr = $gsmCustErr = $deliveryTypeErr = "";
 
 require "php/dbcredentials.php";
 require_once "php/abonnement.php";
@@ -31,11 +31,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $firstName = test_input($_POST["firstName"]);
         }
-        if (empty($_POST["gsm"])) {
-            $gsmErr = "Gsm nummer is vereist";
+        if (empty($_POST["gsmCust"])) {
+            $gsmCustErr = "Gsm nummer is vereist";
             $nofaults = false;
         } else {
-            $gsm = test_input($_POST["gsm"]);
+            $gsmCust = test_input($_POST["gsmCust"]);
         }
         if (empty($_POST["email"])) {
             $emailErr = "Email is vereist";
@@ -75,8 +75,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else if ($_POST["submitType"] == "Nieuw abonnement") {
         
         $_SESSION["customerid"] = $customerid;
-        $_SESSION["gsm"] = $gsm;
-        $_SESSION["name"] = $firstName.' '.$lastName;
+        $_SESSION["gsmCust"] = $gsmCust;
+        $_SESSION["nameCust"] = $firstName.' '.$lastName;
 
         header("Location: addAbo.php");
     } else if ($_POST["submitType"] == "Wijzig") {
@@ -240,8 +240,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							</tr>
 							<tr>
 								<td align="left">GSM:</td>
-								<td align="left"><input type="text" name="gsm"
-									value="<?php echo $gsm; ?>"> <span class="has-error">* <?php echo $gsmErr;?></span></td>
+								<td align="left"><input type="text" name="gsmCust"
+									value="<?php echo $gsmCust; ?>"> <span class="has-error">* <?php echo $gsmCustErr;?></span></td>
 							</tr>
 							<tr>
 								<td align="left">Email:</td>

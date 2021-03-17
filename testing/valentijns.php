@@ -6,58 +6,51 @@ if (! isset($_SESSION)) {
 
 require 'php/testinput.php';
 require 'php/dbcredentials.php';
-//require_once 'php/abonnement.php';
+require_once 'php/Valentijn.php';
 
 
 $nofaults = true;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $inputError = "";
-        if (empty($_POST["aboCounter"]))  {
+        if (empty($_POST["valCounter"]))  {
             $nofaults = false;
             $inputError .=" no counter ";
         } else {
-            $updatedAbos = array();
-            $index = $_POST["aboCounter"];
+            $updatedVals = array();
+            $index = $_POST["valCounter"];
             //echo 'total abos : '.$index;
             for ($i = 0; $i < $index; $i++) {
                 if (!empty($_POST["id".$i])) {
-                        $updatedAbo = new Abonnement();
+                        $updatedVal = new Valentijn();
                         if (!empty($_POST["payed".$i])) {
                             $payed = "Y";
-                            if (!empty($_POST["abobegin".$i])) {
-                                    $abobegin = $_POST["abobegin".$i];
-                                    $updatedAbo->set_firstDelDate($abobegin);
-                                } else {
-                                    $updatedAbo->set_firstDelDate(null);
-                                }
                         } else {
                             $payed = "N";
-                            $updatedAbo->set_firstDelDate(null);
                         }
                         $id = $_POST["id".$i];
-                        $updatedAbo->set_id($id);
-                        $updatedAbo->set_payed($payed);
-                        $updatedAbos[] = $updatedAbo;
+                        $updatedVal->set_id($id);
+                        $updatedVal->set_payed($payed);
+                        $updatedVals[] = $updatedVal;
                     } else {
                         $nofaults=false;
                         $inputError .= " empty fields for index".$i.'\n';
                     }
             }
-            $_SESSION["updatedAbos"] = $updatedAbos;
+            $_SESSION["updatedVals"] = $updatedVals;
         }
         if ($nofaults) {
-            require 'php/updateAbos.php';
+            require 'php/updateVals.php';
             $nofaults = $_SESSION["nofaults"];
             if (!$nofaults) { // empty new flavor fields
                 $error = $_SESSION["error"];
                 echo $error;
             }
          } else {
-            echo 'input problems updating abos: '.$inputError;
+            echo 'input problems updating vals: '.$inputError;
         }
 }
 
-require 'php/getDeliveries.php';
+require 'php/getCustomerVals.php';
 
 ?>
 <!DOCTYPE html>
@@ -109,14 +102,14 @@ require 'php/getDeliveries.php';
                     </button>
 
                     <!-- lOGO TEXT HERE -->
-                    <a href="index.html" class="navbar-brand">IJS BAR de Zuidpool - Beheer Leveringen</a>
+                    <a href="index.html" class="navbar-brand">IJS BAR de Zuidpool - Beheer Betalingen</a>
                </div>
 
                <!-- MENU LINKS -->
                <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-nav-first">
                          <li><a href="index.html" class="smoothScroll">Home</a></li>
-                         <li><a href="#deliveries" class="smoothScroll">Top</a></li>
+                         <li><a href="#smaken" class="smoothScroll">Top</a></li>
                     </ul>
 
                </div>
@@ -124,14 +117,14 @@ require 'php/getDeliveries.php';
           </div>
      </section>
 
-     <!-- deliveries -->
-     <section id="deliveries" data-stellar-background-ratio="0.5">
+     <!-- payments -->
+     <section id="payments" data-stellar-background-ratio="0.5">
           <div class="container">
                <div class="row">
 
                     <div class="col-md-12 col-sm-12">
                          <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
-                              <h2>Beheer Leveringen</h2>
+                              <h2>Beheer Betalingen</h2>
                          </div>
                     </div>
 
@@ -143,95 +136,53 @@ require 'php/getDeliveries.php';
     								Login 
     							</td>
     							<td align="left">
-    								AboId 
+    								ValId 
     							</td>
     							<td align="left">
-    								Abocontact
+    								Valcontact
     							</td>
     							<td align="left">
-    								Type
-    							</td>
-    							<td align="left">
-    								Per week
-    							</td>
-    							<td align="left">
-    								Begin
-    							</td>
-    							<td align="left">
-    								Levering
-    							</td>
-    							<td align="left">
-    								Smaken
+    								Betaald? 
     							</td>
     						</tr>
-    						<!--  php loop over deliveries -->
+    						<!--  php loop over valentijns -->
     						<?php 
     						  $counter=0;
-    						  $login = $abo = "";
-    						  $deliveries = $_SESSION["deliveries"];
-    						  if (!empty($deliveries) && count($deliveries)>0) { // we have deliveries
-    						      foreach ($deliveries as $delivery) {
-    						          $htmlDelivery = '<tr>';
-    						          $htmlDelivery .= '<input type="hidden" name="id'.$counter.'" value="'.$delivery["ABOID"].'" required="required">';
-    						          $htmlDelivery .= '<td>';
-    						          if ($login != $delivery["LOGIN"]) {
-    						              $login = $delivery["LOGIN"];
-    						              $htmlDelivery .= $login;
+    						  $customerVals = $_SESSION["valentijns"];
+    						  if (!empty($customerVals) && count($customerVals)>0) { // we have customers
+    						      foreach ($customerVals as $customerVal) {
+    						          $htmlFlavor = '<tr>';
+    						          $htmlFlavor .= '<input type="hidden" name="id'.$counter.'" value="'.$customerVal["ABOID"].'" required="required">';
+    						          $htmlFlavor .= '<td>';
+    						          $htmlFlavor .= $customerVal["LOGIN"];
+    						          $htmlFlavor .= '</td>';
+    						          $htmlFlavor .= '<td>';
+    						          $htmlFlavor .= $customerVal["ABOID"];
+    						          $htmlFlavor .= '</td>';
+    						          $htmlFlavor .= '<td>';
+    						          $htmlFlavor .= $customerVal["ABONAME"];
+    						          $htmlFlavor .= '</td>';
+    						          $htmlFlavor .= '<td align="center">';
+    						          $htmlFlavor .= '<input type="checkbox" name="payed'.$counter.'" ';
+    						          if ($customerVal["ABOPAYED"] == "Y") {
+    						              $htmlFlavor .=' checked ';
     						          }
-    						          $htmlDelivery .= '</td>';
-    						          if ($abo != $delivery["ABOID"]) {
-    						              $abo = $delivery["ABOID"];
-    						              $htmlDelivery .= '<td>';
-    						              $htmlDelivery .= $abo;
-    						              $htmlDelivery .= '</td>';
-    						              $htmlDelivery .= '<td>';
-    						              $htmlDelivery .= $delivery["CONTACT"];
-    						              $htmlDelivery .= '</td>';
-    						              $htmlDelivery .= '<td>';
-    						              $htmlDelivery .= $delivery["DELTYPE"];
-    						              $htmlDelivery .= '</td>';
-    						              $htmlDelivery .= '<td>';
-    						              $htmlDelivery .= $delivery["POTSPW"];
-    						              $htmlDelivery .= '</td>';
-    						              $htmlDelivery .= '<td>';
-    						              $htmlDelivery .= $delivery["FIRSTDELDATE"];
-    						              $htmlDelivery .= '</td>';
-    						          } else {
-    						              $htmlDelivery .= '<td>';
-    						              $htmlDelivery .= '</td>';
-    						              $htmlDelivery .= '<td>';
-    						              $htmlDelivery .= '</td>';
-    						              $htmlDelivery .= '<td>';
-    						              $htmlDelivery .= '</td>';
-    						              $htmlDelivery .= '<td>';
-    						              $htmlDelivery .= '</td>';
-    						              $htmlDelivery .= '<td>';
-    						              $htmlDelivery .= '</td>';
-    						          }
-    						          $htmlDelivery .= '<td>';
-    						          $htmlDelivery .= $delivery["WEEKDATE"];
-    						          $htmlDelivery .= '</td>';
-    						          $htmlDelivery .= '<td>';
-    						          $htmlDelivery .= $delivery["FLAVOR1"];
-    						          if ($delivery["FLAVOR2"] != null) {
-    						              $htmlDelivery .= '</br>'.$delivery["FLAVOR2"];
-    						          }
-    						          $htmlDelivery .= '</td>';
-    						          $htmlDelivery .= '</tr>';
-    						          echo $htmlDelivery;
+    						          $htmlFlavor .= '>';
+    						          $htmlFlavor .= '</td>';
+    						          $htmlFlavor .= '</tr>';
+    						          echo $htmlFlavor;
     						          $counter += 1;
     						      }
     						  }
     						?>
     						<!-- end loop -->
-    						<input type="hidden" name="deliveryCounter" value="<?php echo count($deliveries) ?>">
-    						<!-- 
+    						<input type="hidden" name="valCounter" value="<?php echo count($customerVals) ?>">
+    						<!-- php insert new -->
     						<tr>
     							<td align="right" colspan="6">
     								<input type="submit" value="Aanpassen Betalingen" name="submitType" >
     							</td>
     						</tr>
-    						 -->
 						</form>
 					</table>
 					</div>

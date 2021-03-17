@@ -8,7 +8,7 @@ require 'php/testinput.php';
 require 'php/dbcredentials.php';
 require_once 'php/flavor.php';
 
-$newName = $newDescription = $newOfType = $newSelling = $newComingSoon = $newVegan = "";
+$newName = $newDescription = $newOfType = $newSelling = $newComingSoon = $newVegan = $newAlcohol = $newEigeel = $newGluten = "";
 
 $nofaults = true;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -34,6 +34,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
                 $newVegan = "N";
             }
+            if (!empty($_POST["newAlcohol"])) {
+                $newAlcohol = "Y";
+            } else {
+                $newAlcohol = "N";
+            }
+            if (!empty($_POST["newEigeel"])) {
+                $newEigeel = "Y";
+            } else {
+                $newEigeel = "N";
+            }
+            if (!empty($_POST["newGluten"])) {
+                $newGluten = "Y";
+            } else {
+                $newGluten = "N";
+            }
+            
        } else {
            $nofaults=false;
        }
@@ -41,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
            require 'php/saveFlavor.php';
            $nofaults = $_SESSION["nofaults"];
            if ($nofaults) { // empty new flavor fields
-               $newName = $newDescription = $newOfType = $newSelling = $newComingSoon = $newSellingFrom = $newSellingTo = "";
+               $newName = $newDescription = $newOfType = $newSelling = $newComingSoon = $newSellingFrom = $newSellingTo = $newVegan = $newAlcohol = $newEigeel = $newGluten = "";
            } else {
                $error = $_SESSION["nofaults"];
                echo $error;
@@ -74,13 +90,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         } else {
                             $comingSoon = "N";
                         }
+                        if (!empty($_POST["flavorAlcohol".$i])) {
+                            $alcohol = "Y";
+                        } else {
+                            $alcohol = "N";
+                        }
+                        if (!empty($_POST["flavorEigeel".$i])) {
+                            $eigeel = "Y";
+                        } else {
+                            $eigeel = "N";
+                        }
                         if (!empty($_POST["flavorVegan".$i])) {
                             $vegan = "Y";
                         } else {
                             $vegan = "N";
                         }
+                        if (!empty($_POST["flavorGluten".$i])) {
+                            $gluten = "Y";
+                        } else {
+                            $gluten = "N";
+                        }
                         $id = $_POST["flavorId".$i];
-                        $updatedFlavor = new Flavor($name,$description,$ofType,$selling,$comingSoon,$vegan);
+                        $updatedFlavor = new Flavor($name,$description,$ofType,$selling,$comingSoon,$vegan,$alcohol,$eigeel,$gluten);
                         $updatedFlavor->set_id($id);
                         $updatedFlavors[] = $updatedFlavor;
                     } else {
@@ -201,7 +232,16 @@ require 'php/getFlavors.php';
     								Coming Soon
     							</td>
     							<td align="left">
-    								Vegan
+    								Alcohol 
+    							</td>
+    							<td align="left">
+    								Eigeel 
+    							</td>
+    							<td align="left">
+    								Vegan 
+    							</td>
+    							<td align="left">
+    								Gluten 
     							</td>
     						</tr>
     						<!--  php loop over flavors -->
@@ -224,7 +264,7 @@ require 'php/getFlavors.php';
     						          if ($flavor["IJSTYPE"] == "Y") {
     						              $htmlFlavor .= 'selected="selected"';
     						          }
-    						          $htmlFlavor .= '>ijsroom</option>';
+    						          $htmlFlavor .= '>roomijs</option>';
     						          $htmlFlavor .= '<option value="S" ';
     						          if ($flavor["IJSTYPE"] == "S") {
     						              $htmlFlavor .= 'selected="selected"';
@@ -235,6 +275,11 @@ require 'php/getFlavors.php';
     						              $htmlFlavor .= 'selected="selected"';
     						          }
     						          $htmlFlavor .= '>proteine</option>';
+    						          $htmlFlavor .= '<option value="O" ';
+    						          if ($flavor["IJSTYPE"] == "O") {
+    						              $htmlFlavor .= 'selected="selected"';
+    						          }
+    						          $htmlFlavor .= '>yoghurtijs</option>';
     						          $htmlFlavor .= '</td>';
     						          $htmlFlavor .= '<td align="center">';
     						          $htmlFlavor .= '<input type="checkbox" name="flavorSelling'.$counter.'" ';
@@ -251,8 +296,29 @@ require 'php/getFlavors.php';
     						          $htmlFlavor .= '>';
     						          $htmlFlavor .= '</td>';
     						          $htmlFlavor .= '<td align="center">';
+    						          $htmlFlavor .= '<input type="checkbox" name="flavorAlcohol'.$counter.'" ';
+    						          if ($flavor["ALCOHOL"] == "Y") {
+    						              $htmlFlavor .=' checked ';
+    						          }
+    						          $htmlFlavor .= '>';
+    						          $htmlFlavor .= '</td>';
+    						          $htmlFlavor .= '<td align="center">';
+    						          $htmlFlavor .= '<input type="checkbox" name="flavorEigeel'.$counter.'" ';
+    						          if ($flavor["EIGEEL"] == "Y") {
+    						              $htmlFlavor .=' checked ';
+    						          }
+    						          $htmlFlavor .= '>';
+    						          $htmlFlavor .= '</td>';
+    						          $htmlFlavor .= '<td align="center">';
     						          $htmlFlavor .= '<input type="checkbox" name="flavorVegan'.$counter.'" ';
     						          if ($flavor["VEGAN"] == "Y") {
+    						              $htmlFlavor .=' checked ';
+    						          }
+    						          $htmlFlavor .= '>';
+    						          $htmlFlavor .= '</td>';
+    						          $htmlFlavor .= '<td align="center">';
+    						          $htmlFlavor .= '<input type="checkbox" name="flavorGluten'.$counter.'" ';
+    						          if ($flavor["GLUTEN"] == "Y") {
     						              $htmlFlavor .=' checked ';
     						          }
     						          $htmlFlavor .= '>';
@@ -291,7 +357,16 @@ require 'php/getFlavors.php';
     								Coming Soon 
     							</td>
     							<td align="left">
+    								Alcohol 
+    							</td>
+    							<td align="left">
+    								Eigeel 
+    							</td>
+    							<td align="left">
     								Vegan 
+    							</td>
+    							<td align="left">
+    								Gluten 
     							</td>
     						</tr>
     						<tr>
@@ -304,9 +379,10 @@ require 'php/getFlavors.php';
     							<td align="left">
     								<select name="newOfType" id="newOfType"> 
     									<option value="" disabled selected hidden>Kies...</option>
-    									<option value="Y" <?php if (isset($newOfType) && $newOfType == "Y") echo 'selected="selected"' ?>>ijsroom</option>
+    									<option value="Y" <?php if (isset($newOfType) && $newOfType == "Y") echo 'selected="selected"' ?>>roomijs</option>
     									<option value="S" <?php if (isset($newOfType) && $newOfType == "S") echo 'selected="selected"' ?>>sorbet</option>
     									<option value="P" <?php if (isset($newOfType) && $newOfType == "P") echo 'selected="selected"' ?>>proteineijs</option>
+    									<option value="O" <?php if (isset($newOfType) && $newOfType == "O") echo 'selected="selected"' ?>>yoghurtijs</option>
     								</select>
     							</td>
     							<td align="center">
@@ -316,7 +392,16 @@ require 'php/getFlavors.php';
     								<input type="checkbox" name="newComingSoon" <?php if (isset($newComingSoon) && $newComingSoon == "Y") echo 'checked' ?>>
     							</td>
     							<td align="center">
+    								<input type="checkbox" name="newAlcohol" <?php if (isset($newAlcohol) && $newAlcohol == "Y") echo 'checked' ?>>
+    							</td>
+    							<td align="center">
+    								<input type="checkbox" name="newEigeel" <?php if (isset($newEigeel) && $newEigeel == "Y") echo 'checked' ?>>
+    							</td>
+    							<td align="center">
     								<input type="checkbox" name="newVegan" <?php if (isset($newVegan) && $newVegan == "Y") echo 'checked' ?>>
+    							</td>
+    							<td align="center">
+    								<input type="checkbox" name="newGluten" <?php if (isset($newGluten) && $newGluten == "Y") echo 'checked' ?>>
     							</td>
     						</tr>
     						<tr>

@@ -9,7 +9,7 @@ $customerid = $_SESSION["customerid"];
 
 // LOGIN, DELIVERYTYPE, SORBETONLY, COMMUNICATIONS, COMMENTS
 $name = $firstName = $gsm = $email = $deliveryType = $sorbetOnly = $communications = $comments = "";
-$nameErr = $firstNameErr = $emailErr = $passwordErr = $gsmErr = $deliveryTypeErr = "";
+$nameErr = $firstNameErr = $emailErr = $passwordErr = $gsmCustErr = $deliveryTypeErr = "";
 
 require "php/dbcredentials.php";
 require "php/getCustomer.php";
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $firstName = test_input($_POST["firstName"]);
     }
     if (empty($_POST["gsm"])) {
-        $gsmErr = "Gsm nummer is vereist";
+        $gsmCustErr = "Gsm nummer is vereist";
         $nofaults = false;
     } else {
         $gsm = test_input($_POST["gsm"]);
@@ -250,7 +250,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<tr>
 								<td align="left">GSM:</td>
 								<td align="left"><input type="text" name="gsm"
-									value="<?php echo $gsm; ?>"> <span class="has-error">* <?php echo $gsmErr;?></span></td>
+									value="<?php echo $gsm; ?>"> <span class="has-error">* <?php echo $gsmCustErr;?></span></td>
 							</tr>
 							<tr>
 								<td align="left">Email:</td>

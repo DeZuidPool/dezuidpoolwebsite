@@ -22,7 +22,7 @@ if ($result->num_rows > 0 and $result->num_rows == 1) {
     if($row = $result->fetch_assoc()) {
         $lastName = $row["NAME"];
         $firstName = $row["FIRSTNAME"];
-        $gsm = $row["GSM"];
+        $gsmCust = $row["GSM"];
         $email = $row["LOGIN"];
         $communications = $row["COMMUNICATIONS"];
     }

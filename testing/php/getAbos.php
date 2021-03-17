@@ -12,7 +12,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$stmt = $conn->prepare("SELECT ID, NAME,GSM, DELIVERYTYPE, SORBETONLY, POTSPW, PAYED, COMMENTS, STREET, NBR, ZIPCODE, CITY, ADRESREMARKS FROM ABONNEMENT where CUSTOMERID = ?");
+$stmt = $conn->prepare("SELECT ID, NAME,GSM, DELIVERYTYPE, SORBETONLY, POTSPW, PAYED, COMMENTS, STREET, NBR, ZIPCODE, CITY, ADRESREMARKS FROM ABONNEMENT where CUSTOMERID = ? and PRODUCTTYPE = 'ABO'");
 $stmt->bind_param("i",$customerid);
 
 $stmt->execute();
@@ -55,7 +55,10 @@ if ($result->num_rows > 0) {
     $_SESSION["customerid"]= $customerid;
     $_SESSION["abonnementen"]=$abos;
 } else {
-    echo "bad results for ".$customerid." results : ".$result->num_rows;
+  //  echo "bad results for ".$customerid." results : ".$result->num_rows;
+    $_SESSION["customerid"]= $customerid;
+    $_SESSION["abonnementen"]=$abos;
+    
 }
 
 $stmt->close();
