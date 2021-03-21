@@ -12,7 +12,7 @@ require 'php/displayFlavors.php';
 <html lang="en">
 <head>
 
-<title>IJS BAR De Zuidpool - Onze smaken</title>
+<title>IJS BAR De Zuidpool - Onze actuele smaken</title>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta name="description" content="">
@@ -60,7 +60,7 @@ require 'php/displayFlavors.php';
 
 				<!-- lOGO TEXT HERE -->
 				<a href="../index.html" class="navbar-brand-flavors">IJS BAR de Zuidpool -
-					onze smaken</a>
+					onze actuele smaken</a>
 			</div>
 
 			<!-- MENU LINKS -->

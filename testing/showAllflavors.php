@@ -12,7 +12,7 @@ require 'php/displayAllFlavors.php';
 <html lang="en">
 <head>
 
-<title>IJS BAR De Zuidpool - Onze smaken</title>
+<title>IJS BAR De Zuidpool - Smakenpallet</title>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta name="description" content="">
@@ -60,7 +60,7 @@ require 'php/displayAllFlavors.php';
 
 				<!-- lOGO TEXT HERE -->
 				<a href="../index.html" class="navbar-brand-flavors">IJS BAR de Zuidpool -
-					onze smaken</a>
+					Smakenpallet</a>
 			</div>
 
 			<!-- MENU LINKS -->
@@ -96,7 +96,7 @@ require 'php/displayAllFlavors.php';
 				<div class="col-md-12 col-sm-12">
 					<div align="center" class="section-title wow
 						fadeInUp" data-wow-delay="0.1s">
-						<h2>Onze Bestaande Smaken</h2>
+						<h2>Ons Smakenpallet</h2>
 					</div>
 				</div>
 				<div class="row">
@@ -106,13 +106,13 @@ require 'php/displayAllFlavors.php';
 				</div>
 				<div class="row">
 					<div class="col-md-6 col-sm-6">
-						<div class="section-title wow fadeInUp" data-wow-delay="0.1s"><span class="dot-selling"></span>&nbsp;Nu verkrijgbaar &nbsp; <span class="dot-soon"></span>&nbsp;Binnenkort verkrijgbaar &nbsp; <span class="dot-not"></span>&nbsp;Tijdelijk onbeschikbaar</div>
+						<div class="section-title wow fadeInUp" data-wow-delay="0.1s"><span class="dot-selling"></span>&nbsp;Nu verkrijgbaar &nbsp; <span class="dot-soon"></span>&nbsp;Binnenkort verkrijgbaar &nbsp; <span class="dot-not"></span>&nbsp;Al eens gemaakt</div>
 					</div>
 				</div>
 
 				<div class="col-md-6 col-sm-6">
 					<div class="section-title wow fadeInUp" data-wow-delay="0.1s">
-						<h5>Onze Bestaande Smaken</h5>
+						<h5>Ons volledig smakenpallet</h5>
 					</div>
 					<table class="table">
 						<!--  php loop over flavors -->

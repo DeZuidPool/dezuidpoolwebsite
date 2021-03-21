@@ -12,7 +12,7 @@ require 'php/displayFlavors.php';
 <html lang="en">
 <head>
 
-<title>IJS BAR De Zuidpool - Onze smaken</title>
+<title>IJS BAR De Zuidpool - Onze actuele smaken</title>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta name="description" content="">
@@ -60,13 +60,13 @@ require 'php/displayFlavors.php';
 
 				<!-- lOGO TEXT HERE -->
 				<a href="../index.html" class="navbar-brand-flavors">IJS BAR de Zuidpool -
-					onze smaken</a>
+					onze actuele smaken</a>
 			</div>
 
 			<!-- MENU LINKS -->
 			<div class="collapse navbar-collapse">
 				<ul class="nav-flavors navbar-nav navbar-nav-first">
-					<li><a href="../index.html#home" class="smoothScroll">Home</span></a></li>
+					<li><a href="../index.html#home" class="smoothScroll">Home</a></li>
 					<li><a href="#home" class="smoothScroll nav-flavors">Top</a></li>
 					<li><a href="../menu.html" class="smoothScroll nav-flavors" target="_blank">Ons
 							menu</a></li>
@@ -94,19 +94,19 @@ require 'php/displayFlavors.php';
 			<div class="row">
 
 				<div class="col-md-12 col-sm-12">
-					<div align="center" section-title wow
+					<div align="center" class="section-title wow
 						fadeInUp" data-wow-delay="0.1s">
-						<h2>Onze Smaken</h2>
+						<h2>Onze Actuele Smaken</h2>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6 col-sm-6">
-						<div section-title wow fadeInUp" data-wow-delay="0.1s"><sup>a</sup> = Alcohol, <sup>e</sup> = Eigeel, <sup>v</sup> = Vegan, <sup>g</sup> = Gluten</div>
+						<div class="section-title wow fadeInUp" data-wow-delay="0.1s"><sup>a</sup> = Alcohol, <sup>e</sup> = Eigeel, <sup>v</sup> = Vegan, <sup>g</sup> = Gluten</div>
 					</div>
 				</div>
 
 				<div class="col-md-6 col-sm-6">
-					<div section-title wow fadeInUp" data-wow-delay="0.1s">
+					<div class="section-title wow fadeInUp" data-wow-delay="0.1s">
 						<h5>In den toog</h5>
 					</div>
 					<table class="table">
@@ -158,7 +158,7 @@ require 'php/displayFlavors.php';
 			<div class="row">
 
 				<div class="col-md-6 col-sm-6">
-					<div section-title wow fadeInUp" data-wow-delay="0.1s">
+					<div class="section-title wow fadeInUp" data-wow-delay="0.1s">
 						<h5>Binnenkort in den toog</h5>
 					</div>
 					<table class="table">
@@ -209,61 +209,15 @@ require 'php/displayFlavors.php';
 			</div>
 			<div class="row">
 				<div class="col-md-6 col-sm-6">
-					<div section-title wow fadeInUp" data-wow-delay="0.1s">
-						<h5>Tijdelijk niet in den toog</h5>
-					</div>
-					<table class="table">
-						<!--  php loop over flavors -->
-    						<?php
-        $otherFlavors = $_SESSION["otherFlavors"];
-        if (! empty($otherFlavors) && count($otherFlavors) > 0) { // we have other flavors
-            foreach ($otherFlavors as $flavor) {
-                $htmlFlavor = '<tr>';
-                $htmlFlavor .= '<td style="width:30%">';
-                $htmlFlavor .= $flavor["NAME"].'<sup>';
-                if ($flavor["ALCOHOL"] == "Y") {
-                    $htmlFlavor .= 'a';
-                }
-                if ($flavor["EIGEEL"] == "Y") {
-                    $htmlFlavor .= 'e';
-                }
-                if ($flavor["VEGAN"] == "Y") {
-                    $htmlFlavor .= 'v';
-                }
-                if ($flavor["GLUTEN"] == "Y") {
-                    $htmlFlavor .= 'g';
-                }
-                $htmlFlavor .= '</sup>';
-                $htmlFlavor .= '</td>';
-                $htmlFlavor .= '<td style="width:55%">';
-                $htmlFlavor .= $flavor["DESCRIPTION"];
-                $htmlFlavor .= '</td>';
-                $htmlFlavor .= '<td style="width:15%">';
-                if ($flavor["IJSTYPE"] == "Y") {
-                    $htmlFlavor .= 'roomijs';
-                } else if ($flavor["IJSTYPE"] == "S") {
-                    $htmlFlavor .= 'sorbet';
-                } else if ($flavor["IJSTYPE"] == "P"){
-                    $htmlFlavor .= 'proteine';
-                } else if ($flavor["IJSTYPE"] == "O"){
-                    $htmlFlavor .= 'yoghurtijs';
-                }
-                $htmlFlavor .= '</td>';
-                $htmlFlavor .= '</tr>';
-                echo $htmlFlavor;
-            }
-        }
-        ?>
-    						<!-- end loop -->
-					</table>
+						<div class="section-title wow fadeInUp" data-wow-delay="0.1s"><sup>a</sup> = Alcohol, <sup>e</sup> = Eigeel, <sup>v</sup> = Vegan, <sup>g</sup> = Gluten</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6 col-sm-6">
-						<div section-title wow fadeInUp" data-wow-delay="0.1s"><sup>a</sup> = Alcohol, <sup>e</sup> = Eigeel, <sup>v</sup> = Vegan, <sup>g</sup> = Gluten</div>
+						<div class="section-title wow fadeInUp" data-wow-delay="0.1s">Een <a href="showAllflavors.php"><span style = "text-decoration:underline;">overzicht</span></a> van al onze smaken</div>
 				</div>
 			</div>
-	
+		</div>
 	</section>
 
 	<!-- FOOTER -->

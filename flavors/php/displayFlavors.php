@@ -13,7 +13,6 @@ if ($conn->connect_error) {
 
 $flavors=array();
 $soonFlavors=array();
-$otherFlavors=array();
 
 $logging="";
 $stmt = $conn->prepare("SELECT NAME, DESCRIPTION, IJSTYPE, VEGAN, ALCOHOL,EIGEEL,GLUTEN FROM FLAVOR WHERE SELLING = 'Y' order by NAME ");
@@ -48,22 +47,8 @@ if ($result->num_rows > 0) {
 }
 $stmt->close();
 
-$stmt = $conn->prepare("SELECT NAME, DESCRIPTION, IJSTYPE, VEGAN, ALCOHOL,EIGEEL,GLUTEN FROM FLAVOR WHERE SELLING = 'N' and COMINGSOON='N' order by NAME ");
-$stmt->execute();
-$result = $stmt->get_result();
-
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        $otherFlavors[] = $row;
-    }
-    $_SESSION["otherFlavors"] = $otherFlavors;
-} else {
-    $_SESSION["otherFlavors"] = $otherFlavors;
-    $logging .= "No other flavors yet\n";
-}
-$stmt->close();
-
 $conn->close();
 
-
+if (strlen($logging)> 0) {
+    echo $logging;
+}
