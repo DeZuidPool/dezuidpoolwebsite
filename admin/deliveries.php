@@ -6,7 +6,6 @@ if (! isset($_SESSION)) {
 
 require 'php/testinput.php';
 require 'php/dbcredentials.php';
-//require_once 'php/abonnement.php';
 
 
 $nofaults = true;
@@ -136,8 +135,8 @@ require 'php/getDeliveries.php';
                     </div>
 
                     <div class="col-md-12 col-sm-12">
+						<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>#deliveries" method="post">
 					<table class="table">
-						<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>#payments" method="post">
     						<tr>
     							<td align="left">
     								Login 
@@ -224,7 +223,6 @@ require 'php/getDeliveries.php';
     						  }
     						?>
     						<!-- end loop -->
-    						<input type="hidden" name="deliveryCounter" value="<?php echo count($deliveries) ?>">
     						<!-- 
     						<tr>
     							<td align="right" colspan="6">
@@ -232,8 +230,9 @@ require 'php/getDeliveries.php';
     							</td>
     						</tr>
     						 -->
+						</table>
+    						<input type="hidden" name="deliveryCounter" value="<?php echo count($deliveries) ?>">
 						</form>
-					</table>
 					</div>
 				</div>
           </div>

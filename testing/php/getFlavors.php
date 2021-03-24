@@ -11,7 +11,7 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-$stmt = $conn->prepare("SELECT ID,NAME, DESCRIPTION, IJSTYPE, SELLING, COMINGSOON,VEGAN,ALCOHOL,EIGEEL,GLUTEN FROM FLAVOR order by NAME");
+$stmt = $conn->prepare("SELECT ID,NAME, DESCRIPTION, IJSTYPE, SELLING, COMINGSOON,VEGAN,ALCOHOL,GLUTEN,EIGEEL FROM FLAVOR order by SELLING desc, COMINGSOON desc, NAME");
 $stmt->execute();
 $result = $stmt->get_result();
 

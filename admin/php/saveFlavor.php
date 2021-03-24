@@ -10,8 +10,8 @@ $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
-$stmt = $conn->prepare("INSERT INTO FLAVOR (NAME,DESCRIPTION,IJSTYPE, SELLING, COMINGSOON,VEGAN) VALUES (?,?,?,?,?,?)");
-$stmt->bind_param("ssssss",$newName,$newDescription,$newOfType,$newSelling,$newComingSoon,$newVegan);
+$stmt = $conn->prepare("INSERT INTO FLAVOR (NAME,DESCRIPTION,IJSTYPE, SELLING, COMINGSOON,VEGAN, ALCOHOL,EIGEEL,GLUTEN) VALUES (?,?,?,?,?,?,?,?,?)");
+$stmt->bind_param("sssssssss",$newName,$newDescription,$newOfType,$newSelling,$newComingSoon,$newVegan,$newAlcohol,$newEigeel,$newGluten);
 
 if ($stmt->execute()) {
    $_SESSION["nofaults"]=true;

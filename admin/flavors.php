@@ -6,7 +6,7 @@ if (! isset($_SESSION)) {
 
 require 'php/testinput.php';
 require 'php/dbcredentials.php';
-require_once 'php/flavor.php';
+require_once 'php/Flavor.php';
 
 $newName = $newDescription = $newOfType = $newSelling = $newComingSoon = $newVegan = $newAlcohol = $newEigeel = $newGluten = "";
 
@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
            require 'php/saveFlavor.php';
            $nofaults = $_SESSION["nofaults"];
            if ($nofaults) { // empty new flavor fields
-               $newName = $newDescription = $newOfType = $newSelling = $newComingSoon = $newSellingFrom = $newSellingTo = $newVegan = $newAlcohol = $newEigeel = $newGluten = "";
+               $newName = $newDescription = $newOfType = $newSelling = $newComingSoon = $newVegan = $newAlcohol = $newEigeel = $newGluten = "";
            } else {
                $error = $_SESSION["nofaults"];
                echo $error;
@@ -201,8 +201,8 @@ require 'php/getFlavors.php';
           </div>
      </section>
 
-     <!-- payments -->
-     <section id="payments" data-stellar-background-ratio="0.5">
+     <!-- flavors -->
+     <section id="flavors" data-stellar-background-ratio="0.5">
           <div class="container">
                <div class="row">
 
@@ -213,8 +213,8 @@ require 'php/getFlavors.php';
                     </div>
 
                     <div class="col-md-12 col-sm-12">
+						<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>#flavors" method="post">
 					<table class="table">
-						<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>#payments" method="post">
     						<tr>
     							<td align="left">
     								Naam 
@@ -330,7 +330,6 @@ require 'php/getFlavors.php';
     						  }
     						?>
     						<!-- end loop -->
-    						<input type="hidden" name="flavorCounter" value="<?php echo count($flavors) ?>">
     						<!-- php insert new -->
     						<tr>
     							<td align="right" colspan="6">
@@ -378,7 +377,7 @@ require 'php/getFlavors.php';
     							</td>
     							<td align="left">
     								<select name="newOfType" id="newOfType"> 
-    									<option value="" disabled selected hidden>Kies...</option>
+    									<option value="" disabled selected hidden="true">Kies...</option>
     									<option value="Y" <?php if (isset($newOfType) && $newOfType == "Y") echo 'selected="selected"' ?>>roomijs</option>
     									<option value="S" <?php if (isset($newOfType) && $newOfType == "S") echo 'selected="selected"' ?>>sorbet</option>
     									<option value="P" <?php if (isset($newOfType) && $newOfType == "P") echo 'selected="selected"' ?>>proteineijs</option>
@@ -409,8 +408,9 @@ require 'php/getFlavors.php';
     								<input type="submit" value="Nieuwe Smaak" name="submitType" >
     							</td>
     						</tr>
-						</form>
 					</table>
+    						<input type="hidden" name="flavorCounter" value="<?php echo count($flavors) ?>">
+						</form>
 					</div>
 				</div>
           </div>
