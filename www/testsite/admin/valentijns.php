@@ -4,9 +4,9 @@ if (! isset($_SESSION)) {
     session_start();
 }
 
-require 'php/testinput.php';
-require 'php/dbcredentials.php';
-require_once 'php/Valentijn.php';
+require '../php/testinput.php';
+require '../php/dbcredentials.php';
+require_once '../php/Valentijn.php';
 
 
 $nofaults = true;

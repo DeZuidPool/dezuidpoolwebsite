@@ -3,13 +3,13 @@
 if (! isset($_SESSION)) {
     session_start();
 }
-require 'php/testinput.php';
+require '../php/testinput.php';
 
 // define variables and set to empty values
 $street = $nbr = $zipCode = $city = $adresRemarks = $customerid = $deliveryType = $sorbetOnly = $potspw = $comments = $id = $name = $gsm = "";
 $streetErr = $nbrErr = $zipCodeErr = $cityErr = $deliveryTypeErr = "";
-require 'php/dbcredentials.php';
-require 'php/getAbo.php';
+require '../php/dbcredentials.php';
+require '../php/getAbo.php';
 
 $customerid = $_SESSION["customerid"];
 

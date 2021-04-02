@@ -4,7 +4,7 @@ if (! isset($_SESSION)) {
     session_start();
 }
 
-require 'php/testinput.php';
+require '../php/testinput.php';
 
 // define variables and set to empty values
 $lastName = $firstName = $email = $password = $gsm = $communications = "";
@@ -64,8 +64,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // if errors in input --> nosave
     if ($nofaults) {
         // save account to db and forward to deliveryadress.php
-        require 'php/dbcredentials.php';
-        require 'php/saveLogin.php';
+        require '../php/dbcredentials.php';
+        require '../php/saveLogin.php';
         $nofaults = $_SESSION["nofaults"];
         if ($nofaults) {
             header('Location: createVal.php');

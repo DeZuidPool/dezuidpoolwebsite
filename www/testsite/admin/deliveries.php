@@ -4,8 +4,8 @@ if (! isset($_SESSION)) {
     session_start();
 }
 
-require 'php/testinput.php';
-require 'php/dbcredentials.php';
+require '../php/testinput.php';
+require '../php/dbcredentials.php';
 
 
 $nofaults = true;

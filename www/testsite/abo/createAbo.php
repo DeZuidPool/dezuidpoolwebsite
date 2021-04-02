@@ -3,7 +3,7 @@
 if (! isset($_SESSION)) {
     session_start();
 }
-require 'php/testinput.php';
+require '../php/testinput.php';
 
 // define variables and set to empty values
 $street = $nbr = $zipCode = $city = $adresremarks = $customerid = $deliveryType = $sorbetOnly = $comments = $potspw = "";
@@ -75,8 +75,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($nofaults) {
         // save linked address in db and forward to order.php with cust_id to get data
-        require 'php/dbcredentials.php';
-        require 'php/saveAbo.php';
+        require '../php/dbcredentials.php';
+        require '../php/saveAbo.php';
 
         header("Location: thanks.php");
     }

@@ -7,10 +7,10 @@ if (! isset($_SESSION)) {
 $customerid = $_SESSION["customerid"];
 
 $name = $firstName = $gsm = $email = $communications = "";
-require "php/dbcredentials.php";
-require "php/getCustomer.php";
-require_once "php/abonnement.php";
-require "php/getAbos.php";
+require "../php/dbcredentials.php";
+require "../php/getCustomer.php";
+require_once "../php/abonnement.php";
+require "../php/getAbos.php";
 
 ?>
 

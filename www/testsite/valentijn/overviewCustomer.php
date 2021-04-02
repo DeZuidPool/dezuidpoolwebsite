@@ -3,7 +3,7 @@
 if (! isset($_SESSION)) {
     session_start();
 }
-require 'php/testinput.php';
+require '../php/testinput.php';
 
 $customerid = $_SESSION["customerid"];
 
@@ -11,10 +11,10 @@ $customerid = $_SESSION["customerid"];
 $lastName = $firstName = $gsm = $email = $deliveryType = $sorbetOnly = $communications = $comments = "";
 $lastNameErr = $firstNameErr = $emailErr = $passwordErr = $gsmCustErr = $deliveryTypeErr = "";
 
-require "php/dbcredentials.php";
-require_once "php/Valentijn.php";
-require "php/getCustomer.php";
-require "php/getVals.php";
+require "../php/dbcredentials.php";
+require_once "../php/Valentijn.php";
+require "../php/getCustomer.php";
+require "../php/getVals.php";
 
 $nofaults = true;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

@@ -4,7 +4,7 @@ if (! isset($_SESSION)) {
     session_start();
 }
 
-require 'php/testinput.php';
+require '../php/testinput.php';
 
 // define variables and set to empty values
 $login = $password = "";
@@ -24,8 +24,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     
     // check account in db and forward to order.php with id to get data
-    require "php/dbcredentials.php";
-    require "php/loginCustomer.php";
+    require "../php/dbcredentials.php";
+    require "../php/loginCustomer.php";
     $customerid=$_SESSION["customerid"];
     if ($customerid == "none") {
         if ($loginErr =="" && $pwdErr == "") {

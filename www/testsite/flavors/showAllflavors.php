@@ -4,8 +4,8 @@ if (! isset($_SESSION)) {
     session_start();
 }
 
-require 'php/dbcredentials.php';
-require 'php/displayAllFlavors.php';
+require '../php/dbcredentials.php';
+require '../php/displayAllFlavors.php';
 
 ?>
 <!DOCTYPE html>
