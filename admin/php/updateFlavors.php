@@ -3,7 +3,7 @@
 if (! isset($_SESSION)) {
     session_start();
 }
-require_once 'php/flavor.php';
+require_once 'php/Flavor.php';
 
 $flavors = $_SESSION["flavors"];
 // Create connection
