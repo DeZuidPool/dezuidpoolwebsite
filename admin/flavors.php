@@ -216,6 +216,11 @@ require 'php/getFlavors.php';
 						<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>#flavors" method="post">
 					<table class="table">
     						<tr>
+    							<td align="right" colspan="9">
+    								<input type="submit" value="Aanpassen Smaken" name="submitType" >
+    							</td>
+    						</tr>
+    						<tr>
     							<td align="left">
     								Naam 
     							</td>
@@ -332,7 +337,7 @@ require 'php/getFlavors.php';
     						<!-- end loop -->
     						<!-- php insert new -->
     						<tr>
-    							<td align="right" colspan="6">
+    							<td align="right" colspan="9">
     								<input type="submit" value="Aanpassen Smaken" name="submitType" >
     							</td>
     						</tr>
