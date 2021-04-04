@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $nofaults = false;
             $inputError .=" no counter ";
         } else {
-            $updatedAbos = array();
+            $updatedDeliveries = array();
             $index = $_POST["aboCounter"];
             //echo 'total abos : '.$index;
             for ($i = 0; $i < $index; $i++) {
@@ -36,13 +36,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $id = $_POST["id".$i];
                         $updatedAbo->set_id($id);
                         $updatedAbo->set_payed($payed);
-                        $updatedAbos[] = $updatedAbo;
+                        $updatedDeliveries[] = $updatedAbo;
                     } else {
                         $nofaults=false;
                         $inputError .= " empty fields for index".$i.'\n';
                     }
             }
-            $_SESSION["updatedAbos"] = $updatedAbos;
+            $_SESSION["updatedAbos"] = $updatedDeliveries;
         }
         if ($nofaults) {
             require 'php/updateAbos.php';

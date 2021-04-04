@@ -6,54 +6,55 @@ if (! isset($_SESSION)) {
 
 require 'php/testinput.php';
 require 'php/dbcredentials.php';
-
+require_once 'php/Delivery.php';
 
 $nofaults = true;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    echo substr($_POST["submitType"],0,13);
+    if ($_POST["submitType"]=="Aanpassen Leveringen") {
         $inputError = "";
-        if (empty($_POST["aboCounter"]))  {
+        if (empty($_POST["deliveryCounter"]))  {
             $nofaults = false;
             $inputError .=" no counter ";
         } else {
-            $updatedAbos = array();
-            $index = $_POST["aboCounter"];
-            //echo 'total abos : '.$index;
+            $updatedDeliveries = array();
+            $index = $_POST["deliveryCounter"];
             for ($i = 0; $i < $index; $i++) {
-                if (!empty($_POST["id".$i])) {
-                        $updatedAbo = new Abonnement();
-                        if (!empty($_POST["payed".$i])) {
-                            $payed = "Y";
-                            if (!empty($_POST["abobegin".$i])) {
-                                    $abobegin = $_POST["abobegin".$i];
-                                    $updatedAbo->set_firstDelDate($abobegin);
-                                } else {
-                                    $updatedAbo->set_firstDelDate(null);
-                                }
-                        } else {
-                            $payed = "N";
-                            $updatedAbo->set_firstDelDate(null);
-                        }
-                        $id = $_POST["id".$i];
-                        $updatedAbo->set_id($id);
-                        $updatedAbo->set_payed($payed);
-                        $updatedAbos[] = $updatedAbo;
-                    } else {
-                        $nofaults=false;
-                        $inputError .= " empty fields for index".$i.'\n';
+                if (!empty($_POST["id".$i]) && !empty($_POST["flavor1".$i])) {
+                    $aboId = test_input($_POST["id".$i]);
+                    $delFlavor1 = test_input($_POST["flavor1".$i]);
+                    $delFlavor2 = null;
+                    if (isset($_POST["flavor2".$i])) {
+                        $delFlavor2 = test_input($_POST["flavor2".$i]);
                     }
+                    $delDate = test_input($_POST["date".$i]);
+                    $updatedDelivery = new Delivery($aboId, $delFlavor1, $delFlavor2,$delDate);
+                    $updatedDeliveries[] = $updatedDelivery;
+                    //echo 'added Delivery '.$aboId.$delFlavor1.$delFlavor2.$delDate;
+                } 
+                //else {
+                //        $nofaults=false;
+                //        $inputError .= " empty fields for index ".$i.'\n';
+                //}
             }
-            $_SESSION["updatedAbos"] = $updatedAbos;
+            $_SESSION["updatedDeliveries"] = $updatedDeliveries;
         }
         if ($nofaults) {
-            require 'php/updateAbos.php';
+            require 'php/updateDeliveries.php';
             $nofaults = $_SESSION["nofaults"];
-            if (!$nofaults) { // empty new flavor fields
+            if (!$nofaults) { 
                 $error = $_SESSION["error"];
                 echo $error;
             }
          } else {
-            echo 'input problems updating abos: '.$inputError;
+            echo 'input problems updating deliveries: '.$inputError;
         }
+    } else  if (substr($_POST["submitType"],0,13) == "Afsluiten Abo") {
+        $closeId = substr($_POST["submitType"], 14);
+        $_SESSION["closeId"] = $closeId;
+        echo '\nclosing abo '.$closeId;
+        require "php/closeAbo.php";
+    }
 }
 
 require 'php/getDeliveries.php';
@@ -168,34 +169,70 @@ require 'php/getDeliveries.php';
     						  $counter=0;
     						  $login = $abo = "";
     						  $deliveries = $_SESSION["deliveries"];
+    						  $potspw=1;
     						  if (!empty($deliveries) && count($deliveries)>0) { // we have deliveries
     						      foreach ($deliveries as $delivery) {
-    						          $htmlDelivery = '<tr>';
-    						          $htmlDelivery .= '<input type="hidden" name="id'.$counter.'" value="'.$delivery["ABOID"].'" required="required">';
-    						          $htmlDelivery .= '<td>';
+    						          $potspw = $delivery["POTSPW"];
     						          if ($login != $delivery["LOGIN"]) {
     						              $login = $delivery["LOGIN"];
-    						              $htmlDelivery .= $login;
     						          }
-    						          $htmlDelivery .= '</td>';
     						          if ($abo != $delivery["ABOID"]) {
+    						              if ($abo != "") {
+        						              $htmlDeliveryInput .= '<tr>';
+        						              $htmlDeliveryInput .= '<td colspan="6"></td>';
+        						              $htmlDeliveryInput .= '<td>';
+        						              $htmlDeliveryInput .= '<input type="date" name="date'.($counter-1).'">';
+        						              $htmlDeliveryInput .= '</td>';
+        						              $htmlDeliveryInput .= '<td>';
+        						              $htmlDeliveryInput .= '<input type="text" name="flavor1'.($counter-1).'">';
+        						              if ($potspw == 2) {
+        						                  $htmlDeliveryInput .= '</br><input type="text" name="flavor2'.($counter-1).'">';
+        						              }
+        						              $htmlDeliveryInput .= '</td>';
+        						              $htmlDeliveryInput .= '</tr>';
+        						              echo $htmlDeliveryInput;
+        						              $htmlDeliveryInput = "";
+    						              }
+    						              $htmlDelivery = '<tr>';
     						              $abo = $delivery["ABOID"];
+    						              $htmlDelivery .= '<input type="hidden" name="id'.$counter.'" value="'.$delivery["ABOID"].'" required="required">';
+    						              $htmlDelivery .= '<td>';
+    						              $htmlDelivery .= $login;
+    						              $htmlDelivery .= '</td>';
     						              $htmlDelivery .= '<td>';
     						              $htmlDelivery .= $abo;
+    						              $htmlDelivery .= '</br><input type="submit" value="Afsluiten Abo '.$abo.'" name="submitType" >';
     						              $htmlDelivery .= '</td>';
     						              $htmlDelivery .= '<td>';
     						              $htmlDelivery .= $delivery["CONTACT"];
+    						              $htmlDelivery .= '</br>';
+    						              $htmlDelivery .= $delivery['GSM'];
+    						              $htmlDelivery .= '</br>';
+    						              $htmlDelivery .= $delivery['STREET'];
+    						              $htmlDelivery .= '</br>';
+    						              $htmlDelivery .= $delivery['CITY'];
+    						              if ($delivery['ADRESREMARKS'] != "") {
+    						                  $htmlDelivery .= '</br>';
+    						                  $htmlDelivery .= $delivery['ADRESREMARKS'];
+    						              }
     						              $htmlDelivery .= '</td>';
     						              $htmlDelivery .= '<td>';
     						              $htmlDelivery .= $delivery["DELTYPE"];
+    						              if ($delivery['COMMENTS'] != "") {
+    						                  $htmlDelivery .= '</br>';
+    						                  $htmlDelivery .= $delivery['COMMENTS'];
+    						              }
     						              $htmlDelivery .= '</td>';
     						              $htmlDelivery .= '<td>';
-    						              $htmlDelivery .= $delivery["POTSPW"];
+    						              $htmlDelivery .= $potspw;
     						              $htmlDelivery .= '</td>';
     						              $htmlDelivery .= '<td>';
     						              $htmlDelivery .= $delivery["FIRSTDELDATE"];
     						              $htmlDelivery .= '</td>';
     						          } else {
+    						              $htmlDelivery = '<tr>';
+    						              $htmlDelivery .= '<td>';
+    						              $htmlDelivery .= '</td>';
     						              $htmlDelivery .= '<td>';
     						              $htmlDelivery .= '</td>';
     						              $htmlDelivery .= '<td>';
@@ -221,15 +258,24 @@ require 'php/getDeliveries.php';
     						          $counter += 1;
     						      }
     						  }
+    						  $htmlDeliveryInput .= '<tr>';
+    						  $htmlDeliveryInput .= '<td colspan="7"></td>';
+    						  $htmlDeliveryInput .= '<td>';
+    						  $htmlDeliveryInput .= '<input type="text" name="flavor1"'.($counter-1).'">';
+    						  if ($potspw == 2) {
+    						      $htmlDeliveryInput .= '</br><input type="text" name="flavor2"'.($counter-1).'">';
+    						  }
+    						  $htmlDeliveryInput .= '</td>';
+    						  $htmlDeliveryInput .= '</tr>';
+    						  echo $htmlDeliveryInput;
+    						  
     						?>
     						<!-- end loop -->
-    						<!-- 
     						<tr>
-    							<td align="right" colspan="6">
-    								<input type="submit" value="Aanpassen Betalingen" name="submitType" >
+    							<td align="right" colspan="8">
+    								<input type="submit" value="Aanpassen Leveringen" name="submitType" >
     							</td>
     						</tr>
-    						 -->
 						</table>
     						<input type="hidden" name="deliveryCounter" value="<?php echo count($deliveries) ?>">
 						</form>
