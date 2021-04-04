@@ -48,10 +48,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
          } else {
             echo 'input problems updating deliveries: '.$inputError;
         }
-    } else  if (substr($_POST["submitType"],0,13) == "Afsluiten Abo") {
-        $closeId = substr($_POST["submitType"], 14);
+    } else  if (substr($_POST["submitType"],0,11) == "Sluiten Abo") {
+        $closeId = substr($_POST["submitType"], 12);
         $_SESSION["closeId"] = $closeId;
-        echo '\nclosing abo '.$closeId;
         require "php/closeAbo.php";
     }
 }
@@ -151,7 +150,7 @@ require 'php/getDeliveries.php';
     								Type
     							</td>
     							<td align="left">
-    								Per week
+    								Potten
     							</td>
     							<td align="left">
     								Begin
@@ -168,10 +167,9 @@ require 'php/getDeliveries.php';
     						  $counter=0;
     						  $login = $abo = "";
     						  $deliveries = $_SESSION["deliveries"];
-    						  $potspw=1;
+    						  $potspw=2;
     						  if (!empty($deliveries) && count($deliveries)>0) { // we have deliveries
     						      foreach ($deliveries as $delivery) {
-    						          $potspw = $delivery["POTSPW"];
     						          if ($login != $delivery["LOGIN"]) {
     						              $login = $delivery["LOGIN"];
     						          }
@@ -193,6 +191,7 @@ require 'php/getDeliveries.php';
         						              $htmlDeliveryInput = "";
     						              }
     						              $htmlDelivery = '<tr>';
+    						              $potspw = $delivery["POTSPW"];
     						              $abo = $delivery["ABOID"];
     						              $htmlDelivery .= '<input type="hidden" name="id'.$counter.'" value="'.$delivery["ABOID"].'" required="required">';
     						              $htmlDelivery .= '<td>';
@@ -200,7 +199,7 @@ require 'php/getDeliveries.php';
     						              $htmlDelivery .= '</td>';
     						              $htmlDelivery .= '<td>';
     						              $htmlDelivery .= $abo;
-    						              $htmlDelivery .= '</br><input type="submit" value="Afsluiten Abo '.$abo.'" name="submitType" >';
+    						              $htmlDelivery .= '</br><input type="submit" value="Sluiten Abo '.$abo.'" name="submitType" >';
     						              $htmlDelivery .= '</td>';
     						              $htmlDelivery .= '<td>';
     						              $htmlDelivery .= $delivery["CONTACT"];
@@ -226,7 +225,7 @@ require 'php/getDeliveries.php';
     						              $htmlDelivery .= $potspw;
     						              $htmlDelivery .= '</td>';
     						              $htmlDelivery .= '<td>';
-    						              $htmlDelivery .= $delivery["FIRSTDELDATE"];
+    						              $htmlDelivery .= '<span style="white-space:nowrap;">'.$delivery["FIRSTDELDATE"].'</span>';
     						              $htmlDelivery .= '</td>';
     						          } else {
     						              $htmlDelivery = '<tr>';
