@@ -10,7 +10,6 @@ require_once 'php/Delivery.php';
 
 $nofaults = true;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    echo substr($_POST["submitType"],0,13);
     if ($_POST["submitType"]=="Aanpassen Leveringen") {
         $inputError = "";
         if (empty($_POST["deliveryCounter"]))  {

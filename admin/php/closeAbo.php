@@ -5,7 +5,6 @@ if (!isset($_SESSION)) {
 }
 
 $closeId = $_SESSION["closeId"];
-echo '\nclosing abo '.$closeId;
 
 // Create connection
 $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
