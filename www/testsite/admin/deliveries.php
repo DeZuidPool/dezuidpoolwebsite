@@ -4,9 +4,9 @@ if (! isset($_SESSION)) {
     session_start();
 }
 
-require 'php/testinput.php';
-require 'php/dbcredentials.php';
-require_once 'php/Delivery.php';
+require '../php/testinput.php';
+require '../php/dbcredentials.php';
+require_once '../php/Delivery.php';
 
 $nofaults = true;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["updatedDeliveries"] = $updatedDeliveries;
         }
         if ($nofaults) {
-            require 'php/updateDeliveries.php';
+            require '../php/updateDeliveries.php';
             $nofaults = $_SESSION["nofaults"];
             if (!$nofaults) { 
                 $error = $_SESSION["error"];
@@ -48,10 +48,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
          } else {
             echo 'input problems updating deliveries: '.$inputError;
         }
-    } else  if (substr($_POST["submitType"],0,11) == "Sluiten Abo") {
-        $closeId = substr($_POST["submitType"], 12);
+    } else  if (substr($_POST["submitType"],0,9) == "Sluit Abo") {
+        $closeId = substr($_POST["submitType"], 10);
         $_SESSION["closeId"] = $closeId;
-        require "php/closeAbo.php";
+        require '../php/closeAbo.php';
     }
 }
 
@@ -181,9 +181,9 @@ require 'php/getDeliveries.php';
         						              $htmlDeliveryInput .= '<input type="date" name="date'.($counter-1).'">';
         						              $htmlDeliveryInput .= '</td>';
         						              $htmlDeliveryInput .= '<td>';
-        						              $htmlDeliveryInput .= '<input type="text" name="flavor1'.($counter-1).'">';
+        						              $htmlDeliveryInput .= '<input type="text" name="flavor1'.($counter-1).'" size="15">';
         						              if ($potspw == 2) {
-        						                  $htmlDeliveryInput .= '</br><input type="text" name="flavor2'.($counter-1).'">';
+        						                  $htmlDeliveryInput .= '</br><input type="text" name="flavor2'.($counter-1).'" size="15">';
         						              }
         						              $htmlDeliveryInput .= '</td>';
         						              $htmlDeliveryInput .= '</tr>';
@@ -199,10 +199,10 @@ require 'php/getDeliveries.php';
     						              $htmlDelivery .= '</td>';
     						              $htmlDelivery .= '<td>';
     						              $htmlDelivery .= $abo;
-    						              $htmlDelivery .= '</br><input type="submit" value="Sluiten Abo '.$abo.'" name="submitType" >';
+    						              $htmlDelivery .= '</br><input type="submit" value="Sluit Abo '.$abo.'" name="submitType" >';
     						              $htmlDelivery .= '</td>';
     						              $htmlDelivery .= '<td>';
-    						              $htmlDelivery .= $delivery["CONTACT"];
+    						              $htmlDelivery .= '<b>'.$delivery["CONTACT"].'</b>';
     						              $htmlDelivery .= '</br>';
     						              $htmlDelivery .= $delivery['GSM'];
     						              $htmlDelivery .= '</br>';
@@ -211,14 +211,14 @@ require 'php/getDeliveries.php';
     						              $htmlDelivery .= $delivery['CITY'];
     						              if ($delivery['ADRESREMARKS'] != "") {
     						                  $htmlDelivery .= '</br>';
-    						                  $htmlDelivery .= $delivery['ADRESREMARKS'];
+    						                  $htmlDelivery .= '<b>'.$delivery['ADRESREMARKS'].'</b>';
     						              }
     						              $htmlDelivery .= '</td>';
     						              $htmlDelivery .= '<td>';
     						              $htmlDelivery .= $delivery["DELTYPE"];
     						              if ($delivery['COMMENTS'] != "") {
     						                  $htmlDelivery .= '</br>';
-    						                  $htmlDelivery .= $delivery['COMMENTS'];
+    						                  $htmlDelivery .= '<b>'.$delivery['COMMENTS'].'</b>';
     						              }
     						              $htmlDelivery .= '</td>';
     						              $htmlDelivery .= '<td>';
@@ -259,9 +259,9 @@ require 'php/getDeliveries.php';
     						  $htmlDeliveryInput .= '<tr>';
     						  $htmlDeliveryInput .= '<td colspan="7"></td>';
     						  $htmlDeliveryInput .= '<td>';
-    						  $htmlDeliveryInput .= '<input type="text" name="flavor1"'.($counter-1).'">';
+    						  $htmlDeliveryInput .= '<input type="text" name="flavor1"'.($counter-1).'" size="15">';
     						  if ($potspw == 2) {
-    						      $htmlDeliveryInput .= '</br><input type="text" name="flavor2"'.($counter-1).'">';
+    						      $htmlDeliveryInput .= '</br><input type="text" name="flavor2"'.($counter-1).'" size="15">';
     						  }
     						  $htmlDeliveryInput .= '</td>';
     						  $htmlDeliveryInput .= '</tr>';

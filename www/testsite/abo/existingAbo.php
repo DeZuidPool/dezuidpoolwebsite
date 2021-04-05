@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($nofaults) {
         $_SESSION["customerid"] = $customerid;
         $_SESSION["id"] = $id;
-        require 'php/updateAbo.php';
+        require '../php/updateAbo.php';
         
         header("Location: overviewCustomer.php");
     }

@@ -65,8 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         if ($nofaults) {
             $_SESSION["customerid"] = $customerid;
-            // require 'php/dbcredentials.php'; should not be needed
-            require 'php/updateLogin.php';
+            require '../php/updateLogin.php';
             $nofaults = $_SESSION["nofaults"];
             if (! $nofaults) {
                 $emailErr = $_SESSION["emailErr"];

@@ -3,26 +3,26 @@
 if (! isset($_SESSION)) {
     session_start();
 }
-require_once 'php/abonnement.php';
+require_once '../php/Delivery.php';
 
-$updatedAbos = $_SESSION["updatedAbos"];
+$updatedDeliveries = $_SESSION["updatedDeliveries"];
 // Create connection
 $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$SQL = "UPDATE ABONNEMENT SET PAYED = ?, FIRSTDELDATE = ?  WHERE ID = ?";
+$SQL = "INSERT INTO WEEK (ABOID,FLAVOR1,FLAVOR2,DATUM) values (?,?,?,?)";
 $error = "";
 $nofaults = true;
-foreach ($updatedAbos as $abo) {
-    if ($abo instanceof Abonnement) {
+foreach ($updatedDeliveries as $delivery) {
+    if ($delivery instanceof Delivery) {
         $stmt = $conn->prepare($SQL);
-        $startDate = null;
-        if ($abo->get_firstDelDate() != null) {
-            $startDate = date("Y-m-d",strtotime($abo->get_firstDelDate()));
+        $date = null;
+        if ($delivery->getDelDate() != null) {
+            $date = date("Y-m-d",strtotime($delivery->getDelDate()));
         }
-        $stmt->bind_param("ssi", $abo->get_payed(), $startDate,$abo->get_id());
+        $stmt->bind_param("isss", $delivery->getAboId(), $delivery->getFlavor1(), $delivery->getFlavor2(), $date);
         
         if (! $stmt->execute()) {
             $nofaults = false;
@@ -32,7 +32,7 @@ foreach ($updatedAbos as $abo) {
         $stmt->close();
     } else {
         $nofaults = false;
-        $error .= "object not a ABONNEMENT!\n";
+        $error .= "object not a Delivery!\n";
     }
 }
 $_SESSION["nofaults"] = $nofaults;

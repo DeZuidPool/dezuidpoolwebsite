@@ -6,7 +6,8 @@ if (! isset($_SESSION)) {
 
 require 'php/testinput.php';
 require 'php/dbcredentials.php';
-require_once 'php/abonnement.php';
+require_once 'php/Abonnement.php';
+require_once 'php/Customer.php';
 
 
 $nofaults = true;
@@ -27,12 +28,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             if (!empty($_POST["abobegin".$i])) {
                                     $abobegin = $_POST["abobegin".$i];
                                     $updatedAbo->set_firstDelDate($abobegin);
-                                } else {
+                            } else {
                                     $updatedAbo->set_firstDelDate(null);
-                                }
+                            }
                         } else {
                             $payed = "N";
-                            $updatedAbo->set_firstDelDate(null);
                         }
                         $id = $_POST["id".$i];
                         $updatedAbo->set_id($id);
@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($nofaults) {
             require 'php/updateAbos.php';
             $nofaults = $_SESSION["nofaults"];
-            if (!$nofaults) { // empty new flavor fields
+            if (!$nofaults) {
                 $error = $_SESSION["error"];
                 echo $error;
             }
@@ -64,7 +64,7 @@ require 'php/getCustomerAbos.php';
 <html lang="en">
 <head>
 
-     <title>IJS BAR De Zuidpool - Beheer Betalingen</title>
+     <title>IJS BAR De Zuidpool - Beheer Betalingen abonnementen</title>
      <meta charset="UTF-8">
      <meta http-equiv="X-UA-Compatible" content="IE=Edge">
      <meta name="description" content="">
@@ -109,7 +109,7 @@ require 'php/getCustomerAbos.php';
                     </button>
 
                     <!-- lOGO TEXT HERE -->
-                    <a href="index.html" class="navbar-brand">IJS BAR de Zuidpool - Beheer Betalingen</a>
+                    <a href="index.html" class="navbar-brand">IJS BAR de Zuidpool - Beheer Betalingen abonnementen</a>
                </div>
 
                <!-- MENU LINKS -->
@@ -131,13 +131,13 @@ require 'php/getCustomerAbos.php';
 
                     <div class="col-md-12 col-sm-12">
                          <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
-                              <h2>Beheer Betalingen</h2>
+                              <h2>Beheer Betalingen abonnementen</h2>
                          </div>
                     </div>
 
                     <div class="col-md-12 col-sm-12">
-					<table class="table">
 						<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>#payments" method="post">
+					<table class="table">
     						<tr>
     							<td align="left">
     								Login 
@@ -149,61 +149,70 @@ require 'php/getCustomerAbos.php';
     								Abocontact
     							</td>
     							<td align="left">
-    								Betaald? 
+    								Activeer abo
     							</td>
     							<td align="left">
     								pot per week
     							</td>
-    							<td align="left">
+    							<td align="left" >
     								Begin
     							</td>
     						</tr>
     						<!--  php loop over flavors -->
     						<?php 
     						  $counter=0;
+    						  $login="";
     						  $customerAbos = $_SESSION["abonnementen"];
     						  if (!empty($customerAbos) && count($customerAbos)>0) { // we have customers
     						      foreach ($customerAbos as $customerAbo) {
-    						          $htmlFlavor = '<tr>';
-    						          $htmlFlavor .= '<input type="hidden" name="id'.$counter.'" value="'.$customerAbo["ABOID"].'" required="required">';
-    						          $htmlFlavor .= '<td>';
-    						          $htmlFlavor .= $customerAbo["LOGIN"];
-    						          $htmlFlavor .= '</td>';
-    						          $htmlFlavor .= '<td>';
-    						          $htmlFlavor .= $customerAbo["ABOID"];
-    						          $htmlFlavor .= '</td>';
-    						          $htmlFlavor .= '<td>';
-    						          $htmlFlavor .= $customerAbo["ABONAME"];
-    						          $htmlFlavor .= '</td>';
-    						          $htmlFlavor .= '<td align="center">';
-    						          $htmlFlavor .= '<input type="checkbox" name="payed'.$counter.'" ';
-    						          if ($customerAbo["ABOPAYED"] == "Y") {
-    						              $htmlFlavor .=' checked ';
+    						          $htmlAbo = '<tr>';
+    						          if ($login != $customerAbo["LOGIN"]) {
+    						              $login = $customerAbo["LOGIN"];
+    						              $htmlAbo .= '<input type="hidden" name="id'.$counter.'" value="'.$customerAbo["ABOID"].'" required="required">';
+    						              $htmlAbo .= '<td>';
+    						              $htmlAbo .= $login;
+    						              $htmlAbo .= '</td>';
+    						          } else {
+    						              $htmlAbo .= '<td></td>';
     						          }
-    						          $htmlFlavor .= '>';
-    						          $htmlFlavor .= '</td>';
-    						          $htmlFlavor .= '<td>';
-    						          $htmlFlavor .= $customerAbo["POTSPW"];
-    						          $htmlFlavor .= '</td>';
-    						          $htmlFlavor .= '<td>';
-    						          $htmlFlavor .= '<input type="date" value="'.$customerAbo["ABOBEGIN"].'" name="abobegin'.$counter.'">';
-    						          $htmlFlavor .= '</td>';
-    						          $htmlFlavor .= '</tr>';
-    						          echo $htmlFlavor;
+    						          $htmlAbo .= '<td>';
+    						          $htmlAbo .= $customerAbo["ABOID"];
+    						          $htmlAbo .= '</td>';
+    						          $htmlAbo .= '<td>';
+    						          $htmlAbo .= '<b>'.$customerAbo["ABONAME"].'</b>';
+    						          $htmlAbo .= '</br>'.$customerAbo["STREET"];
+    						          $htmlAbo .= '</br>'.$customerAbo["CITY"];
+    						          $htmlAbo .= '</br>'.$customerAbo["ADRESREMARKS"];
+    						          $htmlAbo .= '</td>';
+    						          $htmlAbo .= '<td align="center">';
+    						          $htmlAbo .= '<input type="checkbox" name="payed'.$counter.'" ';
+    						          if ($customerAbo["ABOPAYED"] == "Y") {
+    						              $htmlAbo .=' checked ';
+    						          }
+    						          $htmlAbo .= '>';
+    						          $htmlAbo .= '</td>';
+    						          $htmlAbo .= '<td>';
+    						          $htmlAbo .= $customerAbo["POTSPW"];
+    						          $htmlAbo .= '</td>';
+    						          $htmlAbo .= '<td>';
+    						          $htmlAbo .= '<input type="date" value="'.$customerAbo["ABOBEGIN"].'" name="abobegin'.$counter.'">';
+    						          $htmlAbo .= '</td>';
+    						          $htmlAbo .= '</tr>';
+    						          echo $htmlAbo;
     						          $counter += 1;
     						      }
     						  }
     						?>
     						<!-- end loop -->
-    						<input type="hidden" name="aboCounter" value="<?php echo count($customerAbos) ?>">
     						<!-- php insert new -->
     						<tr>
     							<td align="right" colspan="6">
     								<input type="submit" value="Aanpassen Betalingen" name="submitType" >
     							</td>
     						</tr>
-						</form>
 					</table>
+    						<input type="hidden" name="aboCounter" value="<?php echo count($customerAbos) ?>">
+						</form>
 					</div>
 				</div>
           </div>

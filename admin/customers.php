@@ -4,60 +4,17 @@ if (! isset($_SESSION)) {
     session_start();
 }
 
-require '../php/testinput.php';
-require '../php/dbcredentials.php';
-require_once '../php/Valentijn.php';
 
-
-$nofaults = true;
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $inputError = "";
-        if (empty($_POST["valCounter"]))  {
-            $nofaults = false;
-            $inputError .=" no counter ";
-        } else {
-            $updatedVals = array();
-            $index = $_POST["valCounter"];
-            //echo 'total abos : '.$index;
-            for ($i = 0; $i < $index; $i++) {
-                if (!empty($_POST["id".$i])) {
-                        $updatedVal = new Valentijn();
-                        if (!empty($_POST["payed".$i])) {
-                            $payed = "Y";
-                        } else {
-                            $payed = "N";
-                        }
-                        $id = $_POST["id".$i];
-                        $updatedVal->set_id($id);
-                        $updatedVal->set_payed($payed);
-                        $updatedVals[] = $updatedVal;
-                    } else {
-                        $nofaults=false;
-                        $inputError .= " empty fields for index".$i.'\n';
-                    }
-            }
-            $_SESSION["updatedVals"] = $updatedVals;
-        }
-        if ($nofaults) {
-            require '../php/updateVals.php';
-            $nofaults = $_SESSION["nofaults"];
-            if (!$nofaults) { // empty new flavor fields
-                $error = $_SESSION["error"];
-                echo $error;
-            }
-         } else {
-            echo 'input problems updating vals: '.$inputError;
-        }
-}
-
-require '../php/getCustomerVals.php';
+require 'php/dbcredentials.php';
+require_once 'php/Customer.php';
+require 'php/getCustomers.php';
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 
-     <title>IJS BAR De Zuidpool - Beheer Betalingen</title>
+     <title>IJS BAR De Zuidpool - Bekijk Klanten</title>
      <meta charset="UTF-8">
      <meta http-equiv="X-UA-Compatible" content="IE=Edge">
      <meta name="description" content="">
@@ -102,7 +59,7 @@ require '../php/getCustomerVals.php';
                     </button>
 
                     <!-- lOGO TEXT HERE -->
-                    <a href="index.html" class="navbar-brand">IJS BAR de Zuidpool - Beheer Betalingen</a>
+                    <a href="index.html" class="navbar-brand">IJS BAR de Zuidpool - Bekijk Klanten</a>
                </div>
 
                <!-- MENU LINKS -->
@@ -124,67 +81,52 @@ require '../php/getCustomerVals.php';
 
                     <div class="col-md-12 col-sm-12">
                          <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
-                              <h2>Beheer Betalingen</h2>
+                              <h2>Bekijk Klanten</h2>
                          </div>
                     </div>
 
                     <div class="col-md-12 col-sm-12">
 					<table class="table">
-						<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>#payments" method="post">
     						<tr>
+    							<td align="left">
+    								Naam 
+    							</td>
     							<td align="left">
     								Login 
     							</td>
     							<td align="left">
-    								ValId 
+    								# orders
     							</td>
-    							<td align="left">
-    								Valcontact
-    							</td>
-    							<td align="left">
-    								Betaald? 
-    							</td>
+    							<td></td>
     						</tr>
-    						<!--  php loop over valentijns -->
+    						<!--  php loop over flavors -->
     						<?php 
-    						  $counter=0;
-    						  $customerVals = $_SESSION["valentijns"];
-    						  if (!empty($customerVals) && count($customerVals)>0) { // we have customers
-    						      foreach ($customerVals as $customerVal) {
-    						          $htmlFlavor = '<tr>';
-    						          $htmlFlavor .= '<input type="hidden" name="id'.$counter.'" value="'.$customerVal["ABOID"].'" required="required">';
-    						          $htmlFlavor .= '<td>';
-    						          $htmlFlavor .= $customerVal["LOGIN"];
-    						          $htmlFlavor .= '</td>';
-    						          $htmlFlavor .= '<td>';
-    						          $htmlFlavor .= $customerVal["ABOID"];
-    						          $htmlFlavor .= '</td>';
-    						          $htmlFlavor .= '<td>';
-    						          $htmlFlavor .= $customerVal["ABONAME"];
-    						          $htmlFlavor .= '</td>';
-    						          $htmlFlavor .= '<td align="center">';
-    						          $htmlFlavor .= '<input type="checkbox" name="payed'.$counter.'" ';
-    						          if ($customerVal["ABOPAYED"] == "Y") {
-    						              $htmlFlavor .=' checked ';
+    						  $customers = $_SESSION["customers"];
+    						  if (!empty($customers) && count($customers)>0) { // we have customers
+    						      foreach ($customers as $customer) {
+    						          if ($customer instanceof Customer) {
+    						          $htmlCustomer = '<tr>';
+    						          $htmlCustomer .= '<td>';
+    						          $htmlCustomer .= '<b>'.$customer->getName().' '.$customer->getFirstName().'</b>';
+    						          $htmlCustomer .= '</td>';
+    						          $htmlCustomer .= '<td>';
+    						          $htmlCustomer .= $customer->getLogin();
+    						          $htmlCustomer .= '</td>';
+    						          $htmlCustomer .= '<td>';
+    						          $htmlCustomer .= $customer->getNbrorders();
+    						          $htmlCustomer .= '</td>';
+    						          $htmlCustomer .= '<td>';
+    						          $htmlCustomer .= '<a href="addPayment.php?login='.$customer->getLogin().'">order toevoegen</a>';
+    						          $htmlCustomer .= '</td>';
+    						          $htmlCustomer .= '</tr>';
+    						          echo $htmlCustomer;
     						          }
-    						          $htmlFlavor .= '>';
-    						          $htmlFlavor .= '</td>';
-    						          $htmlFlavor .= '</tr>';
-    						          echo $htmlFlavor;
-    						          $counter += 1;
     						      }
     						  }
     						?>
     						<!-- end loop -->
-    						<input type="hidden" name="valCounter" value="<?php echo count($customerVals) ?>">
     						<!-- php insert new -->
-    						<tr>
-    							<td align="right" colspan="6">
-    								<input type="submit" value="Aanpassen Betalingen" name="submitType" >
-    							</td>
-    						</tr>
-						</form>
-					</table>
+						</table>
 					</div>
 				</div>
           </div>

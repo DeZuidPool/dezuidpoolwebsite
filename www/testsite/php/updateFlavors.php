@@ -3,23 +3,23 @@
 if (! isset($_SESSION)) {
     session_start();
 }
-require_once 'php/customer.php';
+require_once '../php/Flavor.php';
 
-$customers = $_SESSION["customers"];
+$flavors = $_SESSION["flavors"];
 // Create connection
 $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$SQL = "UPDATE CUSTOMER SET PAYED = ? WHERE ID = ?";
+$SQL = "UPDATE FLAVOR SET NAME = ?, DESCRIPTION = ?,IJSTYPE = ?, SELLING = ?, COMINGSOON = ?,VEGAN = ? WHERE ID = ?";
 $error = "";
 $nofaults = true;
-foreach ($customers as $customer) {
-    if ($customer instanceof Customer) {
+foreach ($flavors as $flavor) {
+    if ($flavor instanceof Flavor) {
         $stmt = $conn->prepare($SQL);
-        $stmt->bind_param("si", $customer->get_payed(), $customer->get_id());
-        
+        $stmt->bind_param("ssssssi", $flavor->get_name(), $flavor->get_description(), $flavor->get_ijstype(), $flavor->get_selling(), $flavor->get_comingsoon(), $flavor->get_vegan(),$flavor->get_id());
+
         if (! $stmt->execute()) {
             if ($nofaults) {
                 $nofaults = false;
@@ -30,7 +30,7 @@ foreach ($customers as $customer) {
         $stmt->close();
     } else {
         $nofaults = false;
-        $error .= "object not a CUSTOMER!\n";
+        $error .= "object not a FLAVOR!\n";
     }
 }
 $_SESSION["nofaults"] = $nofaults;

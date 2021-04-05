@@ -3,7 +3,7 @@
 if (! isset($_SESSION)) {
     session_start();
 }
-require_once 'php/abonnement.php';
+require_once 'php/Abonnement.php';
 
 $updatedAbos = $_SESSION["updatedAbos"];
 // Create connection

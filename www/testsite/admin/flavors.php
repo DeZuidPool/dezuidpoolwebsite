@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
            $nofaults=false;
        }
        if ($nofaults) {
-           require 'php/saveFlavor.php';
+           require '../php/saveFlavor.php';
            $nofaults = $_SESSION["nofaults"];
            if ($nofaults) { // empty new flavor fields
                $newName = $newDescription = $newOfType = $newSelling = $newComingSoon = $newVegan = $newAlcohol = $newEigeel = $newGluten = "";
@@ -122,7 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["flavors"] = $updatedFlavors;
         }
         if ($nofaults) {
-            require 'php/updateFlavors.php';
+            require '../php/updateFlavors.php';
             $nofaults = $_SESSION["nofaults"];
             if (!$nofaults) { // empty new flavor fields
                 $error = $_SESSION["error"];
@@ -134,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-require 'php/getFlavors.php';
+require '../php/getFlavors.php';
 
 ?>
 <!DOCTYPE html>

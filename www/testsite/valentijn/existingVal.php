@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($nofaults) {
         $_SESSION["customerid"] = $customerid;
         $_SESSION["id"] = $id;
-        require 'php/updateVal.php';
+        require '../php/updateVal.php';
         
         header("Location: overviewCustomer.php");
     }

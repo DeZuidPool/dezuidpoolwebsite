@@ -9,7 +9,7 @@ $customerid = $_SESSION["customerid"];
 $name = $firstName = $gsm = $email = $communications = "";
 require "../php/dbcredentials.php";
 require "../php/getCustomer.php";
-require_once "../php/abonnement.php";
+require_once "../php/Abonnement.php";
 require "../php/getAbos.php";
 
 ?>
