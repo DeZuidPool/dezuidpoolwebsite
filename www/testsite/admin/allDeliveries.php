@@ -7,62 +7,14 @@ if (! isset($_SESSION)) {
 require '../php/testinput.php';
 require '../php/dbcredentials.php';
 require_once '../php/Delivery.php';
-
-$nofaults = true;
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if ($_POST["submitType"]=="Aanpassen Leveringen") {
-        $inputError = "";
-        if (empty($_POST["deliveryCounter"]))  {
-            $nofaults = false;
-            $inputError .=" no counter ";
-        } else {
-            $updatedDeliveries = array();
-            $index = $_POST["deliveryCounter"];
-            for ($i = 0; $i < $index; $i++) {
-                if (!empty($_POST["id".$i]) && !empty($_POST["flavor1".$i])) {
-                    $aboId = test_input($_POST["id".$i]);
-                    $delFlavor1 = test_input($_POST["flavor1".$i]);
-                    $delFlavor2 = null;
-                    if (isset($_POST["flavor2".$i])) {
-                        $delFlavor2 = test_input($_POST["flavor2".$i]);
-                    }
-                    $delDate = test_input($_POST["date".$i]);
-                    $updatedDelivery = new Delivery($aboId, $delFlavor1, $delFlavor2,$delDate);
-                    $updatedDeliveries[] = $updatedDelivery;
-                    //echo 'added Delivery '.$aboId.$delFlavor1.$delFlavor2.$delDate;
-                } 
-                //else {
-                //        $nofaults=false;
-                //        $inputError .= " empty fields for index ".$i.'\n';
-                //}
-            }
-            $_SESSION["updatedDeliveries"] = $updatedDeliveries;
-        }
-        if ($nofaults) {
-            require '../php/updateDeliveries.php';
-            $nofaults = $_SESSION["nofaults"];
-            if (!$nofaults) { 
-                $error = $_SESSION["error"];
-                echo $error;
-            }
-         } else {
-            echo 'input problems updating deliveries: '.$inputError;
-        }
-    } else  if (substr($_POST["submitType"],0,9) == "Sluit Abo") {
-        $closeId = substr($_POST["submitType"], 10);
-        $_SESSION["closeId"] = $closeId;
-        require '../php/closeAbo.php';
-    }
-}
-
-require '../php/getDeliveries.php';
+require '../php/getAllDeliveries.php';
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 
-     <title>IJS BAR De Zuidpool - Beheer Betalingen</title>
+     <title>IJS BAR De Zuidpool - Leveringen ijsabo</title>
      <meta charset="UTF-8">
      <meta http-equiv="X-UA-Compatible" content="IE=Edge">
      <meta name="description" content="">
@@ -107,7 +59,7 @@ require '../php/getDeliveries.php';
                     </button>
 
                     <!-- lOGO TEXT HERE -->
-                    <a href="index.html" class="navbar-brand">IJS BAR de Zuidpool - Beheer Leveringen</a>
+                    <a href="index.html" class="navbar-brand">IJS BAR de Zuidpool - Alle Leveringen</a>
                </div>
 
                <!-- MENU LINKS -->
@@ -129,12 +81,11 @@ require '../php/getDeliveries.php';
 
                     <div class="col-md-12 col-sm-12">
                          <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
-                              <h2>Beheer Leveringen</h2>
+                              <h2>Alle Leveringen</h2>
                          </div>
                     </div>
 
                     <div class="col-md-12 col-sm-12">
-						<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>#deliveries" method="post">
 					<table class="table">
     						<tr>
     							<td align="left">
@@ -174,32 +125,14 @@ require '../php/getDeliveries.php';
     						              $login = $delivery["LOGIN"];
     						          }
     						          if ($abo != $delivery["ABOID"]) {
-    						              if ($abo != "") {
-        						              $htmlDeliveryInput .= '<tr>';
-        						              $htmlDeliveryInput .= '<td colspan="6"></td>';
-        						              $htmlDeliveryInput .= '<td>';
-        						              $htmlDeliveryInput .= '<input type="date" name="date'.($counter-1).'">';
-        						              $htmlDeliveryInput .= '</td>';
-        						              $htmlDeliveryInput .= '<td>';
-        						              $htmlDeliveryInput .= '<input type="text" name="flavor1'.($counter-1).'" size="15">';
-        						              if ($potspw == 2) {
-        						                  $htmlDeliveryInput .= '</br><input type="text" name="flavor2'.($counter-1).'" size="15">';
-        						              }
-        						              $htmlDeliveryInput .= '</td>';
-        						              $htmlDeliveryInput .= '</tr>';
-        						              echo $htmlDeliveryInput;
-        						              $htmlDeliveryInput = "";
-    						              }
     						              $htmlDelivery = '<tr>';
     						              $potspw = $delivery["POTSPW"];
     						              $abo = $delivery["ABOID"];
-    						              $htmlDelivery .= '<input type="hidden" name="id'.$counter.'" value="'.$delivery["ABOID"].'" required="required">';
     						              $htmlDelivery .= '<td>';
     						              $htmlDelivery .= $login;
     						              $htmlDelivery .= '</td>';
     						              $htmlDelivery .= '<td>';
     						              $htmlDelivery .= $abo;
-    						              $htmlDelivery .= '</br><input type="submit" value="Sluit Abo '.$abo.'" name="submitType" >';
     						              $htmlDelivery .= '</td>';
     						              $htmlDelivery .= '<td>';
     						              $htmlDelivery .= '<b>'.$delivery["CONTACT"].'</b>';
@@ -256,27 +189,11 @@ require '../php/getDeliveries.php';
     						          $counter += 1;
     						      }
     						  }
-    						  $htmlDeliveryInput .= '<tr>';
-    						  $htmlDeliveryInput .= '<td colspan="7"></td>';
-    						  $htmlDeliveryInput .= '<td>';
-    						  $htmlDeliveryInput .= '<input type="text" name="flavor1"'.($counter-1).'" size="15">';
-    						  if ($potspw == 2) {
-    						      $htmlDeliveryInput .= '</br><input type="text" name="flavor2"'.($counter-1).'" size="15">';
-    						  }
-    						  $htmlDeliveryInput .= '</td>';
-    						  $htmlDeliveryInput .= '</tr>';
     						  echo $htmlDeliveryInput;
     						  
     						?>
     						<!-- end loop -->
-    						<tr>
-    							<td align="right" colspan="8">
-    								<input type="submit" value="Aanpassen Leveringen" name="submitType" >
-    							</td>
-    						</tr>
 						</table>
-    						<input type="hidden" name="deliveryCounter" value="<?php echo count($deliveries) ?>">
-						</form>
 					</div>
 				</div>
           </div>
