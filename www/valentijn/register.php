@@ -8,7 +8,7 @@ require '../php/testinput.php';
 
 // define variables and set to empty values
 $lastName = $firstName = $email = $password = $gsm = $communications = "";
-$lastNameErr = $firstNameErr = $emailErr = $passwordErr = $gsmErr = "";
+$lastNameErr = $firstNameErr = $emailErr = $passwordErr = $gsmCustErr = "";
 
 $nofaults = true;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $firstName = test_input($_POST["firstName"]);
     }
     if (empty($_POST["gsm"])) {
-        $gsmErr = "Gsm nummer is vereist";
+        $gsmCustErr = "Gsm nummer is vereist";
         $nofaults = false;
     } else {
         $gsm = test_input($_POST["gsm"]);
@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         require '../php/saveLogin.php';
         $nofaults = $_SESSION["nofaults"];
         if ($nofaults) {
-            header('Location: createAbo.php');
+            header('Location: createVal.php');
         } else { // register failed
             $emailErr = $_SESSION["emailErr"];
         }
@@ -81,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="en">
 <head>
 
-<title>IJS BAR De Zuidpool - Bestellen</title>
+<title>IJS BAR De Zuidpool - Valentijn Pretpakket</title>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta name="description" content="">
@@ -127,17 +127,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				</button>
 
 				<!-- lOGO TEXT HERE -->
-				<a href="../index.html" class="navbar-brand-flavors">IJS BAR de Zuidpool -
-					Bestellen</a>
+				<a href="../index.html" class="navbar-brand">IJS BAR de Zuidpool -
+					Valentijn Pretpakket</a>
 			</div>
 
 			<!-- MENU LINKS -->
 			<div class="collapse navbar-collapse">
-                    <ul class="nav-flavors navbar-nav navbar-nav-first">
-                         <li><a href="../index.html#home" class="smoothScroll">Home</a></li>
-<!--						 <li><a href="#home" class="smoothScroll">Top</a></li>-->
-                         <li><a href="../menu.html" class="smoothScroll nav-flavors" target="_blank">Ons menu</a></li>
-                    </ul>
+				<ul class="nav navbar-nav navbar-nav-first">
+					<li><a href="../index.html#home" class="smoothScroll">Home</a></li>
+					<!--						 <li><a href="#home" class="smoothScroll">Top</a></li>-->
+					<li><a href="../menu.html" class="smoothScroll" target="_blank">Ons
+							menu</a></li>
+				</ul>
 
 			</div>
 
@@ -151,6 +152,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		data-stellar-background-ratio="0.5">
 		<div class="row">
 
+			<div class="owl-carousel owl-theme">
+				<div class="item menu-item-first">
+					<div class="menu-caption">
+						<div class="container">
+							<div class="col-md-8 col-sm-12">
+								<h3>Ijsjes !!!</h3>
+								<h1>Lick our ijs!!!</h1>
+								<a href="../menu.html#menuijsjes"
+									class="section-btn btn btn-default smoothScroll"
+									target="_blank">Bekijk menu</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="item menu-item-second">
+					<div class="menu-caption">
+						<div class="container">
+							<div class="col-md-8 col-sm-12">
+								<h3>Als je wat meer honger hebt</h3>
+								<h1>Wafels, broodjes, croques</h1>
+								<a href="../menu.html#menuknabbels"
+									class="section-btn btn btn-default smoothScroll"
+									target="_blank">Bekijk menu</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="item menu-item-third">
+					<div class="menu-caption">
+						<div class="container">
+							<div class="col-md-8 col-sm-12">
+								<h3>Bij een hapje hoort ook een drankje</h3>
+								<h1>fris- en warme dranken, vers fruitsap, shots, cocktails,
+									wijn en cava</h1>
+								<a href="../menu.html#menudrinks"
+									class="section-btn btn btn-default smoothScroll"
+									target="_blank">Bekijk menu</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
 		</div>
 	</section>
@@ -162,10 +207,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 				<div class="col-md-12 col-sm-12">
 					<div class="section-title wow fadeInUp" data-wow-delay="0.1s">
-						<h2>Registreer je hier voor een ijs-abonnement:</h2>
-						<p> Meer informatie betreft het ijs-abonnement vind je <a href="/ijsabo.html" target="_blank">hier</a>
+						<h2>Registreer je hier voor een valentijn pretpakket:</h2>
+						<p> Meer informatie betreft het pakket vind je <a href="/valentijn.html" target="_blank">hier</a>
 						</p>
-						<p>Vergeet niet om de juiste informatie door te geven, dan kunnen wij jouw ijsplezier garanderen.
+						<p>Vergeet niet om de juiste informatie door te geven, dan kunnen wij jouw (ijs)plezier garanderen.
 						</p>
 					</div>
 					<div class="has-error" align="left">* : Verplicht veld</div>
@@ -173,10 +218,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 				<div class="col-md-9 col-sm-9">
 					<h5>Registreer</h5>
+					<table class="table">
 						<form
 							action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>#bestellen"
 							method="post">
-					<table class="table">
 							<tr>
 								<td align="left">Naam:</td>
 								<td align="left"><input type="text" name="lastName"
@@ -190,13 +235,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<tr>
 								<td align="left">GSM:</td>
 								<td align="left"><input type="text" name="gsm"
-									value="<?php echo $gsm; ?>"> <span class="has-error">* <?php echo $gsmErr;?></span></td>
+									value="<?php echo $gsm; ?>"> <span class="has-error">* <?php echo $gsmCustErr;?></span></td>
 							</tr>
 							<tr>
 								<td align="left">Email:</td>
 								<td align="left"><input type="email" name="email"
 									value="<?php echo $email; ?>"> <span class="has-error">* <?php echo $emailErr;?></span>
-									<br>
+									</br>
 								<input type="checkbox" name="communications" value="Y"
 									<?php if (isset($communications) && $communications =="Y") echo "checked=\"checked\"";?>>
 									Ik wens emails te ontvangen over acties of nieuwigheden</td>
@@ -216,8 +261,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						<tr>
 							<td align="right" colspan="2"><input type="submit"></td>
 						</tr>
-					</table>
 						</form>
+					</table>
 				</div>
 			</div>
 		</div>
@@ -231,14 +276,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						<p>
 							Wij gebruiken jouw gegevens enkel voor De Zuidpool<br> Je
 							emailadres werkt tevens als login en zullen wij enkel gebruiken,
-							indien je hiervoor gekozen hebt,<br> om jou te informeren over	
-						</p>					
+							indien je hiervoor gekozen hebt,<br> om jou te informeren over						
 						<ul>
 							<li>De Zuidpool</li>
 							<li>acties</li>
 							<li>nieuwigheden</li>
 						</ul>
-						
+						</p>
 						<p>Je Gsm nummer zullen wij enkel gebruiken ivm met levering(en).</p>
 						<p>Je adres wordt ook enkel gebruikt voor levering(en).</p>
 						<p>Onder geen beding zullen wij jouw gegevens delen met derden.</p>
