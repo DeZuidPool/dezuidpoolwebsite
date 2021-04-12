@@ -109,7 +109,7 @@ require '../php/getCustomerAbos.php';
                     </button>
 
                     <!-- lOGO TEXT HERE -->
-                    <a href="index.html" class="navbar-brand">IJS BAR de Zuidpool - Beheer Betalingen abonnementen</a>
+                    <a href="index.html" class="navbar-brand">IJS BAR de Zuidpool - Beheer abonnementen</a>
                </div>
 
                <!-- MENU LINKS -->
@@ -131,7 +131,7 @@ require '../php/getCustomerAbos.php';
 
                     <div class="col-md-12 col-sm-12">
                          <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
-                              <h2>Beheer Betalingen abonnementen</h2>
+                              <h2>Beheer abonnementen</h2>
                          </div>
                     </div>
 
@@ -168,7 +168,6 @@ require '../php/getCustomerAbos.php';
     						          $htmlAbo = '<tr>';
     						          if ($login != $customerAbo["LOGIN"]) {
     						              $login = $customerAbo["LOGIN"];
-    						              $htmlAbo .= '<input type="hidden" name="id'.$counter.'" value="'.$customerAbo["ABOID"].'" required="required">';
     						              $htmlAbo .= '<td>';
     						              $htmlAbo .= $login;
     						              $htmlAbo .= '</td>';
@@ -176,6 +175,7 @@ require '../php/getCustomerAbos.php';
     						              $htmlAbo .= '<td></td>';
     						          }
     						          $htmlAbo .= '<td>';
+    						          $htmlAbo .= '<input type="hidden" name="id'.$counter.'" value="'.$customerAbo["ABOID"].'" required="required">';
     						          $htmlAbo .= $customerAbo["ABOID"];
     						          $htmlAbo .= '</td>';
     						          $htmlAbo .= '<td>';
