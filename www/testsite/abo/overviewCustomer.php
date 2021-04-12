@@ -8,8 +8,8 @@ require '../php/testinput.php';
 $customerid = $_SESSION["customerid"];
 
 // LOGIN, DELIVERYTYPE, SORBETONLY, COMMUNICATIONS, COMMENTS
-$lastName = $firstName = $gsmCust = $email = $deliveryType = $sorbetOnly = $communications = $comments = "";
-$lastNameErr = $firstNameErr = $emailErr = $passwordErr = $gsmCustErr = $deliveryTypeErr = "";
+$lastName = $firstName = $gsmCust = $email = $communications = "";
+$lastNameErr = $firstNameErr = $emailErr = $passwordErr = $gsmCustErr = "";
 
 require "../php/dbcredentials.php";
 require_once "../php/Abonnement.php";
@@ -246,7 +246,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 								<td align="left">Email:</td>
 								<td align="left"><input type="email" name="email"
 									value="<?php echo $email; ?>"> <span class="has-error">* <?php echo $emailErr;?></span>
-									</br> <input type="checkbox" name="communications" value="Y"
+									<br> <input type="checkbox" name="communications" value="Y"
 									<?php if (isset($communications) && $communications =="Y") echo "checked=\"checked\"";?>>
 									Ik wens emails te ontvangen over acties of nieuwigheden</td>
 							</tr>
@@ -344,13 +344,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						    }
 						}
 						?>
-						<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>#bestellen" method="post">
 						<tr>
+						<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>#bestellen" method="post">
 							<td colspan="8" align="right">
 								<input type="submit" value="Nieuw abonnement" name="submitType">
 							</td>
-						</tr>
 						</form>
+						</tr>
 				</table>
 				</div>
 			</div>

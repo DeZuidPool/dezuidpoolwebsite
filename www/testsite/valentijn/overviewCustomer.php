@@ -8,8 +8,8 @@ require '../php/testinput.php';
 $customerid = $_SESSION["customerid"];
 
 // LOGIN, DELIVERYTYPE, SORBETONLY, COMMUNICATIONS, COMMENTS
-$lastName = $firstName = $gsm = $email = $deliveryType = $sorbetOnly = $communications = $comments = "";
-$lastNameErr = $firstNameErr = $emailErr = $passwordErr = $gsmCustErr = $deliveryTypeErr = "";
+$lastName = $firstName = $gsmCust = $email = $communications = "";
+$lastNameErr = $firstNameErr = $emailErr = $passwordErr = $gsmCustErr = "";
 
 require "../php/dbcredentials.php";
 require_once "../php/Valentijn.php";
@@ -31,11 +31,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $firstName = test_input($_POST["firstName"]);
         }
-        if (empty($_POST["gsm"])) {
+        if (empty($_POST["gsmCust"])) {
             $gsmCustErr = "Gsm nummer is vereist";
             $nofaults = false;
         } else {
-            $gsm = test_input($_POST["gsm"]);
+            $gsmCust = test_input($_POST["gsmCust"]);
         }
         if (empty($_POST["email"])) {
             $emailErr = "Email is vereist";
@@ -74,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else if ($_POST["submitType"] == "Nieuw pakket") {
         
         $_SESSION["customerid"] = $customerid;
-        $_SESSION["gsm"] = $gsm;
+        $_SESSION["gsm"] = $gsmCust;
         $_SESSION["name"] = $firstName.' '.$lastName;
 
         header("Location: addVal.php");
@@ -239,14 +239,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							</tr>
 							<tr>
 								<td align="left">GSM:</td>
-								<td align="left"><input type="text" name="gsm"
-									value="<?php echo $gsm; ?>"> <span class="has-error">* <?php echo $gsmCustErr;?></span></td>
+								<td align="left"><input type="text" name="gsmCust"
+									value="<?php echo $gsmCust; ?>"> <span class="has-error">* <?php echo $gsmCustErr;?></span></td>
 							</tr>
 							<tr>
 								<td align="left">Email:</td>
 								<td align="left"><input type="email" name="email"
 									value="<?php echo $email; ?>"> <span class="has-error">* <?php echo $emailErr;?></span>
-									</br> <input type="checkbox" name="communications" value="Y"
+									<br> <input type="checkbox" name="communications" value="Y"
 									<?php if (isset($communications) && $communications =="Y") echo "checked=\"checked\"";?>>
 									Ik wens emails te ontvangen over acties of nieuwigheden</td>
 							</tr>
