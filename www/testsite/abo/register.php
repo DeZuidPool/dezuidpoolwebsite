@@ -145,15 +145,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	</section>
 
 
-	<!-- HOME -->
-
-	<section id="home" class="menu-slider"
-		data-stellar-background-ratio="0.5">
-		<div class="row">
-
-
-		</div>
-	</section>
+     <!-- HOME -->
+		<?php include "../include/header.html" ?>
 
 	<!-- types -->
 	<section id="bestellen" data-stellar-background-ratio="0.5">

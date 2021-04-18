@@ -157,59 +157,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	</section>
 
 
-	<!-- HOME -->
-
-	<section id="home" class="menu-slider"
-		data-stellar-background-ratio="0.5">
-		<div class="row">
-
-			<div class="owl-carousel owl-theme">
-				<div class="item menu-item-first">
-					<div class="menu-caption">
-						<div class="container">
-							<div class="col-md-8 col-sm-12">
-								<h3>Ijsjes !!!</h3>
-								<h1>Lick our ijs!!!</h1>
-								<a href="../menu.html#menuijsjes"
-									class="section-btn btn btn-default smoothScroll"
-									target="_blank">Bekijk menu</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="item menu-item-second">
-					<div class="menu-caption">
-						<div class="container">
-							<div class="col-md-8 col-sm-12">
-								<h3>Als je wat meer honger hebt</h3>
-								<h1>Wafels, broodjes, croques</h1>
-								<a href="../menu.html#menuknabbels"
-									class="section-btn btn btn-default smoothScroll"
-									target="_blank">Bekijk menu</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="item menu-item-third">
-					<div class="menu-caption">
-						<div class="container">
-							<div class="col-md-8 col-sm-12">
-								<h3>Bij een hapje hoort ook een drankje</h3>
-								<h1>fris- en warme dranken, vers fruitsap, shots, cocktails,
-									wijn en cava</h1>
-								<a href="../menu.html#menudrinks"
-									class="section-btn btn btn-default smoothScroll"
-									target="_blank">Bekijk menu</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</section>
+     <!-- HOME -->
+		<?php include "../include/header.html" ?>
 
 	<!-- types -->
 	<section id="bestellen" data-stellar-background-ratio="0.5">
@@ -344,14 +293,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						    }
 						}
 						?>
-						<tr>
+						</table>
 						<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>#bestellen" method="post">
+						<table class="table">
+						<tr>
 							<td colspan="8" align="right">
-								<input type="submit" value="Nieuw abonnement" name="submitType">
+								<input type="submit" value="Nieuw pakket" name="submitType">
 							</td>
-						</form>
 						</tr>
-				</table>
+					</table>
+						</form>
 				</div>
 			</div>
 		</div>

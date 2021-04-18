@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $city = test_input($_POST["city"]);
         }
         if (! empty($_POST["adresremarks"])) {
-            $adresremarks = test_input($_POST["adresremarks"]);
+            $adresRemarks = test_input($_POST["adresremarks"]);
         }
     }
     $_SESSION["customerid"] = $customerid;

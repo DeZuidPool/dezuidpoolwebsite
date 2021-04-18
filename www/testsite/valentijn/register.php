@@ -146,59 +146,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	</section>
 
 
-	<!-- HOME -->
-
-	<section id="home" class="menu-slider"
-		data-stellar-background-ratio="0.5">
-		<div class="row">
-
-			<div class="owl-carousel owl-theme">
-				<div class="item menu-item-first">
-					<div class="menu-caption">
-						<div class="container">
-							<div class="col-md-8 col-sm-12">
-								<h3>Ijsjes !!!</h3>
-								<h1>Lick our ijs!!!</h1>
-								<a href="../menu.html#menuijsjes"
-									class="section-btn btn btn-default smoothScroll"
-									target="_blank">Bekijk menu</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="item menu-item-second">
-					<div class="menu-caption">
-						<div class="container">
-							<div class="col-md-8 col-sm-12">
-								<h3>Als je wat meer honger hebt</h3>
-								<h1>Wafels, broodjes, croques</h1>
-								<a href="../menu.html#menuknabbels"
-									class="section-btn btn btn-default smoothScroll"
-									target="_blank">Bekijk menu</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="item menu-item-third">
-					<div class="menu-caption">
-						<div class="container">
-							<div class="col-md-8 col-sm-12">
-								<h3>Bij een hapje hoort ook een drankje</h3>
-								<h1>fris- en warme dranken, vers fruitsap, shots, cocktails,
-									wijn en cava</h1>
-								<a href="../menu.html#menudrinks"
-									class="section-btn btn btn-default smoothScroll"
-									target="_blank">Bekijk menu</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</section>
+     <!-- HOME -->
+		<?php include "../include/header.html" ?>
 
 	<!-- types -->
 	<section id="bestellen" data-stellar-background-ratio="0.5">
@@ -218,10 +167,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 				<div class="col-md-9 col-sm-9">
 					<h5>Registreer</h5>
-					<table class="table">
 						<form
 							action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>#bestellen"
 							method="post">
+					<table class="table">
 							<tr>
 								<td align="left">Naam:</td>
 								<td align="left"><input type="text" name="lastName"
@@ -241,7 +190,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 								<td align="left">Email:</td>
 								<td align="left"><input type="email" name="email"
 									value="<?php echo $email; ?>"> <span class="has-error">* <?php echo $emailErr;?></span>
-									</br>
+									<br>
 								<input type="checkbox" name="communications" value="Y"
 									<?php if (isset($communications) && $communications =="Y") echo "checked=\"checked\"";?>>
 									Ik wens emails te ontvangen over acties of nieuwigheden</td>
@@ -261,8 +210,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						<tr>
 							<td align="right" colspan="2"><input type="submit"></td>
 						</tr>
-						</form>
 					</table>
+						</form>
 				</div>
 			</div>
 		</div>
@@ -276,13 +225,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						<p>
 							Wij gebruiken jouw gegevens enkel voor De Zuidpool<br> Je
 							emailadres werkt tevens als login en zullen wij enkel gebruiken,
-							indien je hiervoor gekozen hebt,<br> om jou te informeren over						
+							indien je hiervoor gekozen hebt,<br> om jou te informeren over</p>						
 						<ul>
 							<li>De Zuidpool</li>
 							<li>acties</li>
 							<li>nieuwigheden</li>
 						</ul>
-						</p>
 						<p>Je Gsm nummer zullen wij enkel gebruiken ivm met levering(en).</p>
 						<p>Je adres wordt ook enkel gebruikt voor levering(en).</p>
 						<p>Onder geen beding zullen wij jouw gegevens delen met derden.</p>

@@ -104,51 +104,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
      <!-- HOME -->
-
-     <section id="home" class="menu-slider" data-stellar-background-ratio="0.5">
-          <div class="row">
-
-                    <div class="owl-carousel owl-theme">
-                         <div class="item menu-item-first">
-                              <div class="menu-caption">
-                                   <div class="container">
-                                        <div class="col-md-8 col-sm-12">
-                                             <h3>Ijsjes !!!</h3>
-                                             <h1>Lick our ijs!!!</h1>
-                                             <a href="../menu.html#menuijsjes" class="section-btn btn btn-default smoothScroll" target="_blank">Bekijk menu</a>
-                                        </div>
-                                   </div>
-                              </div>
-                         </div>
-
-                         <div class="item menu-item-second">
-                              <div class="menu-caption">
-                                   <div class="container">
-                                        <div class="col-md-8 col-sm-12">
-                                             <h3>Als je wat meer honger hebt</h3>
-                                             <h1>Wafels, broodjes, croques</h1>
-                                             <a href="../menu.html#menuknabbels" class="section-btn btn btn-default smoothScroll" target="_blank">Bekijk menu</a>
-                                        </div>
-                                   </div>
-                              </div>
-                         </div>
-
-                         <div class="item menu-item-third">
-                              <div class="menu-caption">
-                                   <div class="container">
-                                        <div class="col-md-8 col-sm-12">
-                                             <h3>Bij een hapje hoort ook een drankje</h3>
-                                             <h1>fris- en warme dranken, vers fruitsap, shots, cocktails, wijn en cava</h1>
-                                             <a href="../menu.html#menudrinks" class="section-btn btn btn-default smoothScroll" target="_blank">Bekijk menu</a>
-                                        </div>
-                                   </div>
-                              </div>
-                         </div>
-                    </div>
-
-          </div>
-     </section>
-
+		<?php include "../include/header.html" ?>
+		
      <!-- types -->
      <section id="bestellen" data-stellar-background-ratio="0.5">
           <div class="container">
@@ -165,8 +122,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <div class="col-md-9 col-sm-9">
 					<h5>Log in</h5>
-					<table class="table">
 						<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>#bestellen" method="post">
+					<table class="table">
     						<tr>
     							<td align="left">
     								Email: 
@@ -174,7 +131,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     							<td align="left">
     								<input type="email" name="login" value="<?php echo $login?>">
 								<span class="has-error">* <?php echo $loginErr;?></span></td>
-    							</td>
     						</tr>
     						<tr>
     							<td align="left">
@@ -183,14 +139,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     							<td align="left">
     								<input type="password" name="password">
 								<span class="has-error">* <?php echo $pwdErr;?></span></td>
-    							</td>
     						</tr>
     						<tr>
     							<td align="right" colspan="2">
     								<input type="submit">
     							</td>
     						</tr>
-						</form>
 						<tr>
 							<td colspan="2" align="left"><span class="has-error"><?php echo $registerErr;?></span>Nog geen account?  <a href="register.php#bestellen"><span style = "text-decoration:underline;">Registeer hier.</span></a></td>
 						</tr>
@@ -201,6 +155,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<td colspan="2" align="left">Wil je meer weten over het ijs-abonnement? <a href="../ijsabo.html"><span style = "text-decoration:underline;">Kijk hier.</span></a></td>
 						</tr>
 					</table>
+						</form>
 					</div>
 				</div>
           </div>

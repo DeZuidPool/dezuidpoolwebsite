@@ -6,7 +6,7 @@ if (! isset($_SESSION)) {
 require '../php/testinput.php';
 
 // define variables and set to empty values
-$street = $nbr = $zipCode = $city = $adresremarks = $customerid = $deliveryType = $sorbetOnly = $potspw = $comments = "";
+$street = $nbr = $zipCode = $city = $adresRemarks = $customerid = $deliveryType = $sorbetOnly = $potspw = $comments = "";
 $streetErr = $nbrErr = $zipCodeErr = $cityErr = $deliveryTypeErr = "";
 $customerid = $_SESSION["customerid"];
 $name = $_SESSION["nameCust"];
@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $city = test_input($_POST["city"]);
         }
         if (! empty($_POST["adresremarks"])) {
-            $adresremarks = test_input($_POST["adresremarks"]);
+            $adresRemarks = test_input($_POST["adresremarks"]);
         }
     }
     $_SESSION["customerid"] = $customerid;
@@ -302,7 +302,7 @@ $_SESSION["customerid"] = $customerid;
 						<tr>
 							<td align="left">Opmerkingen betreft het adres: (max 255 characters)</td>
 							<td align="left"><textarea maxlength="255" name="adresremarks"
-									placeholder="bovenste bel gebruiken..."><?php echo $adresremarks ?></textarea>
+									placeholder="bovenste bel gebruiken..."><?php echo $adresRemarks ?></textarea>
 							</td>
 							</td>
 						</tr>

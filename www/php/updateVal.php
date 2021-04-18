@@ -13,7 +13,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 $stmt = $conn->prepare("UPDATE ABONNEMENT SET NAME = ?, GSM = ?, DELIVERYTYPE = ?, STREET = ?, NBR = ?, ZIPCODE = ?, CITY = ?, ADRESREMARKS = ? WHERE CUSTOMERID = ? AND ID = ? AND PRODUCTTYPE = 'VAL' ");
-$stmt->bind_param("ssssssssii",$name,$gsm,$deliveryType,$street,$nbr,$zipCode,$city,$adresremarks,$customerid,$id);
+$stmt->bind_param("ssssssssii",$name,$gsm,$deliveryType,$street,$nbr,$zipCode,$city,$adresRemarks,$customerid,$id);
 
 if (!$stmt->execute()) {
     echo "Error: " . $stmt->error;

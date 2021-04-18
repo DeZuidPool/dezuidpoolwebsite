@@ -82,59 +82,8 @@ require "../php/getAbos.php";
 	</section>
 
 
-	<!-- HOME -->
-
-	<section id="home" class="menu-slider"
-		data-stellar-background-ratio="0.5">
-		<div class="row">
-
-			<div class="owl-carousel owl-theme">
-				<div class="item menu-item-first">
-					<div class="menu-caption">
-						<div class="container">
-							<div class="col-md-8 col-sm-12">
-								<h3>Ijsjes !!!</h3>
-								<h1>Lick our ijs!!!</h1>
-								<a href="../menu.html#menuijsjes"
-									class="section-btn btn btn-default smoothScroll"
-									target="_blank">Bekijk menu</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="item menu-item-second">
-					<div class="menu-caption">
-						<div class="container">
-							<div class="col-md-8 col-sm-12">
-								<h3>Als je wat meer honger hebt</h3>
-								<h1>Wafels, broodjes, croques</h1>
-								<a href="../menu.html#menuknabbels"
-									class="section-btn btn btn-default smoothScroll"
-									target="_blank">Bekijk menu</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="item menu-item-third">
-					<div class="menu-caption">
-						<div class="container">
-							<div class="col-md-8 col-sm-12">
-								<h3>Bij een hapje hoort ook een drankje</h3>
-								<h1>fris- en warme dranken, vers fruitsap, shots, cocktails,
-									wijn en cava</h1>
-								<a href="../menu.html#menudrinks"
-									class="section-btn btn btn-default smoothScroll"
-									target="_blank">Bekijk menu</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</section>
+     <!-- HOME -->
+		<?php include "../include/header.html" ?>
 
 	<!-- types -->
 	<section id="bestellen" data-stellar-background-ratio="0.5">
@@ -146,10 +95,9 @@ require "../php/getAbos.php";
 						<h2>Bedankt om te registreren</h2>
 						<p>
 							Zodra jouw betaling van <b>&euro; 50.00</b> op rekening nummer <b>BE59
-								7512 1050 8026</b> </br> ons bereikt krijg je een melding via
-							SMS.</br> Je ijs-abonemment start dan de daarop volgende week.</p>
+								7512 1050 8026</b> <br> ons bereikt krijg je een melding via
+							SMS.<br> Je ijs-abonemment start dan de daarop volgende week.</p>
 							<p>Vergeet niet om bij de betaling je <b>email</b> en de <b>identificatie van je abonnement</b> te vermelden!</p>
-						</p>
 					</div>
 				</div>
 
@@ -170,7 +118,7 @@ require "../php/getAbos.php";
 						</tr>
 						<tr>
 							<td align="left">Email:</td>
-							<td align="left"><?php echo $email?></br>
+							<td align="left"><?php echo $email?><br>
 								<?php
         if ($communications == "Y") {
             echo "Ik wens emails te ontvangen over acties of nieuwigheden.";

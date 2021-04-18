@@ -12,7 +12,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 $stmt = $conn->prepare("INSERT INTO ABONNEMENT (NAME, GSM, DELIVERYTYPE, STREET, NBR, ZIPCODE, CITY, ADRESREMARKS, CUSTOMERID,PRODUCTTYPE) VALUES (?,?,?,?,?,?,?,?,?,'VAL')");
-$stmt->bind_param("ssssssssi",$name,$gsm,$deliveryType,$street,$nbr,$zipCode,$city,$adresremarks,$customerid);
+$stmt->bind_param("ssssssssi",$name,$gsm,$deliveryType,$street,$nbr,$zipCode,$city,$adresRemarks,$customerid);
 
 if (!$stmt->execute()) {
     echo "Error: " . $stmt->error;

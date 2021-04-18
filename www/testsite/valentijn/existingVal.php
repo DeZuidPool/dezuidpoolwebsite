@@ -6,7 +6,7 @@ if (! isset($_SESSION)) {
 require '../php/testinput.php';
 
 // define variables and set to empty values
-$street = $nbr = $zipCode = $city = $adresRemarks = $customerid = $deliveryType = $sorbetOnly = $potspw = $comments = $id = $name = $gsm = "";
+$street = $nbr = $zipCode = $city = $adresRemarks = $customerid = $deliveryType = $id = $name = $gsm = "";
 $streetErr = $nbrErr = $zipCodeErr = $cityErr = $deliveryTypeErr = "";
 require '../php/dbcredentials.php';
 require '../php/getVal.php';
@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $city = test_input($_POST["city"]);
         }
         if (! empty($_POST["adresremarks"])) {
-            $adresremarks = test_input($_POST["adresremarks"]);
+            $adresRemarks = test_input($_POST["adresremarks"]);
         }
     }
     $_SESSION["customerid"] = $customerid;
@@ -145,59 +145,8 @@ $_SESSION["customerid"] = $customerid;
 	</section>
 
 
-	<!-- HOME -->
-
-	<section id="home" class="menu-slider"
-		data-stellar-background-ratio="0.5">
-		<div class="row">
-
-			<div class="owl-carousel owl-theme">
-				<div class="item menu-item-first">
-					<div class="menu-caption">
-						<div class="container">
-							<div class="col-md-8 col-sm-12">
-								<h3>Ijsjes !!!</h3>
-								<h1>Lick our ijs!!!</h1>
-								<a href="../menu.html#menuijsjes"
-									class="section-btn btn btn-default smoothScroll"
-									target="_blank">Bekijk menu</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="item menu-item-second">
-					<div class="menu-caption">
-						<div class="container">
-							<div class="col-md-8 col-sm-12">
-								<h3>Als je wat meer honger hebt</h3>
-								<h1>Wafels, broodjes, croques</h1>
-								<a href="../menu.html#menuknabbels"
-									class="section-btn btn btn-default smoothScroll"
-									target="_blank">Bekijk menu</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="item menu-item-third">
-					<div class="menu-caption">
-						<div class="container">
-							<div class="col-md-8 col-sm-12">
-								<h3>Bij een hapje hoort ook een drankje</h3>
-								<h1>fris- en warme dranken, vers fruitsap, shots, cocktails,
-									wijn en cava</h1>
-								<a href="../menu.html#menudrinks"
-									class="section-btn btn btn-default smoothScroll"
-									target="_blank">Bekijk menu</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</section>
+     <!-- HOME -->
+		<?php include "../include/header.html" ?>
 
 	<!-- types -->
 	<section id="bestellen" data-stellar-background-ratio="0.5">
@@ -208,7 +157,7 @@ $_SESSION["customerid"] = $customerid;
 					<div class="section-title wow fadeInUp" data-wow-delay="0.1s">
 						<h2>Bestel een valentijn pretpakket.</h2>
 						<p>Je bestelling is finaal na betaling van <b>&euro;
-								28.50</b> op rekening nummer <b>BE59 7512 1050 8026</b></br>
+								28.50</b> op rekening nummer <b>BE59 7512 1050 8026</b><br>
 							Vermeld bij de betaling je emailadres en het abonnementsnr
 							zodat wij de deze aan jouw account kunnen linken!
 						</p>
@@ -218,12 +167,12 @@ $_SESSION["customerid"] = $customerid;
 
 				<div class="col-md-9 col-sm-9">
 					<h5>Ijs-abonnement</h5>
-					<table class="table">
 						<form
 							action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);#bestellen?>"
 							method="post">
 							<input type="text" name="customerid" hidden="true"
 								value="<?php echo $customerid; ?>">
+					<table class="table">
 							<tr>
 								<td align="left">Naam contact:</td>
 								<td align="left"><input type="text" name="name"
@@ -239,48 +188,43 @@ $_SESSION["customerid"] = $customerid;
 							<td align="left" valign="top"><input type="radio"
 								name="deliveryType"
 								<?php if (isset($deliveryType) && $deliveryType =="takeout") echo "checked";?>
-								value="takeout"> Af te halen</br> <input type="radio"
+								value="takeout"> Af te halen<br> <input type="radio"
 								name="deliveryType"
 								<?php if (isset($deliveryType) && $deliveryType =="delivery") echo "checked";?>
-								value="delivery"> Te laten leveren</br> <span class="has-error">* <?php echo $deliveryTypeErr;?></td>
+								value="delivery"> Te laten leveren<br> <span class="has-error">* <?php echo $deliveryTypeErr;?></span></td>
 						</tr>
 						<tr>
 							<td align="left">Straat:</td>
 							<td align="left"><input type="text" name="street"
 								value="<?php echo $street?>"> <span class="has-error"> <?php echo $streetErr;?></span></td>
-							</td>
 						</tr>
 						<tr>
 							<td align="left">Nummer:</td>
 							<td align="left"><input type="text" name="nbr"
 								value="<?php echo $nbr?>"> <span class="has-error"> <?php echo $nbrErr;?></span></td>
-							</td>
 						</tr>
 						<tr>
 							<td align="left">Postcode:</td>
 							<td align="left"><input type="text" name="zipCode"
 								value="<?php echo $zipCode?>"> <span class="has-error"> <?php echo $zipCodeErr;?></span></td>
-							</td>
 						</tr>
 						<tr>
 							<td align="left">Gemeente:</td>
 							<td align="left"><input type="text" name="city"
 								value="<?php echo $city?>"> <span class="has-error"> <?php echo $cityErr;?></span></td>
-							</td>
 						</tr>
 						<tr>
 							<td align="left">Opmerkingen betreft het adres: (max 255 characters)</td>
 							<td align="left"><textarea maxlength="255" name="adresremarks"
 									placeholder="bovenste bel gebruiken..."><?php echo $adresRemarks ?></textarea>
 							</td>
-							</td>
 						</tr>
 						<tr>
 							<td align="left"><a href="overviewCustomer.php#bestellen">Terug naar mijn overzicht</a></td>
 							<td align="right"><input type="submit" value="Bewaar abonnement"></td>
 						</tr>
-						</form>
 					</table>
+						</form>
 				</div>
 			</div>
 		</div>
