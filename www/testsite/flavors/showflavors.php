@@ -101,6 +101,15 @@ require '../php/displayFlavors.php';
 				</div>
 				<div class="row">
 					<div class="col-md-6 col-sm-6">
+						<div class="section-title wow fadeInUp" data-wow-delay="0.1s">
+							Een <a href="showAllflavors.php"><span
+								style="text-decoration: underline;">overzicht</span></a> van al
+							onze smaken
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 col-sm-6">
 						<div class="section-title wow fadeInUp" data-wow-delay="0.1s"><sup>a</sup> = Alcohol, <sup>e</sup> = Eigeel, <sup>v</sup> = Vegan, <sup>g</sup> = Gluten</div>
 					</div>
 				</div>

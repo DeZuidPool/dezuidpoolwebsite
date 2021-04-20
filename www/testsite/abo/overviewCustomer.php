@@ -298,7 +298,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						<table class="table">
 						<tr>
 							<td colspan="8" align="right">
-								<input type="submit" value="Nieuw pakket" name="submitType">
+								<input type="submit" value="Nieuw abonnement" name="submitType">
 							</td>
 						</tr>
 					</table>
