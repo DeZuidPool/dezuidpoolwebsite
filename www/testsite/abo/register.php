@@ -5,6 +5,7 @@ if (! isset($_SESSION)) {
 }
 
 require '../php/testinput.php';
+require_once '../php/Customer.php';
 
 // define variables and set to empty values
 $lastName = $firstName = $email = $password = $gsm = $communications = "";
@@ -63,12 +64,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     // if errors in input --> nosave
     if ($nofaults) {
+        // Create Customer Object and put in session
+        $customer = new Customer(null, $lastName, $firstName, $email, 0);
+        $customer->setPassword(password_hash($password, PASSWORD_DEFAULT));
+        $customer->setCommunications($communications);
         // save account to db and forward to deliveryadress.php
         require '../php/dbcredentials.php';
-        require '../php/saveLogin.php';
+        require '../php/saveCustomer.php';
         $nofaults = $_SESSION["nofaults"];
         if ($nofaults) {
-            header('Location: createAbo.php');
+            header('Location: overviewCustomer.php');
         } else { // register failed
             $emailErr = $_SESSION["emailErr"];
         }

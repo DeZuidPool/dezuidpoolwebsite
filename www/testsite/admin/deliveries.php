@@ -18,23 +18,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $updatedDeliveries = array();
             $index = $_POST["deliveryCounter"];
+//          echo 'DeliveryCounter '.$index;
             for ($i = 0; $i < $index; $i++) {
-                if (!empty($_POST["id".$i]) && !empty($_POST["flavor1".$i])) {
-                    $aboId = test_input($_POST["id".$i]);
-                    $delFlavor1 = test_input($_POST["flavor1".$i]);
-                    $delFlavor2 = null;
-                    if (isset($_POST["flavor2".$i])) {
-                        $delFlavor2 = test_input($_POST["flavor2".$i]);
+                if (!empty($_POST["id".$i])) {
+                    if (! empty($_POST["flavor1" . $i])) {
+                        $aboId = test_input($_POST["id" . $i]);
+                        $delFlavor1 = test_input($_POST["flavor1" . $i]);
+                        $delFlavor2 = null;
+                        if (isset($_POST["flavor2" . $i])) {
+                            $delFlavor2 = test_input($_POST["flavor2" . $i]);
+                        }
+                        $delDate = test_input($_POST["date" . $i]);
+                        $updatedDelivery = new Delivery($aboId, $delFlavor1, $delFlavor2, $delDate);
+                        $updatedDeliveries[] = $updatedDelivery;
+//                        echo 'added Delivery ' . $aboId . $delFlavor1 . $delFlavor2 . $delDate;
                     }
-                    $delDate = test_input($_POST["date".$i]);
-                    $updatedDelivery = new Delivery($aboId, $delFlavor1, $delFlavor2,$delDate);
-                    $updatedDeliveries[] = $updatedDelivery;
-                    //echo 'added Delivery '.$aboId.$delFlavor1.$delFlavor2.$delDate;
-                } 
-                //else {
-                //        $nofaults=false;
-                //        $inputError .= " empty fields for index ".$i.'\n';
-                //}
+//                    else {
+//                        echo ' no flavor for ' . $i . ' ';
+//                    }
+                }
+//                else {
+//                    echo ' no abo for ' . $i . ' ';
+//                }
             }
             $_SESSION["updatedDeliveries"] = $updatedDeliveries;
         }
@@ -176,7 +181,9 @@ require '../php/getDeliveries.php';
     						          if ($abo != $delivery["ABOID"]) {
     						              if ($abo != "") {
         						              $htmlDeliveryInput .= '<tr>';
-        						              $htmlDeliveryInput .= '<td colspan="6"></td>';
+        						              $htmlDeliveryInput .= '<input type="hidden" name="id'.($counter-1).'" value="'.$abo.'" required="required">';
+        						              $htmlDeliveryInput .= '<td colspan="2" align="right"><input type="submit" value="Sluit Abo '.$abo.'" name="submitType" ></td>';
+        						              $htmlDeliveryInput .= '<td colspan="4"></td>';
         						              $htmlDeliveryInput .= '<td>';
         						              $htmlDeliveryInput .= '<input type="date" name="date'.($counter-1).'">';
         						              $htmlDeliveryInput .= '</td>';
@@ -199,7 +206,6 @@ require '../php/getDeliveries.php';
     						              $htmlDelivery .= '</td>';
     						              $htmlDelivery .= '<td>';
     						              $htmlDelivery .= $abo;
-    						              $htmlDelivery .= '</br><input type="submit" value="Sluit Abo '.$abo.'" name="submitType" >';
     						              $htmlDelivery .= '</td>';
     						              $htmlDelivery .= '<td>';
     						              $htmlDelivery .= '<b>'.$delivery["CONTACT"].'</b>';
@@ -257,11 +263,16 @@ require '../php/getDeliveries.php';
     						      }
     						  }
     						  $htmlDeliveryInput .= '<tr>';
-    						  $htmlDeliveryInput .= '<td colspan="7"></td>';
+    						  $htmlDeliveryInput .= '<input type="hidden" name="id'.($counter-1).'" value="'.$abo.'" required="required">';
+    						  $htmlDeliveryInput .= '<td colspan="2" align="right"><input type="submit" value="Sluit Abo '.$abo.'" name="submitType" ></td>';
+    						  $htmlDeliveryInput .= '<td colspan="4"></td>';
     						  $htmlDeliveryInput .= '<td>';
-    						  $htmlDeliveryInput .= '<input type="text" name="flavor1"'.($counter-1).'" size="15">';
+    						  $htmlDeliveryInput .= '<input type="date" name="date'.($counter-1).'">';
+    						  $htmlDeliveryInput .= '</td>';
+    						  $htmlDeliveryInput .= '<td>';
+    						  $htmlDeliveryInput .= '<input type="text" name="flavor1'.($counter-1).'" size="15">';
     						  if ($potspw == 2) {
-    						      $htmlDeliveryInput .= '</br><input type="text" name="flavor2"'.($counter-1).'" size="15">';
+    						      $htmlDeliveryInput .= '</br><input type="text" name="flavor2'.($counter-1).'" size="15">';
     						  }
     						  $htmlDeliveryInput .= '</td>';
     						  $htmlDeliveryInput .= '</tr>';

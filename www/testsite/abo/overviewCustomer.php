@@ -5,17 +5,22 @@ if (! isset($_SESSION)) {
 }
 require '../php/testinput.php';
 
-$customerid = $_SESSION["customerid"];
-
-// LOGIN, DELIVERYTYPE, SORBETONLY, COMMUNICATIONS, COMMENTS
-$lastName = $firstName = $gsmCust = $email = $communications = "";
-$lastNameErr = $firstNameErr = $emailErr = $passwordErr = $gsmCustErr = "";
-
 require "../php/dbcredentials.php";
 require_once "../php/Abonnement.php";
+require_once '../php/Customer.php';
+// getCustomer and put it on session
 require "../php/getCustomer.php";
 require "../php/getAbos.php";
 
+$customer = $_SESSION["customer"];
+$customerid = $customer->getId();
+$lastName = $customer->getName();
+$firstName = $customer->getFirstName();
+$gsm = $customer->getGsm();
+$email = $customer->getLogin();
+$communications = $customer->getCommunications();
+
+$lastNameErr = $firstNameErr = $emailErr = $passwordErr = $gsmErr = "";
 $nofaults = true;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($_POST["submitType"] == "Bewaar gegevens") {
@@ -31,11 +36,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $firstName = test_input($_POST["firstName"]);
         }
-        if (empty($_POST["gsmCust"])) {
-            $gsmCustErr = "Gsm nummer is vereist";
+        if (empty($_POST["gsm"])) {
+            $gsmErr = "Gsm nummer is vereist";
             $nofaults = false;
         } else {
-            $gsmCust = test_input($_POST["gsmCust"]);
+            $gsm = test_input($_POST["gsm"]);
         }
         if (empty($_POST["email"])) {
             $emailErr = "Email is vereist";
@@ -63,9 +68,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $nofaults = false;
             }
         }
+        if (! empty($_POST["communications"])) {
+            $communications = "Y";
+        } else {
+            $communications = "N";
+        }
+        
         if ($nofaults) {
-            $_SESSION["customerid"] = $customerid;
-            require '../php/updateLogin.php';
+            $customer->setName($lastName);
+            $customer->setFirstName($firstName);
+            $customer->setGsm($gsm);
+            $customer->setLogin($email);
+            $customer->setPassword(password_hash($password, PASSWORD_DEFAULT));
+            $customer->setCommunications($communications);            
+            $_SESSION["customer"] = $customer;
+            require '../php/updateCustomer.php';
             $nofaults = $_SESSION["nofaults"];
             if (! $nofaults) {
                 $emailErr = $_SESSION["emailErr"];
@@ -74,8 +91,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else if ($_POST["submitType"] == "Nieuw abonnement") {
         
         $_SESSION["customerid"] = $customerid;
-        $_SESSION["gsmCust"] = $gsmCust;
-        $_SESSION["nameCust"] = $firstName.' '.$lastName;
+        $_SESSION["gsm"] = $gsm;
+        $_SESSION["name"] = $firstName.' '.$lastName;
 
         header("Location: addAbo.php");
     } else if ($_POST["submitType"] == "Wijzig") {
@@ -188,8 +205,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							</tr>
 							<tr>
 								<td align="left">GSM:</td>
-								<td align="left"><input type="text" name="gsmCust"
-									value="<?php echo $gsmCust; ?>"> <span class="has-error">* <?php echo $gsmCustErr;?></span></td>
+								<td align="left"><input type="text" name="gsm"
+									value="<?php echo $gsm; ?>"> <span class="has-error">* <?php echo $gsmErr;?></span></td>
 							</tr>
 							<tr>
 								<td align="left">Email:</td>

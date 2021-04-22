@@ -20,11 +20,9 @@ $result = $stmt->get_result();
 if ($result->num_rows > 0 and $result->num_rows == 1) {
     // output data of each row
     if($row = $result->fetch_assoc()) {
-        $lastName = $row["NAME"];
-        $firstName = $row["FIRSTNAME"];
-        $gsmCust = $row["GSM"];
-        $email = $row["LOGIN"];
-        $communications = $row["COMMUNICATIONS"];
+        $customer = new Customer($customerid,$row["NAME"],$row["FIRSTNAME"],$row["GSM"],$row["LOGIN"],$row["COMMUNICATIONS"]);
+        $_SESSION["customer"] = $customer;
+        unset($_SESSION["customerid"]);
     }
 } else {
     echo "bad results for ".$customerid;

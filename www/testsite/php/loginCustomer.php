@@ -10,7 +10,8 @@ $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
-
+$login = $_SESSION["login"];
+$password = $_SESSION["pwd"];
 $stmt = $conn->prepare("SELECT ID, PWD FROM CUSTOMER WHERE LOGIN = ?");
 $stmt->bind_param("s",$login);
 $stmt->execute();
@@ -32,6 +33,8 @@ if ($result->num_rows > 0 and $result->num_rows == 1) {
 } else {
     $_SESSION["customerid"] = "none";
 }
+unset( $_SESSION["login"]);
+unset( $_SESSION["pwd"]);
 
 $stmt->close();
 $conn->close();

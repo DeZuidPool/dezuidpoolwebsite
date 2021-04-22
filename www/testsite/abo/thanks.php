@@ -229,6 +229,9 @@ require "../php/getAbos.php";
 						    }
 						}
 						?>
+						<tr>
+							<td align="center" colspan="2" ><a href="overviewCustomer.php#bestellen"><span  style = "text-decoration:underline;">Naar mijn overzicht</span></a></td>
+						</tr>
 					</table>
 				</div>
 			</div>

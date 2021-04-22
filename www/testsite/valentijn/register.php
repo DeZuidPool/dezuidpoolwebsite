@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($nofaults) {
         // save account to db and forward to deliveryadress.php
         require '../php/dbcredentials.php';
-        require '../php/saveLogin.php';
+        require '../php/saveCustomer.php';
         $nofaults = $_SESSION["nofaults"];
         if ($nofaults) {
             header('Location: createVal.php');

@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         require '../php/dbcredentials.php';
         require '../php/saveAbo.php';
 
-        header("Location: overviewCustomer.php");
+        header("Location: thanks.php");
     }
 }
 $_SESSION["customerid"] = $customerid;
@@ -87,6 +87,7 @@ $_SESSION["customerid"] = $customerid;
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 
 <title>IJS BAR De Zuidpool - Bestellen</title>
 <meta charset="UTF-8">
@@ -166,7 +167,7 @@ $_SESSION["customerid"] = $customerid;
 						<p>Je abonnement start de week volgend op je betaling van <b>&euro;
 								50.00</b> op rekening nummer <b>BE59 7512 1050 8026</b><br>
 							Vermeld bij de betaling je emailadres en het abonnementsnr
-							zodat wij de deze aan jouw account kunnen linken!<br> Je
+							zodat wij de deze aan jouw abonnement kunnen linken!<br> Je
 							krijgt een sms-bevestiging van de start van je abonnement en een
 							sms-bericht als we onderweg zijn naar jou.
 						</p>

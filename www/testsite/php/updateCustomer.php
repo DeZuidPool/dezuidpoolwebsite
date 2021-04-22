@@ -16,16 +16,14 @@ $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
+$customer = $_SESSION["customer"];
 
-$stmt = $conn->prepare("INSERT INTO CUSTOMER (NAME,FIRSTNAME,GSM, LOGIN, PWD, COMMUNICATIONS) VALUES (?,?,?,?,?,?)");
-$stmt->bind_param("ssssss",$lastName,$firstName,$gsm,$email,password_hash($password, PASSWORD_DEFAULT),$communications);
+if ($customer instanceof Customer) {
+$stmt = $conn->prepare("UPDATE CUSTOMER SET NAME = ?, FIRSTNAME = ?, GSM = ?, LOGIN = ?, PWD = ?, COMMUNICATIONS = ? WHERE ID = ?");
+$stmt->bind_param("ssssssi",$customer->getName(),$customer->getFirstName(),$customer->getGsm(),$customer->getLogin(),$customer->getPassword(),$customer->getCommunications(), $customer->getId());
 
-$customerid = "";
 if ($stmt->execute()) {
-    $customerid = $conn->insert_id;
-   $_SESSION["customerid"] = $customerid;
-   $_SESSION["gsm"] = $gsm;
-   $_SESSION["name"] = $firstName.' '.$lastName;
+   $_SESSION["customerid"] = $customer->getId();
    $_SESSION["nofaults"]=true;
 } else {
     $_SESSION["nofaults"]=false;
@@ -36,4 +34,7 @@ if ($stmt->execute()) {
 }
 
 $stmt->close();
+} else {
+    unset($_SESSION["customer"]);
+}
 $conn->close();
