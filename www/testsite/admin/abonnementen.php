@@ -35,8 +35,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $payed = "N";
                         }
                         $id = $_POST["id".$i];
-                        $updatedAbo->set_id($id);
-                        $updatedAbo->set_payed($payed);
+                        $updatedAbo->setId($id);
+                        $updatedAbo->setPayed($payed);
                         $updatedAbos[] = $updatedAbo;
                     } else {
                         $nofaults=false;
@@ -219,22 +219,7 @@ require '../php/getCustomerAbos.php';
      </section>
  
      <!-- FOOTER -->
-     <footer id="footer" data-stellar-background-ratio="0.5">
-          <div class="container">
-               <div class="row">
-
-                    <div class="col-md-2 col-sm-4">
-
-                         <div class="wow fadeInUp copyright-text" data-wow-delay="0.8s"> 
-                              <p><br>Copyright &copy; 2020 <br>Badass bv 
-                              
-                              <br><br>Design: <a rel="nofollow" href="http://templatemo.com" target="_parent">TemplateMo</a></p>
-                         </div>
-                    </div>
-                    
-               </div>
-          </div>
-     </footer>
+		<?php include "../include/footer.html" ?>
 
 
      <!-- SCRIPTS -->

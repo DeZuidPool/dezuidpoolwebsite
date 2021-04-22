@@ -160,7 +160,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 				<div class="col-md-12 col-sm-12">
 					<div class="section-title wow fadeInUp" data-wow-delay="0.1s">
-						<h2>Registreer je hier voor een ijs-abonnement:</h2>
+						<h2>Registreer je hier en maak een ijs-abonnement aan:</h2>
 						<p> Meer informatie betreft het ijs-abonnement vind je <a href="/ijsabo.html" target="_blank">hier</a>
 						</p>
 						<p>Vergeet niet om de juiste informatie door te geven, dan kunnen wij jouw ijsplezier garanderen.
@@ -246,23 +246,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		</div>
 	</section>
 	<!-- FOOTER -->
-	<footer id="footer" data-stellar-background-ratio="0.5">
-		<div class="container">
-			<div class="row">
+		<?php include "../include/footer.html" ?>
 
-				<div class="col-md-2 col-sm-4">
-
-					<div class="wow fadeInUp copyright-text" data-wow-delay="0.8s">
-						<p>
-							<br>Copyright &copy; 2020 <br>Badass bv <br> <br>Design: <a
-								rel="nofollow" href="http://templatemo.com" target="_parent">TemplateMo</a>
-						</p>
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</footer>
 
 
 	<!-- SCRIPTS -->

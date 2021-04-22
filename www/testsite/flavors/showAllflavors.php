@@ -183,24 +183,8 @@ require '../php/displayAllFlavors.php';
 	</section>
 
 	<!-- FOOTER -->
-	<footer id="footer" data-stellar-background-ratio="0.5">
-		<div class="container">
-			<div class="row">
+		<?php include "../include/footer.html" ?>
 
-				<div class="col-md-2 col-sm-4">
-
-					<div class="wow fadeInUp copyright-text" data-wow-delay="0.8s">
-						<p>
-							<br>Copyright &copy; 2020 <br>Badass bv <br>
-							<br>Design: <a rel="nofollow" href="http://templatemo.com"
-								target="_parent">TemplateMo</a>
-						</p>
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</footer>
 
 
 	<!-- SCRIPTS -->

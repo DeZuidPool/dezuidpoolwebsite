@@ -114,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <div class="col-md-12 col-sm-12">
                          <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
-                              <h2>Beheer je ijs-abonnement</h2>
+                              <h2>Beheer je Klantgegevens</h2>
                          </div>
 						<div class="has-error" align="left">
 						* : Verplicht veld
@@ -160,22 +160,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      </section>
 
      <!-- FOOTER -->
-     <footer id="footer" data-stellar-background-ratio="0.5">
-          <div class="container">
-               <div class="row">
+		<?php include "../include/footer.html" ?>
 
-                    <div class="col-md-2 col-sm-4">
-
-                         <div class="wow fadeInUp copyright-text" data-wow-delay="0.8s"> 
-                              <p><br>Copyright &copy; 2020 <br>Badass bv 
-                              
-                              <br><br>Design: <a rel="nofollow" href="http://templatemo.com" target="_parent">TemplateMo</a></p>
-                         </div>
-                    </div>
-                    
-               </div>
-          </div>
-     </footer>
 
 
      <!-- SCRIPTS -->

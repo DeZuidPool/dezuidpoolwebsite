@@ -37,19 +37,19 @@ if ($result->num_rows > 0) {
         $gsm = $row["GSM"];
         $potspw = $row["POTSPW"];
         $abonnement = new Abonnement();
-        $abonnement->set_id($id);
+        $abonnement->setId($id);
         $abonnement->set_adresRemarks($adresRemarks);
-        $abonnement->set_city($city);
+        $abonnement->setCity($city);
         $abonnement->set_zipCode($zipCode);
-        $abonnement->set_nbr($nbr);
-        $abonnement->set_street($street);
-        $abonnement->set_comments($comments);
+        $abonnement->setNbr($nbr);
+        $abonnement->setStreet($street);
+        $abonnement->setComments($comments);
         $abonnement->set_sorbetOnly($sorbetOnly);
         $abonnement->set_deliveryType($deliveryType);
-        $abonnement->set_name($name);
-        $abonnement->set_gsm($gsm);
-        $abonnement->set_payed($payed);
-        $abonnement->set_potspw($potspw);
+        $abonnement->setName($name);
+        $abonnement->setGsm($gsm);
+        $abonnement->setPayed($payed);
+        $abonnement->setPotspw($potspw);
         $abos[] = $abonnement;
     }
     $_SESSION["customerid"]= $customerid;

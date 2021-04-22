@@ -20,19 +20,20 @@ $result = $stmt->get_result();
 
 if ($result->num_rows > 0 && $result->num_rows == 1) {
     while ($row = $result->fetch_assoc()) {
-        $deliveryType = $row["DELIVERYTYPE"];
-        $sorbetOnly = $row["SORBETONLY"];
-        $payed = $row["PAYED"];
-        $comments = $row["COMMENTS"];
-        $street = $row["STREET"];
-        $nbr = $row["NBR"];
-        $zipCode = $row["ZIPCODE"];
-        $city = $row["CITY"];
-        $adresRemarks = $row["ADRESREMARKS"];
-        $id = $row["ID"];
-        $name = $row["NAME"];
-        $gsm = $row["GSM"];
-        $potspw = $row["POTSPW"];
+        $abonnement = new Abonnement();
+        $abonnement->setDeliveryType($row["DELIVERYTYPE"]);
+        $abonnement->setSorbetOnly($row["SORBETONLY"]);
+        $abonnement->setPayed($row["PAYED"]);
+        $abonnement->setComments($row["COMMENTS"]);
+        $abonnement->setStreet($row["STREET"]);
+        $abonnement->setNbr($row["NBR"]);
+        $abonnement->setZipCode($row["ZIPCODE"]);
+        $abonnement->setCity($row["CITY"]);
+        $abonnement->setAdresRemarks($row["ADRESREMARKS"]);
+        $abonnement->setId($row["ID"]);
+        $abonnement->setName($row["NAME"]);
+        $abonnement->setGsm($row["GSM"]);
+        $abonnement->setPotspw($row["POTSPW"]);
     }
 } else {
     echo "bad results for ".$customerid."/".$id." results : ".$result->num_rows;

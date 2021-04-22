@@ -19,6 +19,7 @@ $firstName = $customer->getFirstName();
 $gsm = $customer->getGsm();
 $email = $customer->getLogin();
 $communications = $customer->getCommunications();
+unset($_SESSION["customer"]);
 
 $lastNameErr = $firstNameErr = $emailErr = $passwordErr = $gsmErr = "";
 $nofaults = true;
@@ -266,36 +267,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						if (!empty($abonnementen) && count($abonnementen)>0) {
 						    foreach ($abonnementen as $abonnement) {
 						        $htmlAbo = '<form action="'.htmlspecialchars($_SERVER["PHP_SELF"]).'#bestellen" method="post">';
-						        $htmlAbo .= '<input type="hidden" name="id" value="'.$abonnement->get_id().'">';
+						        $htmlAbo .= '<input type="hidden" name="id" value="'.$abonnement->getId().'">';
 						        $htmlAbo .= '<tr>';
 						        $htmlAbo .= '<td align="left">';
-						        $htmlAbo .= $abonnement->get_id();
+						        $htmlAbo .= $abonnement->getId();
 						        $htmlAbo .= '</td>';
 						        $htmlAbo .= '<td align="left">';
-						        $htmlAbo .= '<span style="white-space: nowrap;">'.$abonnement->get_name().'</span><br>'.$abonnement->get_gsm();
+						        $htmlAbo .= '<span style="white-space: nowrap;">'.$abonnement->getName().'</span><br>'.$abonnement->getGsm();
 						        $htmlAbo .= '</td>';
 						        $htmlAbo .= '<td align="left">';
-						        $htmlAbo .= $abonnement->get_deliveryType();
+						        $htmlAbo .= $abonnement->getDeliveryType();
 						        $htmlAbo .= '</td>';
 						        $htmlAbo .= '<td align="center">';
-						        $htmlAbo .= $abonnement->get_payed();
+						        $htmlAbo .= $abonnement->getPayed();
 						        $htmlAbo .= '</td>';
 						        $htmlAbo .= '<td align="left">';
-						        if ($abonnement->get_potspw() == "1") {
+						        if ($abonnement->getPotspw() == "1") {
 						            $htmlAbo .= "1 pot per week";
 						        } else {
 						            $htmlAbo .= "2 potten per week";
 						        }
 						        $htmlAbo .= '</td>';
 						        $htmlAbo .= '<td align="left">';
-						        if ($abonnement->get_firstDelDate() != null) {
-						            $htmlAbo .= $abonnement->get_firstDelDate();
+						        if ($abonnement->getFirstDelDate() != null) {
+						            $htmlAbo .= $abonnement->getFirstDelDate();
 						        }
 						        $htmlAbo .= '</td>';
-						        if ($abonnement->get_deliveryType() == "delivery") {
+						        if ($abonnement->getDeliveryType() == "delivery") {
 						            $htmlAbo .= '<td align="left">';
-						            $htmlAbo .= '<span style="white-space: nowrap;">'.$abonnement->get_street().' '.$abonnement->get_nbr().'</span></br>';
-						            $htmlAbo .= '<span style="white-space: nowrap;">'.$abonnement->get_zipCode().' '.$abonnement->get_city().'</span>';
+						            $htmlAbo .= '<span style="white-space: nowrap;">'.$abonnement->getStreet().' '.$abonnement->getNbr().'</span></br>';
+						            $htmlAbo .= '<span style="white-space: nowrap;">'.$abonnement->getZipCode().' '.$abonnement->getCity().'</span>';
 						            $htmlAbo .= '</td>';
 						        } else {
 						            $htmlAbo .= '<td>';
@@ -326,23 +327,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	</section>
 
 	<!-- FOOTER -->
-	<footer id="footer" data-stellar-background-ratio="0.5">
-		<div class="container">
-			<div class="row">
-
-				<div class="col-md-2 col-sm-4">
-
-					<div class="wow fadeInUp copyright-text" data-wow-delay="0.8s">
-						<p>
-							<br>Copyright &copy; 2020 <br>Badass bv <br> <br>Design: <a
-								rel="nofollow" href="http://templatemo.com" target="_parent">TemplateMo</a>
-						</p>
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</footer>
+		<?php include "../include/footer.html" ?>
 
 
 	<!-- SCRIPTS -->

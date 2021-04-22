@@ -17,119 +17,119 @@ Class Abonnement {
     private $city;
     private $adresRemarks;
     
-    public function set_id($id) {
+    public function setId($id) {
         $this->id = $id;
     }
     
-    public function get_id() {
+    public function getId() {
         return $this->id;
     }
     
-    public function set_firstDelDate($firstDelDate) {
+    public function setFirstDelDate($firstDelDate) {
         $this->firstDelDate = $firstDelDate;
     }
     
-    public function get_firstDelDate() {
+    public function getFirstDelDate() {
         return $this->firstDelDate;
     }
     
-    public function get_payed() {
+    public function getPayed() {
         return $this->payed;
     }
     
-    public function set_payed($payed) {
+    public function setPayed($payed) {
         $this->payed = $payed;
     }
     
-    public function get_deliveryType() {
+    public function getDeliveryType() {
         return $this->deliveryType;
     }
     
-    public function set_deliveryType($deliveryType) {
+    public function setDeliveryType($deliveryType) {
         $this->deliveryType = $deliveryType;
     }
     
-    public function get_sorbetOnly() {
+    public function getSorbetOnly() {
         return $this->sorbetOnly;
     }
     
-    public function set_sorbetOnly($sorbetOnly) {
+    public function setSorbetOnly($sorbetOnly) {
         $this->sorbetOnly = $sorbetOnly;
     }
     
-    public function get_communications() {
+    public function getCommunications() {
         return $this->communications;
     }
     
-    public function set_communications($communications) {
+    public function setCommunications($communications) {
         $this->communications = $communications;
     }
-    public function get_comments() {
+    public function getComments() {
         return $this->comments;
     }
     
-    public function set_comments($comments) {
+    public function setComments($comments) {
         $this->comments = $comments;
     }
     
-    public function get_street() {
+    public function getStreet() {
         return $this->street;
     }
-    public function get_nbr() {
+    public function getNbr() {
         return $this->nbr;
     }
     
-    public function get_zipCode() {
+    public function getZipCode() {
         return $this->zipCode;
     }
-    public function get_city() {
+    public function getCity() {
         return $this->city;
     }
     
-    public function set_street($street) {
+    public function setStreet($street) {
          $this->street = $street;
     }
-    public function set_nbr($nbr) {
+    public function setNbr($nbr) {
          $this->nbr = $nbr;
     }
     
-    public function set_zipCode($zipCode) {
+    public function setZipCode($zipCode) {
          $this->zipCode = $zipCode;
     }
     
-    public function set_city($city) {
+    public function setCity($city) {
          $this->city = $city;
     }
     
-    public function get_adresRemarks() {
+    public function getAdresRemarks() {
         return $this->adresRemarks;
     }
     
-    public function set_adresRemarks($adresRemarks) {
+    public function setAdresRemarks($adresRemarks) {
         $this->adresRemarks = $adresRemarks;
     }
     
-    public function get_name() {
+    public function getName() {
         return $this->name;
     }
     
-    public function set_name($name) {
+    public function setName($name) {
         $this->name=$name;
     }
     
-    public function get_gsm() {
+    public function getGsm() {
         return $this->gsm;
     }
     
-    public function set_gsm($gsm) {
+    public function setGsm($gsm) {
         $this->gsm = $gsm;
     }
     
-    public function get_potspw() {
+    public function getPotspw() {
         return $this->potspw;
     }
     
-    public function set_potspw($potspw) {
+    public function setPotspw($potspw) {
         $this->potspw = $potspw;
     }
 }
