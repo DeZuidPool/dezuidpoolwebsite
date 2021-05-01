@@ -68,7 +68,7 @@ require '../php/displayAllFlavors.php';
 				<ul class="nav-flavors navbar-nav navbar-nav-first">
 					<li><a href="../index.html#home" class="smoothScroll">Home</a></li>
 					<li><a href="#home" class="smoothScroll nav-flavors">Top</a></li>
-                    <li><a href="../smaak100.html#battle" class="smoothScroll">Battle of the Tastes</a></li>
+                    <li><a href="../smaak100.html#battle" class="smoothScroll"><span style = "color:#ce3232;">Battle of the Tastes</span></a></li>
 					<li><a href="../menu.html" class="smoothScroll nav-flavors" target="_blank">Ons
 							menu</a></li>
 				</ul>

@@ -333,6 +333,11 @@ http://www.templatemo.com/tm-515-eatery
     color: #ce3232;
   }
 
+  .custom-navbar .nav-battle li a {
+    background: transparent;
+    color: #ce3232;
+  }
+
   .custom-navbar .navbar-nav > li > a:hover,
   .custom-navbar .navbar-nav > li > a:focus {
     background-color: transparent;
