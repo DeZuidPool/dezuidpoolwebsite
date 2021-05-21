@@ -5,8 +5,6 @@ if (! isset($_SESSION)) {
 }
 require '../php/testinput.php';
 
-// define variables and set to empty values
-$street = $nbr = $zipCode = $city = $adresRemarks = $customerid = $deliveryType = $sorbetOnly = $potspw = $comments = $id = $name = $gsm = "";
 $streetErr = $nbrErr = $zipCodeErr = $cityErr = $deliveryTypeErr = "";
 require '../php/dbcredentials.php';
 require_once '../php/Abonnement.php';
@@ -77,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($nofaults) {
         $_SESSION["customerid"] = $customerid;
-        $_SESSION["id"] = $id;
+        $_SESSION["abonnement"] = $abonnement;
         require '../php/updateAbo.php';
         
         header("Location: overviewCustomer.php");

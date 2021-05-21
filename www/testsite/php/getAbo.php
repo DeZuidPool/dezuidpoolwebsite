@@ -20,20 +20,23 @@ $result = $stmt->get_result();
 
 if ($result->num_rows > 0 && $result->num_rows == 1) {
     while ($row = $result->fetch_assoc()) {
-        $abonnement = new Abonnement();
-        $abonnement->setDeliveryType($row["DELIVERYTYPE"]);
-        $abonnement->setSorbetOnly($row["SORBETONLY"]);
-        $abonnement->setPayed($row["PAYED"]);
-        $abonnement->setComments($row["COMMENTS"]);
-        $abonnement->setStreet($row["STREET"]);
-        $abonnement->setNbr($row["NBR"]);
-        $abonnement->setZipCode($row["ZIPCODE"]);
-        $abonnement->setCity($row["CITY"]);
-        $abonnement->setAdresRemarks($row["ADRESREMARKS"]);
-        $abonnement->setId($row["ID"]);
-        $abonnement->setName($row["NAME"]);
-        $abonnement->setGsm($row["GSM"]);
-        $abonnement->setPotspw($row["POTSPW"]);
+        $abo = new Abonnement();
+        $abo->setDeliveryType($row["DELIVERYTYPE"]);
+        $abo->setSorbetOnly($row["SORBETONLY"]);
+        $abo->setPayed($row["PAYED"]);
+        $abo->setComments($row["COMMENTS"]);
+        $abo->setStreet($row["STREET"]);
+        $abo->setNbr($row["NBR"]);
+        $abo->setZipCode($row["ZIPCODE"]);
+        $abo->setCity($row["CITY"]);
+        $abo->setAdresRemarks($row["ADRESREMARKS"]);
+        $abo->setId($row["ID"]);
+        $abo->setName($row["NAME"]);
+        $abo->setGsm($row["GSM"]);
+        $abo->setPotspw($row["POTSPW"]);
+        
+        $_SESSION["abonnement"] = $abo;
+        unset($_SESSION["id"]);
     }
 } else {
     echo "bad results for ".$customerid."/".$id." results : ".$result->num_rows;
