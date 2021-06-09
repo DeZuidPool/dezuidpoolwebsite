@@ -445,11 +445,11 @@
                               <div class="wow fadeInUp" data-wow-delay="0.4s">
                                    <div>
                                         <strong>Maandag tot en met Vrijdag</strong>
-                                        <p>10.00 - 18.00</p>
+                                        <p>12.00 - 23.00</p>
                                    </div>
                                    <div>
                                         <strong>Zaterdag en Zondag</strong>
-                                        <p>10.00 - 20.00</p>
+                                        <p>10.00 - 23.30</p>
                                    </div>
                               </div>
                           </div>
