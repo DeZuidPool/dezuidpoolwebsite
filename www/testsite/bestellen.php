@@ -34,7 +34,7 @@
 
 
      <!-- MENU -->
-		<?php include "../include/menu.html" ?>
+		<?php include "include/menu.html" ?>
 
 
      <!-- HOME -->
@@ -65,7 +65,7 @@
      </section>
 
      <!-- FOOTER -->
-		<?php include "../include/footer.html" ?>
+		<?php include "include/footer.html" ?>
 
 
      <!-- SCRIPTS -->

@@ -428,7 +428,7 @@
 
 
      <!-- FOOTER -->
-		<?php include "../include/footer.html" ?>
+		<?php include "include/footer.html" ?>
 
      <!-- SCRIPTS -->
      <script src="js/jquery.js"></script>
