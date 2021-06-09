@@ -68,6 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $customer = new Customer(null, $lastName, $firstName, $email, 0);
         $customer->setPassword(password_hash($password, PASSWORD_DEFAULT));
         $customer->setCommunications($communications);
+        $_SESSION["customer"] = $customer;
         // save account to db and forward to deliveryadress.php
         require '../php/dbcredentials.php';
         require '../php/saveCustomer.php';

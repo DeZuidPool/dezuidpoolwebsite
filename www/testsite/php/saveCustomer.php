@@ -40,6 +40,6 @@ if ($stmt->execute()) {
 $stmt->close();
 } else {
     $_SESSION["nofaults"]=false;
-    $_SESSION["emailErr"]="Unexpected error, sorry";
+    $_SESSION["emailErr"]="customer not an instanceof Customer, sorry";
 }
 $conn->close();
