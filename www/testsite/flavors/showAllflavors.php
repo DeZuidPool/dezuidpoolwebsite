@@ -47,35 +47,8 @@ require '../php/displayAllFlavors.php';
 
 
 	<!-- MENU -->
-	<section class="navbar custom-navbar navbar-fixed-top"
-		role="navigation">
-		<div class="container">
+		<?php include "../include/menu.html" ?>
 
-			<div class="navbar-header">
-				<button class="navbar-toggle" data-toggle="collapse"
-					data-target=".navbar-collapse">
-					<span class="icon icon-bar"></span> <span class="icon icon-bar"></span>
-					<span class="icon icon-bar"></span>
-				</button>
-
-				<!-- lOGO TEXT HERE -->
-				<a href="../index.html" class="navbar-brand-flavors">IJS BAR de Zuidpool -
-					Smakenpallet</a>
-			</div>
-
-			<!-- MENU LINKS -->
-			<div class="collapse navbar-collapse">
-				<ul class="nav-flavors navbar-nav navbar-nav-first">
-					<li><a href="../index.html#home" class="smoothScroll">Home</a></li>
-					<li><a href="#home" class="smoothScroll nav-flavors">Top</a></li>
-					<li><a href="../menu.html" class="smoothScroll nav-flavors" target="_blank">Ons
-							menu</a></li>
-				</ul>
-
-			</div>
-
-		</div>
-	</section>
 
 
 	<!-- HOME -->

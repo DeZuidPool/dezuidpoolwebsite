@@ -34,40 +34,7 @@
 
 
      <!-- MENU -->
-     <section class="navbar custom-navbar navbar-fixed-top" role="navigation">
-          <div class="container">
-
-               <div class="navbar-header">
-                    <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                         <span class="icon icon-bar"></span>
-                         <span class="icon icon-bar"></span>
-                         <span class="icon icon-bar"></span>
-                    </button>
-
-                    <!-- lOGO TEXT HERE -->
-                    <a href="../index.html" class="navbar-brand">IJS BAR de Zuidpool - Battle of the Tastes</a>
-               </div>
-
-               <!-- MENU LINKS -->
-              <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-nav-first">
-                         <li><a href="index.html#home" class="smoothScroll">Home</a></li>
-                         <li><a href="index.html#about" class="smoothScroll">Over Ons</a></li>
-                         <li><a href="index.html#ijsjes" class="smoothScroll">Onze ijsjes</a></li>
-                         <li><a href="index.html#knabbels" class="smoothScroll">Onze knabbels</a></li>
-                         <li><a href="index.html#extras" class="smoothScroll">Onze extras</a></li>
-                         <li><a href="index.html#drinks" class="smoothScroll">Onze dranken</a></li>
-                         <li><a href="flavors/showflavors.php" class="smoothScroll">Onze smaken</a></li>
-                         <li><a href="menu.html" class="smoothScroll">Ons menu</a></li>
-                         <li><a href="abo/index.php" class="smoothScroll">ijs-abonnement</a></li>  
-                         <li><a href="index.html#contact" class="smoothScroll">Contact</a></li>
-                    </ul>
-
-               </div>	
-
-          </div>
-     </section>
-
+		<?php include "../include/menu.html" ?>
 
      <!-- HOME -->
 		<?php include "include/header.html" ?>

@@ -34,36 +34,7 @@
 
 
      <!-- MENU -->
-     <section class="navbar custom-navbar navbar-fixed-top" role="navigation">
-          <div class="container">
-
-               <div class="navbar-header">
-                    <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                         <span class="icon icon-bar"></span>
-                         <span class="icon icon-bar"></span>
-                         <span class="icon icon-bar"></span>
-                    </button>
-
-                    <!-- lOGO TEXT HERE -->
-                    <a href="index.html" class="navbar-brand">IJS BAR de Zuidpool - Menu</a>
-               </div>
-
-               <!-- MENU LINKS -->
-               <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-nav-first">
-                         <li><a href="index.html#home" class="smoothScroll">Home</a></li>
-						 <li><a href="#home" class="smoothScroll">Top</a></li>
-                         <li><a href="#menuijsjes" class="smoothScroll">Onze Ijsjes</a></li>
-                         <li><a href="#menuknabbels" class="smoothScroll">Onze Knabbels</a></li>
-                         <li><a href="#menudrinks" class="smoothScroll">Onze Dranken</a></li>
-                         <li><a href="flavors/showflavors.php" class="smoothScroll">Onze Smaken</a></li>
-                    </ul>
-
-               </div>
-
-          </div>
-     </section>
-
+		<?php include "../include/menu.html" ?>
 
      <!-- HOME -->
 		<?php include "include/header.html" ?>
