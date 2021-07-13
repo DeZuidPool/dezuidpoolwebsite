@@ -74,6 +74,9 @@ require '../php/getCustomers.php';
     							<td align="left">
     								# orders
     							</td>
+    							<td align="left">
+    								Reset Password (to 'dezuidpool')
+    							</td>
     							<td></td>
     						</tr>
     						<!--  php loop over flavors -->
@@ -94,6 +97,9 @@ require '../php/getCustomers.php';
     						          $htmlCustomer .= '</td>';
     						          $htmlCustomer .= '<td>';
     						          $htmlCustomer .= '<a href="addPayment.php?login='.$customer->getLogin().'">order toevoegen</a>';
+    						          $htmlCustomer .= '</td>';
+    						          $htmlCustomer .= '<td>';
+    						          $htmlCustomer .= '<a href="resetPassword.php?login='.$customer->getLogin().'">reset password</a>';
     						          $htmlCustomer .= '</td>';
     						          $htmlCustomer .= '</tr>';
     						          echo $htmlCustomer;
