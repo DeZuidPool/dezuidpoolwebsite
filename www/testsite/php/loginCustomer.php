@@ -32,8 +32,7 @@ if ($result->num_rows > 0 and $result->num_rows == 1) {
 } else {
     $_SESSION["customerid"] = "none";
 }
-unset( $_SESSION["login"]);
-unset( $_SESSION["pwd"]);
+
 
 $stmt->close();
 $conn->close();
