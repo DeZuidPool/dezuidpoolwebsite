@@ -22,8 +22,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $password = test_input($_POST["password"]);
     }
-    $_SESSION["login"]= $login;
-    $_SESSION["pwd"] = password_hash($password, PASSWORD_DEFAULT);
     // check account in db and forward to order.php with id to get data
     require "../php/dbcredentials.php";
     require "../php/loginCustomer.php";
